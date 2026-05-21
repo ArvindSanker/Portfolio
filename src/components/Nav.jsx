@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, useScroll } from 'framer-motion'
+import { useIsMobile } from '../hooks/useIsMobile'
 
 const links = [
   { to: '/', label: 'Work' },
@@ -10,6 +11,7 @@ export default function Nav() {
   const location = useLocation()
   const { scrollYProgress } = useScroll()
   const [hovered, setHovered] = useState(null)
+  const isMobile = useIsMobile()
 
   function isActive(to) {
     return to === '/' ? location.pathname === '/' : location.pathname === to
@@ -53,7 +55,7 @@ export default function Nav() {
           maxWidth: '1000px',
           margin: '0 auto',
           height: '100%',
-          padding: '0 48px',
+          padding: '0 var(--px)',
           display: 'flex',
           alignItems: 'center',
           gap: '32px',
@@ -71,8 +73,8 @@ export default function Nav() {
             </span>
           </Link>
 
-          {/* Nav links */}
-          {links.map((link, i) => {
+          {/* Nav links — hidden on mobile */}
+          {!isMobile && links.map((link, i) => {
             const active = isActive(link.to)
             const hovering = hovered === i
             return (
@@ -111,7 +113,7 @@ export default function Nav() {
           })}
 
           {/* Separator */}
-          <div style={{ width: '1px', height: '16px', background: 'var(--border)', flexShrink: 0 }} />
+          {!isMobile && <div style={{ width: '1px', height: '16px', background: 'var(--border)', flexShrink: 0 }} />}
 
           {/* Contact */}
           <ContactLink />

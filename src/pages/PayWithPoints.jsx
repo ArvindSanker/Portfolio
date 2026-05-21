@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { SectionNav, VisualSlot, VisualGrid, InsightBlock, ScrollProgress } from '../components/CaseStudyKit'
+import { useIsMobile } from '../hooks/useIsMobile'
 
 const SECTIONS = [
   { id: 'problem', label: 'Problem' },
@@ -58,6 +59,7 @@ export default function PayWithPoints() {
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
   const heroY = useTransform(scrollYProgress, [0, 1], [0, 60])
   const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0])
+  const isMobile = useIsMobile()
 
   return (
     <motion.div
@@ -74,7 +76,7 @@ export default function PayWithPoints() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'flex-end',
-          padding: '60px 48px 80px',
+          padding: 'clamp(80px,10vh,120px) var(--px) 80px',
           maxWidth: '1100px',
           margin: '0 auto',
           position: 'relative',
@@ -156,13 +158,13 @@ export default function PayWithPoints() {
       <ScrollProgress sections={SECTIONS} color={green} />
 
       {/* Content */}
-      <div style={{ maxWidth: '800px', margin: '0 auto', padding: '72px 48px 160px' }}>
+      <div style={{ maxWidth: '800px', margin: '0 auto', padding: 'clamp(40px,6vw,72px) var(--px) 160px' }}>
 
         {/* Overview */}
         <FadeUp>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
             gap: '1px',
             background: 'var(--border)',
             border: '1px solid var(--border)',
@@ -236,7 +238,7 @@ export default function PayWithPoints() {
             ].map(c => (
               <div key={c.competitor} style={{
                 display: 'grid',
-                gridTemplateColumns: '160px 1fr',
+                gridTemplateColumns: isMobile ? '1fr' : '160px 1fr',
                 gap: '16px',
                 padding: '16px 20px',
                 background: 'var(--surface)',
@@ -280,11 +282,12 @@ export default function PayWithPoints() {
             Within the native card journey, there was one more decision that looked technical but was fundamentally a design decision: should points redemption happen before or after card authentication?
           </p>
 
+          <div style={{ margin: '28px 0', overflowX: 'auto' }}>
           <div style={{
-            margin: '28px 0',
             border: '1px solid var(--border)',
             borderRadius: '16px',
             overflow: 'hidden',
+            minWidth: '480px',
           }}>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', borderBottom: '1px solid var(--border)' }}>
               <div style={{ padding: '14px 20px', background: 'var(--surface-2)', fontSize: '11px', fontWeight: 600, color: 'var(--text-tertiary)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>Pre-Auth (Points → Then Card)</div>
@@ -307,6 +310,7 @@ export default function PayWithPoints() {
                 </div>
               </div>
             ))}
+          </div>
           </div>
 
           <div style={{
@@ -331,7 +335,7 @@ export default function PayWithPoints() {
           <div style={{
             margin: '28px 0',
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
+            gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
             gap: '16px',
           }}>
             <div style={{
@@ -428,7 +432,7 @@ export default function PayWithPoints() {
           <p style={bodyText}>
             This shipped. These are real numbers from real merchants.
           </p>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginTop: '28px', marginBottom: '28px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '16px', marginTop: '28px', marginBottom: '28px' }}>
             <ImpactCard
               brand="IDFC FIRST Bank"
               color={green}
@@ -447,7 +451,7 @@ export default function PayWithPoints() {
               note="Infrequent redeemers now get discounted access to daily-use category"
             />
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: '12px' }}>
             {[
               { value: '₹1,000 Cr', label: 'GMV target', sub: 'Via CC payment method' },
               { value: '25+', label: 'Merchants live', sub: 'Swiggy, Lenskart, Titan, Nykaa' },

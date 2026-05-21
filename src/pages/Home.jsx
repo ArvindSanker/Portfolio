@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
+import { useIsMobile } from '../hooks/useIsMobile'
 import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform, useInView } from 'framer-motion'
 
@@ -85,6 +86,7 @@ export default function Home() {
   const heroY = useTransform(scrollYProgress, [0, 1], [0, 48])
   const heroOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0])
   const time = useISTTime()
+  const isMobile = useIsMobile()
 
   return (
     <motion.div
@@ -101,7 +103,7 @@ export default function Home() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          padding: '60px 48px 80px',
+          padding: '60px var(--px) 80px',
           maxWidth: '1000px',
           margin: '0 auto',
         }}
@@ -202,12 +204,12 @@ export default function Home() {
         id="about"
         style={{
           borderTop: '1px solid var(--border)',
-          padding: '88px 48px',
+          padding: 'clamp(60px,8vw,88px) var(--px)',
           maxWidth: '1000px',
           margin: '0 auto',
         }}
       >
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'start' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '48px' : '80px', alignItems: 'start' }}>
 
           {/* Left */}
           <FadeUp>
@@ -356,7 +358,7 @@ export default function Home() {
             {/* Info strip */}
             <div style={{
               display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
+              gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
               gap: '16px',
               marginTop: '28px',
               paddingTop: '24px',
@@ -390,7 +392,7 @@ export default function Home() {
       {/* Work */}
       <section style={{
         borderTop: '1px solid var(--border)',
-        padding: '88px 48px 120px',
+        padding: 'clamp(60px,8vw,88px) var(--px) 120px',
         maxWidth: '1000px',
         margin: '0 auto',
       }}>
@@ -432,10 +434,12 @@ export default function Home() {
       {/* Footer */}
       <footer style={{
         borderTop: '1px solid var(--border)',
-        padding: '28px 48px',
+        padding: '28px var(--px)',
         display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        flexDirection: isMobile ? 'column' : 'row',
+        justifyContent: isMobile ? 'flex-start' : 'space-between',
+        alignItems: isMobile ? 'flex-start' : 'center',
+        gap: isMobile ? '8px' : 0,
         maxWidth: '1000px',
         margin: '0 auto',
       }}>
@@ -470,6 +474,7 @@ function ProjectRow({ project: p, delay }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-40px' })
   const [hovered, setHovered] = useState(false)
+  const isMobile = useIsMobile()
 
   return (
     <motion.div
@@ -486,8 +491,8 @@ function ProjectRow({ project: p, delay }) {
       >
         <div style={{
           display: 'grid',
-          gridTemplateColumns: '40px 1fr 32px',
-          gap: '32px',
+          gridTemplateColumns: isMobile ? '1fr 24px' : '40px 1fr 32px',
+          gap: isMobile ? '12px' : '32px',
           padding: '40px 16px 40px 0',
           borderBottom: '1px solid var(--border)',
           alignItems: 'start',
@@ -496,16 +501,18 @@ function ProjectRow({ project: p, delay }) {
           borderRadius: '4px',
           cursor: 'pointer',
         }}>
-          {/* Index */}
-          <span style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '11px',
-            color: 'var(--text-tertiary)',
-            letterSpacing: '0.04em',
-            paddingTop: '7px',
-          }}>
-            {p.index}
-          </span>
+          {/* Index — hidden on mobile */}
+          {!isMobile && (
+            <span style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '11px',
+              color: 'var(--text-tertiary)',
+              letterSpacing: '0.04em',
+              paddingTop: '7px',
+            }}>
+              {p.index}
+            </span>
+          )}
 
           {/* Main content */}
           <div>
@@ -543,7 +550,7 @@ function ProjectRow({ project: p, delay }) {
             {/* Title */}
             <h3 style={{
               fontFamily: 'var(--font)',
-              fontSize: '28px',
+              fontSize: isMobile ? '20px' : '28px',
               fontWeight: 600,
               letterSpacing: '-0.03em',
               lineHeight: 1.15,

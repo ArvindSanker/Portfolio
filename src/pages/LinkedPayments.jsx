@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { SectionNav, VisualSlot, VisualGrid, InsightBlock, ScrollProgress } from '../components/CaseStudyKit'
+import { useIsMobile } from '../hooks/useIsMobile'
 
 const SECTIONS = [
   { id: 'problem', label: 'Problem' },
@@ -97,6 +98,7 @@ export default function LinkedPayments() {
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
   const heroY = useTransform(scrollYProgress, [0, 1], [0, 60])
   const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0])
+  const isMobile = useIsMobile()
 
   return (
     <motion.div
@@ -113,7 +115,7 @@ export default function LinkedPayments() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'flex-end',
-          padding: '60px 48px 80px',
+          padding: 'clamp(80px,10vh,120px) var(--px) 80px',
           maxWidth: '1100px',
           margin: '0 auto',
           position: 'relative',
@@ -195,13 +197,13 @@ export default function LinkedPayments() {
       <ScrollProgress sections={SECTIONS} color="#7c3aed" />
 
       {/* Content */}
-      <div style={{ maxWidth: '800px', margin: '0 auto', padding: '72px 48px 160px' }}>
+      <div style={{ maxWidth: '800px', margin: '0 auto', padding: 'clamp(40px,6vw,72px) var(--px) 160px' }}>
 
         {/* Overview strip */}
         <FadeUp>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
             gap: '1px',
             background: 'var(--border)',
             border: '1px solid var(--border)',
@@ -305,7 +307,7 @@ export default function LinkedPayments() {
           <p style={bodyText}>
             The happy path took one afternoon. The unhappy paths took weeks. Every failure mode needed a defined owner, a resolution path, and a communication plan.
           </p>
-          <div style={{ marginTop: '28px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+          <div style={{ marginTop: '28px', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '12px' }}>
             {[
               { scenario: 'Primary fails', resolution: 'GC never debited. No refund required. Error shown at checkout.' },
               { scenario: 'GC fails post-primary', resolution: 'Primary auto-refunded. Merchant notified. Batch refund from dashboard.' },
@@ -342,7 +344,7 @@ export default function LinkedPayments() {
             ].map(m => (
               <div key={m.merchant} style={{
                 display: 'grid',
-                gridTemplateColumns: '120px 80px 1fr',
+                gridTemplateColumns: isMobile ? '1fr' : '120px 80px 1fr',
                 gap: '16px',
                 padding: '16px 20px',
                 border: '1px solid var(--border)',

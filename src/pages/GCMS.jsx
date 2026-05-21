@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { SectionNav, VisualSlot, VisualGrid, InsightBlock, ScrollProgress } from '../components/CaseStudyKit'
+import { useIsMobile } from '../hooks/useIsMobile'
 
 const SECTIONS = [
   { id: 'problem', label: 'Problem' },
@@ -36,6 +37,7 @@ export default function GCMS() {
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
   const heroY = useTransform(scrollYProgress, [0, 1], [0, 60])
   const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0])
+  const isMobile = useIsMobile()
 
   return (
     <motion.div
@@ -52,7 +54,7 @@ export default function GCMS() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'flex-end',
-          padding: '60px 48px 80px',
+          padding: 'clamp(80px,10vh,120px) var(--px) 80px',
           maxWidth: '1100px',
           margin: '0 auto',
           position: 'relative',
@@ -140,13 +142,13 @@ export default function GCMS() {
       <ScrollProgress sections={SECTIONS} color="#2d68fe" />
 
       {/* Content */}
-      <div style={{ maxWidth: '800px', margin: '0 auto', padding: '72px 48px 160px' }}>
+      <div style={{ maxWidth: '800px', margin: '0 auto', padding: 'clamp(40px,6vw,72px) var(--px) 160px' }}>
 
         {/* Overview strip */}
         <FadeUp>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
             gap: '1px',
             background: 'var(--border)',
             border: '1px solid var(--border)',
@@ -173,7 +175,7 @@ export default function GCMS() {
           <p style={bodyText}>
             Merchants who wanted to issue gift cards had to onboard through resellers — a slow, high-friction process that added cost and dependency. Two data points told the real story:
           </p>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', margin: '32px 0' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '16px', margin: '32px 0' }}>
             <DataCard
               brand="Zomato"
               color="#E23744"
@@ -334,7 +336,7 @@ export default function GCMS() {
         <Section id="impact" label="05 — Impact">
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
             gap: '16px',
             marginBottom: '32px',
           }}>
@@ -375,7 +377,7 @@ export default function GCMS() {
           <p style={bodyText}>
             After shipping order placement, a pattern emerged: 8 of 15 gift card merchants also used Razorpay Wallet. But the two products lived in separate dashboards with inconsistent navigation — bulk GC creation buried under the Wallet tab, GC reports surfacing in sections merchants didn't associate with gift cards. I ran stakeholder research to understand whether this was a real UX problem or just surface-level friction.
           </p>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', margin: '28px 0' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '16px', margin: '28px 0' }}>
             <div style={{ padding: '20px', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '12px' }}>
               <div style={{ fontSize: '11px', color: 'var(--text-tertiary)', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '8px' }}>Method</div>
               <div style={{ fontSize: '14px', lineHeight: 1.6, color: 'var(--text-secondary)' }}>Stakeholder interviews — GC PM (Arun Nair) and Wallet PM (Hitesh Agarwal). Structured questionnaire covering navigation patterns, support escalations, and merchant mental models.</div>
@@ -441,7 +443,7 @@ export default function GCMS() {
           <p style={bodyText}>
             When a customer reports a missing or expired gift card, the ticket lands with Razorpay's support team — not the merchant's. That's a broken model. The merchant has no visibility into their own gift card support queue. The CS Console moves that resolution capability directly into the merchant dashboard.
           </p>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', margin: '28px 0' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '16px', margin: '28px 0' }}>
             <DataCard
               brand="Before"
               color="var(--text-tertiary)"

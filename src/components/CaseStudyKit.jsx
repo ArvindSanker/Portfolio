@@ -69,6 +69,7 @@ export function SectionNav({ sections, color = '#2d68fe' }) {
 export function VisualSlot({ src, label = 'Design Screenshot', aspect = '16/9', caption, wide = false }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-40px' })
+  const isMobile = useIsMobile()
 
   return (
     <motion.div
@@ -76,7 +77,7 @@ export function VisualSlot({ src, label = 'Design Screenshot', aspect = '16/9', 
       initial={{ opacity: 0, y: 16 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, ease }}
-      style={{ margin: wide ? '0 -60px' : '0', marginTop: '28px' }}
+      style={{ margin: wide && !isMobile ? '0 -60px' : '0', marginTop: '28px' }}
     >
       {src ? (
         <div style={{
@@ -167,8 +168,9 @@ export function VisualSlot({ src, label = 'Design Screenshot', aspect = '16/9', 
 
 /* ─── Two-up image grid ──────────────────────────────────────────────── */
 export function VisualGrid({ slots }) {
+  const isMobile = useIsMobile()
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: `repeat(${slots.length}, 1fr)`, gap: '12px' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : `repeat(${slots.length}, 1fr)`, gap: '12px' }}>
       {slots.map((s, i) => (
         <VisualSlot key={i} {...s} />
       ))}
@@ -224,6 +226,7 @@ export function InsightBlock({ children, color = '#2d68fe', label = 'Key Insight
 /* ─── Scroll progress sidebar (dots) ────────────────────────────────── */
 export function ScrollProgress({ sections, color = '#2d68fe' }) {
   const [active, setActive] = useState(sections[0]?.id)
+  const isMobile = useIsMobile()
 
   useEffect(() => {
     const observers = sections.map(({ id }) => {
@@ -242,6 +245,8 @@ export function ScrollProgress({ sections, color = '#2d68fe' }) {
   function scrollTo(id) {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
+
+  if (isMobile) return null
 
   return (
     <div style={{
@@ -287,4 +292,15 @@ function useInView(ref, options) {
     return () => obs.disconnect()
   }, [])
   return inView
+}
+
+/* ─── useIsMobile (local) ────────────────────────────────────────────── */
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < breakpoint)
+  useEffect(() => {
+    const fn = () => setIsMobile(window.innerWidth < breakpoint)
+    window.addEventListener('resize', fn)
+    return () => window.removeEventListener('resize', fn)
+  }, [breakpoint])
+  return isMobile
 }

@@ -5,6 +5,7 @@
 }
 
 :root {
+  --px: 48px;
   --bg: #f9f8f6;
   --bg-soft: #f3f0ea;
   --bg-card: #eeeae2;
@@ -58,6 +59,10 @@ a {
 ::-webkit-scrollbar-thumb {
   background: var(--border-hover);
   border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+  :root { --px: 20px; }
 }
 
 @keyframes pulse-dot {
