@@ -7,6 +7,8 @@ const links = [
   { to: '/', label: 'Work' },
 ]
 
+const linkedinUrl = 'https://www.linkedin.com/in/arvind-sanker-k-m-810762117/'
+
 export default function Nav() {
   const location = useLocation()
   const { scrollYProgress } = useScroll()
@@ -52,7 +54,7 @@ export default function Nav() {
       >
         {/* Inner container — aligns with page content */}
         <div style={{
-          maxWidth: '1000px',
+          maxWidth: '1360px',
           margin: '0 auto',
           height: '100%',
           padding: '0 var(--px)',
@@ -127,7 +129,9 @@ function ContactLink() {
   const [over, setOver] = useState(false)
   return (
     <a
-      href="mailto:arvindsanker11@gmail.com"
+      href={linkedinUrl}
+      target="_blank"
+      rel="noreferrer"
       onMouseEnter={() => setOver(true)}
       onMouseLeave={() => setOver(false)}
       style={{
@@ -141,7 +145,7 @@ function ContactLink() {
         flexShrink: 0,
       }}
     >
-      Contact
+      View LinkedIn
     </a>
   )
 }
