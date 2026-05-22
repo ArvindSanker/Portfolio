@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import Nav from './components/Nav'
+import BackToTop from './components/BackToTop'
 import Home from './pages/Home'
 import GCMS from './pages/GCMS'
 import LinkedPayments from './pages/LinkedPayments'
@@ -61,6 +62,7 @@ export default function App() {
     <BrowserRouter>
       <Nav />
       <AnimatedRoutes />
+      <BackToTop />
     </BrowserRouter>
   )
 }

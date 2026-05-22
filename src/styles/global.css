@@ -5,9 +5,9 @@
 }
 
 :root {
-  --px: 32px;
-  --page-max: 100vw;
-  --text-max: 780px;
+  --px: 80px;
+  --page-max: 1280px;
+  --text-max: 720px;
   --section-y: clamp(56px, 7vw, 96px);
   --section-y-tight: clamp(32px, 4vw, 48px);
   --bg: #f9f8f6;
@@ -29,12 +29,16 @@
   --font-mono: 'Geist Mono', 'SF Mono', ui-monospace, monospace;
 }
 
+@media (max-width: 1024px) {
+  :root { --px: 40px; }
+}
+
 @media (max-width: 768px) {
-  :root { --px: 20px; }
+  :root { --px: 24px; }
 }
 
 @media (max-width: 480px) {
-  :root { --px: 16px; }
+  :root { --px: 20px; }
 }
 
 html {
@@ -695,6 +699,23 @@ a {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.scroll-indicator {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.scroll-indicator:hover {
+  opacity: 1;
+}
+
+.scroll-indicator a {
+  display: block;
+  padding: 8px;
 }
 
 .hero-system {

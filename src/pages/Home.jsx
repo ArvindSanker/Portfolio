@@ -192,6 +192,27 @@ export default function Home() {
 
           <HeroVisual />
         </Reveal>
+        
+        <motion.div 
+          className="scroll-indicator"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 0.5 }}
+        >
+          <a href="#work" aria-label="Scroll to selected work">
+            <svg width="24" height="40" viewBox="0 0 24 40" fill="none">
+              <rect x="1" y="1" width="22" height="38" rx="11" stroke="var(--text-tertiary)" strokeWidth="1.5"/>
+              <motion.circle 
+                cx="12" 
+                cy="12" 
+                r="4" 
+                fill="var(--text-tertiary)"
+                animate={{ y: [0, 12, 0] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              />
+            </svg>
+          </a>
+        </motion.div>
       </section>
 
       <section className="credibility-strip home-band">

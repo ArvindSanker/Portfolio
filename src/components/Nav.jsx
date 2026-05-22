@@ -54,7 +54,7 @@ export default function Nav() {
       >
         {/* Inner container — aligns with page content */}
         <div style={{
-          maxWidth: '1360px',
+          maxWidth: '1280px',
           margin: '0 auto',
           height: '100%',
           padding: '0 var(--px)',

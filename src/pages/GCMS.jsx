@@ -14,40 +14,189 @@ import {
 } from '../components/StoryKit'
 
 const blue = '#2d68fe'
+const green = '#10b981'
 
+// Light style diagram wrapper
+function DiagramWrapper({ label, children }) {
+  return (
+    <div style={{
+      background: '#faf9f7',
+      borderRadius: '20px',
+      padding: '32px 24px',
+      border: '1px solid rgba(28,26,23,0.06)',
+    }}>
+      {label && (
+        <div style={{
+          fontFamily: 'var(--font-mono)',
+          fontSize: '10px',
+          letterSpacing: '0.14em',
+          textTransform: 'uppercase',
+          color: 'var(--text-tertiary)',
+          marginBottom: '24px',
+        }}>
+          {label}
+        </div>
+      )}
+      {children}
+    </div>
+  )
+}
+
+function FlowNode({ label, active = false, icon = null }) {
+  return (
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: '8px',
+    }}>
+      <div style={{
+        padding: '12px 20px',
+        borderRadius: '12px',
+        border: `1.5px solid ${active ? blue : 'rgba(28,26,23,0.1)'}`,
+        background: active ? 'rgba(45,104,254,0.06)' : '#fff',
+        color: active ? blue : 'var(--text-primary)',
+        fontSize: '13px',
+        fontWeight: active ? 600 : 500,
+        whiteSpace: 'nowrap',
+        boxShadow: active ? '0 2px 8px rgba(45,104,254,0.12)' : '0 1px 3px rgba(0,0,0,0.04)',
+      }}>
+        {label}
+      </div>
+    </div>
+  )
+}
+
+function FlowArrow() {
+  return (
+    <svg width="28" height="12" viewBox="0 0 28 12" fill="none" style={{ flexShrink: 0, opacity: 0.35 }}>
+      <path d="M0 6h24m0 0l-5-4.5m5 4.5l-5 4.5" stroke="var(--text-tertiary)" strokeWidth="1.5"/>
+    </svg>
+  )
+}
+
+function FlowRow({ children }) {
+  return (
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: '12px',
+      flexWrap: 'wrap',
+    }}>
+      {children}
+    </div>
+  )
+}
+
+// 1. System Overview
+function SystemOverviewDiagram() {
+  return (
+    <DiagramWrapper label="GCMS Architecture">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', alignItems: 'center' }}>
+        <FlowRow>
+          <FlowNode label="Merchant" />
+          <FlowArrow />
+          <FlowNode label="Dashboard" active />
+          <FlowArrow />
+          <FlowNode label="Operations" />
+        </FlowRow>
+        <div style={{ display: 'flex', gap: '40px', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <FlowNode label="Program Creation" />
+          <FlowNode label="Order Placement" />
+          <FlowNode label="Support Console" />
+        </div>
+      </div>
+    </DiagramWrapper>
+  )
+}
+
+// 2. Program Creation Flow
+function ProgramCreationDiagram() {
+  return (
+    <DiagramWrapper label="Program Creation Flow">
+      <FlowRow>
+        <FlowNode label="Details" active />
+        <FlowArrow />
+        <FlowNode label="Design" />
+        <FlowArrow />
+        <FlowNode label="Review" />
+        <FlowArrow />
+        <FlowNode label="Launch" />
+      </FlowRow>
+    </DiagramWrapper>
+  )
+}
+
+// 3. Cart-based Ordering
 function CartFlowDiagram() {
   return (
-    <div style={{ 
-      display: 'flex', 
-      alignItems: 'center', 
-      justifyContent: 'center',
-      gap: '16px',
-      flexWrap: 'wrap',
-      padding: '32px 24px',
-      fontFamily: 'var(--font-mono)',
-      fontSize: '12px',
-      color: 'rgba(255,255,255,0.7)'
-    }}>
-      {['Program', 'Denominations', 'Cart', 'Review', 'Place'].map((step, i, arr) => (
-        <>
-          <div key={step} style={{
-            padding: '10px 18px',
-            borderRadius: '999px',
-            border: `1px solid ${i === arr.length - 1 ? 'rgba(16,185,129,0.4)' : 'rgba(255,255,255,0.15)'}`,
-            background: i === arr.length - 1 ? 'rgba(16,185,129,0.15)' : 'rgba(255,255,255,0.05)',
-            color: i === arr.length - 1 ? '#10b981' : 'inherit',
-            whiteSpace: 'nowrap'
-          }}>
-            {step}
-          </div>
-          {i < arr.length - 1 && (
-            <svg width="24" height="12" viewBox="0 0 24 12" fill="none" style={{ opacity: 0.4 }}>
-              <path d="M0 6h20m0 0l-5-5m5 5l-5 5" stroke="currentColor" strokeWidth="1.5"/>
-            </svg>
-          )}
-        </>
-      ))}
-    </div>
+    <DiagramWrapper label="Order Placement Flow">
+      <FlowRow>
+        <FlowNode label="Program" />
+        <FlowArrow />
+        <FlowNode label="Denominations" />
+        <FlowArrow />
+        <FlowNode label="Cart" active />
+        <FlowArrow />
+        <FlowNode label="Review" />
+        <FlowArrow />
+        <FlowNode label="Place" active={false} icon="check" />
+      </FlowRow>
+    </DiagramWrapper>
+  )
+}
+
+// 4. Support Console Flow
+function SupportConsoleDiagram() {
+  return (
+    <DiagramWrapper label="Support Console Workflow">
+      <FlowRow>
+        <FlowNode label="Ticket" />
+        <FlowArrow />
+        <FlowNode label="Lookup" active />
+        <FlowArrow />
+        <FlowNode label="Action" />
+        <FlowArrow />
+        <FlowNode label="Resolve" />
+      </FlowRow>
+    </DiagramWrapper>
+  )
+}
+
+// 5. Cancellation Flow
+function CancellationFlowDiagram() {
+  return (
+    <DiagramWrapper label="Cancellation Process">
+      <FlowRow>
+        <FlowNode label="Request" />
+        <FlowArrow />
+        <FlowNode label="Verify" active />
+        <FlowArrow />
+        <FlowNode label="Cancel" />
+        <FlowArrow />
+        <FlowNode label="Refund" />
+        <FlowArrow />
+        <FlowNode label="Notify" />
+      </FlowRow>
+    </DiagramWrapper>
+  )
+}
+
+// 6. Transaction Tracking
+function TransactionTrackingDiagram() {
+  return (
+    <DiagramWrapper label="Transaction Tracking">
+      <FlowRow>
+        <FlowNode label="Search" />
+        <FlowArrow />
+        <FlowNode label="Filter" />
+        <FlowArrow />
+        <FlowNode label="Trace" active />
+        <FlowArrow />
+        <FlowNode label="Export" />
+      </FlowRow>
+    </DiagramWrapper>
   )
 }
 
@@ -68,13 +217,16 @@ export default function GCMS() {
         <Visual src="/images/gcms/IMG_0873.PNG" label="Final dashboard" caption="The product surface where merchants can own gift-card operations." />
       </CaseHero>
 
-      <StorySection kicker="Overview" title="Role, team, and scope">
-        <MetaGrid items={[
-          { label: 'My role', value: 'End-to-end UX, IA, research, visual design' },
-          { label: 'Platform', value: 'Razorpay Dashboard · EngageHQ' },
-          { label: 'Timeline', value: 'Oct 2023 onward' },
-          { label: 'Status', value: 'Shipped + new modules in design' },
-        ]} />
+      <StorySection kicker="Overview" title="Role, team, and scope" wide>
+        <SystemOverviewDiagram />
+        <div style={{ marginTop: '24px' }}>
+          <MetaGrid items={[
+            { label: 'My role', value: 'End-to-end UX, IA, research, visual design' },
+            { label: 'Platform', value: 'Razorpay Dashboard · EngageHQ' },
+            { label: 'Timeline', value: 'Oct 2023 onward' },
+            { label: 'Status', value: 'Shipped + new modules in design' },
+          ]} />
+        </div>
       </StorySection>
 
       <Chapter kicker="Setting the scene" title="Brands use gift cards to sell prepaid value." dark>
@@ -121,10 +273,7 @@ export default function GCMS() {
       </StorySection>
 
       <StorySection kicker="Solution" title="Cart-based workflow" wide>
-        <div className="visual">
-          <span>Order placement flow</span>
-          <CartFlowDiagram />
-        </div>
+        <CartFlowDiagram />
       </StorySection>
 
       <StorySection kicker="Final experience" title="Order placement" wide>
@@ -140,21 +289,35 @@ export default function GCMS() {
       </StorySection>
 
       <StorySection kicker="Support console" title="Support moved from Razorpay-owned to merchant-owned." wide>
-        <AnnotatedVisual
-          src="/images/gcms/IMG_0880.PNG"
-          label="Customer support console"
-          notes={[
-            { title: 'Cards tab', text: 'Search individual cards by card number or order ID, then inspect balance, expiry, and status.' },
-            { title: 'Transactions tab', text: 'Support teams can trace redemptions without asking Razorpay for dashboard access.' },
-            { title: 'Action drawer', text: 'Risky actions like cancel need ticket links and audit-friendly confirmation.' },
-          ]}
-        />
+        <SupportConsoleDiagram />
+        <div style={{ marginTop: '24px' }}>
+          <AnnotatedVisual
+            src="/images/gcms/IMG_0880.PNG"
+            label="Customer support console"
+            notes={[
+              { title: 'Cards tab', text: 'Search individual cards by card number or order ID, then inspect balance, expiry, and status.' },
+              { title: 'Transactions tab', text: 'Support teams can trace redemptions without asking Razorpay for dashboard access.' },
+              { title: 'Action drawer', text: 'Risky actions like cancel need ticket links and audit-friendly confirmation.' },
+            ]}
+          />
+        </div>
+      </StorySection>
+
+      <StorySection kicker="Cancellation" title="Safe cancellation with audit trail." wide>
+        <CancellationFlowDiagram />
+      </StorySection>
+
+      <StorySection kicker="Transaction tracking" title="Trace any card or transaction in seconds." wide>
+        <TransactionTrackingDiagram />
       </StorySection>
 
       <StorySection kicker="Program creation" title="Self-serve creation was scoped for mid-market." wide>
-        <div className="card-grid two">
-          <Visual src="/images/gcms/IMG_0874.PNG" label="Step 1" caption="Basic program details." contain />
-          <Visual src="/images/gcms/IMG_0876.PNG" label="Step 3" caption="Gift-card design with live preview." contain />
+        <ProgramCreationDiagram />
+        <div style={{ marginTop: '24px' }}>
+          <div className="card-grid two">
+            <Visual src="/images/gcms/IMG_0874.PNG" label="Step 1" caption="Basic program details." contain />
+            <Visual src="/images/gcms/IMG_0876.PNG" label="Step 3" caption="Gift-card design with live preview." contain />
+          </div>
         </div>
       </StorySection>
 

@@ -14,61 +14,149 @@ import {
 
 const purple = '#7c3aed'
 
-function PaymentFlowDiagram() {
+// Light style diagram wrapper
+function DiagramWrapper({ label, children }) {
   return (
-    <div style={{ 
-      display: 'flex', 
-      alignItems: 'center', 
+    <div style={{
+      background: '#faf9f7',
+      borderRadius: '20px',
+      padding: '32px 24px',
+      border: '1px solid rgba(28,26,23,0.06)',
+    }}>
+      {label && (
+        <div style={{
+          fontFamily: 'var(--font-mono)',
+          fontSize: '10px',
+          letterSpacing: '0.14em',
+          textTransform: 'uppercase',
+          color: 'var(--text-tertiary)',
+          marginBottom: '24px',
+        }}>
+          {label}
+        </div>
+      )}
+      {children}
+    </div>
+  )
+}
+
+function FlowNode({ label, active = false }) {
+  return (
+    <div style={{
+      padding: '12px 20px',
+      borderRadius: '12px',
+      border: `1.5px solid ${active ? purple : 'rgba(28,26,23,0.1)'}`,
+      background: active ? 'rgba(124,58,237,0.06)' : '#fff',
+      color: active ? purple : 'var(--text-primary)',
+      fontSize: '13px',
+      fontWeight: active ? 600 : 500,
+      whiteSpace: 'nowrap',
+      boxShadow: active ? '0 2px 8px rgba(124,58,237,0.12)' : '0 1px 3px rgba(0,0,0,0.04)',
+    }}>
+      {label}
+    </div>
+  )
+}
+
+function FlowArrow() {
+  return (
+    <svg width="28" height="12" viewBox="0 0 28 12" fill="none" style={{ flexShrink: 0, opacity: 0.35 }}>
+      <path d="M0 6h24m0 0l-5-4.5m5 4.5l-5 4.5" stroke="var(--text-tertiary)" strokeWidth="1.5"/>
+    </svg>
+  )
+}
+
+function FlowRow({ children }) {
+  return (
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
       justifyContent: 'center',
       gap: '12px',
       flexWrap: 'wrap',
-      padding: '32px 24px',
-      fontFamily: 'var(--font-mono)',
-      fontSize: '11px',
-      color: 'rgba(255,255,255,0.7)'
     }}>
-      <div style={{
-        padding: '10px 16px',
-        borderRadius: '8px',
-        border: '1px solid rgba(255,255,255,0.15)',
-        background: 'rgba(255,255,255,0.05)',
-        textAlign: 'center'
-      }}>
-        <div style={{ color: '#a78bfa', marginBottom: '4px' }}>Primary</div>
-        UPI / Card
-      </div>
-      
-      <svg width="32" height="12" viewBox="0 0 32 12" fill="none" style={{ opacity: 0.5 }}>
-        <path d="M0 6h28m0 0l-6-5m6 5l-6 5" stroke="currentColor" strokeWidth="1.5"/>
-      </svg>
-      
-      <div style={{
-        padding: '10px 16px',
-        borderRadius: '8px',
-        border: '1px solid rgba(124,58,237,0.3)',
-        background: 'rgba(124,58,237,0.1)',
-        textAlign: 'center'
-      }}>
-        <div style={{ color: '#a78bfa', marginBottom: '4px' }}>Gift Card</div>
-        Debit
-      </div>
-      
-      <svg width="32" height="12" viewBox="0 0 32 12" fill="none" style={{ opacity: 0.5 }}>
-        <path d="M0 6h28m0 0l-6-5m6 5l-6 5" stroke="currentColor" strokeWidth="1.5"/>
-      </svg>
-      
-      <div style={{
-        padding: '10px 16px',
-        borderRadius: '8px',
-        border: '1px solid rgba(16,185,129,0.4)',
-        background: 'rgba(16,185,129,0.1)',
-        textAlign: 'center',
-        color: '#10b981'
-      }}>
-        <div style={{ marginBottom: '4px' }}>Success</div>
-        Both confirmed
-      </div>
+      {children}
     </div>
+  )
+}
+
+// 1. System Overview
+function PaymentSystemDiagram() {
+  return (
+    <DiagramWrapper label="Linked Payments Architecture">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center' }}>
+        <FlowRow>
+          <FlowNode label="Customer" />
+          <FlowArrow />
+          <FlowNode label="Checkout" active />
+          <FlowArrow />
+          <FlowNode label="Payment" />
+        </FlowRow>
+        <div style={{ display: 'flex', gap: '32px', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <FlowNode label="Gift Card" />
+          <FlowNode label="UPI / Card" />
+        </div>
+      </div>
+    </DiagramWrapper>
+  )
+}
+
+// 2. Payment Sequence
+function PaymentSequenceDiagram() {
+  return (
+    <DiagramWrapper label="Payment Sequence">
+      <FlowRow>
+        <FlowNode label="Primary (UPI)" active />
+        <FlowArrow />
+        <FlowNode label="Gift Card" />
+        <FlowArrow />
+        <FlowNode label="Atomic Commit" active />
+      </FlowRow>
+    </DiagramWrapper>
+  )
+}
+
+// 3. Rollback Flow
+function RollbackDiagram() {
+  return (
+    <DiagramWrapper label="Failure & Rollback">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center' }}>
+        <FlowRow>
+          <FlowNode label="Primary Success" />
+          <FlowArrow />
+          <FlowNode label="Gift Card Fails" active />
+        </FlowRow>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <svg width="20" height="40" viewBox="0 0 20 40" fill="none" style={{ opacity: 0.35 }}>
+            <path d="M10 0v35m0 0l-5-5m5 5l5-5" stroke="var(--text-tertiary)" strokeWidth="1.5"/>
+          </svg>
+        </div>
+        <FlowRow>
+          <FlowNode label="Refund Primary" active />
+          <FlowArrow />
+          <FlowNode label="Notify Merchant" />
+          <FlowArrow />
+          <FlowNode label="Notify Customer" />
+        </FlowRow>
+      </div>
+    </DiagramWrapper>
+  )
+}
+
+// 4. Refund Flow
+function RefundFlowDiagram() {
+  return (
+    <DiagramWrapper label="Refund Process">
+      <FlowRow>
+        <FlowNode label="Detect Failure" />
+        <FlowArrow />
+        <FlowNode label="Merchant Decision" active />
+        <FlowArrow />
+        <FlowNode label="Process Refund" />
+        <FlowArrow />
+        <FlowNode label="Customer Notified" />
+      </FlowRow>
+    </DiagramWrapper>
   )
 }
 
@@ -90,12 +178,15 @@ export default function LinkedPayments() {
       </CaseHero>
 
       <StorySection kicker="Overview" title="Role, team, and scope" wide>
-        <MetaGrid items={[
-          { label: 'My role', value: 'Naming, API UX, refund flow, success state' },
-          { label: 'Platform', value: 'Checkout · Gift-card redemption' },
-          { label: 'Timeline', value: 'Q4 2024 - Q1 2025' },
-          { label: 'Gate', value: 'API council approval' },
-        ]} />
+        <PaymentSystemDiagram />
+        <div style={{ marginTop: '24px' }}>
+          <MetaGrid items={[
+            { label: 'My role', value: 'Naming, API UX, refund flow, success state' },
+            { label: 'Platform', value: 'Checkout · Gift-card redemption' },
+            { label: 'Timeline', value: 'Q4 2024 - Q1 2025' },
+            { label: 'Gate', value: 'API council approval' },
+          ]} />
+        </div>
       </StorySection>
 
       <Chapter kicker="Setting the scene" title="Gift cards have fixed values. Carts are messy." dark>
@@ -126,10 +217,7 @@ export default function LinkedPayments() {
       </StorySection>
 
       <StorySection kicker="How it works" title="Primary payment first. Gift card second. One confirmed order." wide>
-        <div className="visual">
-          <span>Payment sequence</span>
-          <PaymentFlowDiagram />
-        </div>
+        <PaymentSequenceDiagram />
       </StorySection>
 
       <StorySection kicker="Design decisions" title="The important work was in the trade-offs." wide>
@@ -139,6 +227,14 @@ export default function LinkedPayments() {
           { label: 'Chosen', title: 'Merchant-controlled refunds', text: 'Razorpay detects failure, merchant retains control, customer receives refund.', reason: 'High-volume merchants needed batch control.' , chosen: true },
           { label: 'Chosen', title: 'Explicit amounts', text: 'API requires exact amounts for gift card and primary method.', reason: 'More typing, less ambiguity.' , chosen: true },
         ]} />
+      </StorySection>
+
+      <StorySection kicker="Failure handling" title="When things go wrong, everyone needs clarity." wide>
+        <RollbackDiagram />
+      </StorySection>
+
+      <StorySection kicker="Refund process" title="Merchant controls the refund experience." wide>
+        <RefundFlowDiagram />
       </StorySection>
 
       <StorySection kicker="Rejected" title="What we did not pick." wide>
