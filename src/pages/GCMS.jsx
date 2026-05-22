@@ -89,23 +89,47 @@ function FlowRow({ children }) {
   )
 }
 
-// 1. System Overview
+// 1. System Overview — Complex Architecture
 function SystemOverviewDiagram() {
   return (
     <DiagramWrapper label="GCMS Architecture">
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', alignItems: 'center' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center' }}>
+        {/* Frontend Layer */}
         <FlowRow>
-          <FlowNode label="Merchant" />
+          <FlowNode label="Merchant Dashboard" active />
           <FlowArrow />
-          <FlowNode label="Dashboard" active />
+          <FlowNode label="Operations Portal" />
           <FlowArrow />
-          <FlowNode label="Operations" />
-        </FlowRow>
-        <div style={{ display: 'flex', gap: '40px', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <FlowNode label="Program Creation" />
-          <FlowNode label="Order Placement" />
           <FlowNode label="Support Console" />
-        </div>
+        </FlowRow>
+        
+        {/* API Layer */}
+        <div style={{ 
+          width: '100%', 
+          height: '1px', 
+          background: 'rgba(28,26,23,0.08)', 
+          margin: '8px 0' 
+        }} />
+        <FlowRow>
+          <FlowNode label="Order API" />
+          <FlowNode label="State Machine" active />
+          <FlowNode label="Vault API" />
+          <FlowNode label="Notification Service" />
+        </FlowRow>
+        
+        {/* Data Layer */}
+        <div style={{ 
+          width: '100%', 
+          height: '1px', 
+          background: 'rgba(28,26,23,0.08)', 
+          margin: '8px 0' 
+        }} />
+        <FlowRow>
+          <FlowNode label="Order DB" />
+          <FlowNode label="Card Vault" />
+          <FlowNode label="Transaction Log" />
+          <FlowNode label="Audit Trail" />
+        </FlowRow>
       </div>
     </DiagramWrapper>
   )
@@ -128,8 +152,8 @@ function ProgramCreationDiagram() {
   )
 }
 
-// 3. Cart-based Ordering
-function CartFlowDiagram() {
+// 3. Order Placement Flow (Program → Denominations → Review → Place)
+function OrderFlowDiagram() {
   return (
     <DiagramWrapper label="Order Placement Flow">
       <FlowRow>
@@ -137,11 +161,9 @@ function CartFlowDiagram() {
         <FlowArrow />
         <FlowNode label="Denominations" />
         <FlowArrow />
-        <FlowNode label="Cart" active />
+        <FlowNode label="Review" active />
         <FlowArrow />
-        <FlowNode label="Review" />
-        <FlowArrow />
-        <FlowNode label="Place" active={false} icon="check" />
+        <FlowNode label="Place Order" />
       </FlowRow>
     </DiagramWrapper>
   )
@@ -241,10 +263,12 @@ export default function GCMS() {
           before="Merchants depended on resellers, manual files, or engineering teams to issue cards."
           after="Operators can select a program, add denominations to cart, place orders, and track fulfillment themselves."
         />
-        <CardGrid variant="two" items={[
-          { label: 'Lost account', title: 'Zomato routed to PoshVine', text: 'Razorpay could not offer direct self-serve issuance, so the account moved through a competitor path.' },
-          { label: 'Workaround', title: 'Lenskart made 14,518 API calls', text: 'A bulk-file workaround behaved like a product. It was fragile, opaque, and not ops-friendly.' },
-        ]} />
+        <div style={{ marginTop: '32px' }}>
+          <CardGrid variant="two" items={[
+            { label: 'Lost account', title: 'Zomato routed to PoshVine', text: 'Razorpay could not offer direct self-serve issuance, so the account moved through a competitor path.' },
+            { label: 'Workaround', title: 'Lenskart made 14,518 API calls', text: 'A bulk-file workaround behaved like a product. It was fragile, opaque, and not ops-friendly.' },
+          ]} />
+        </div>
       </StorySection>
 
       <StorySection kicker="Goals" title="Make gift-card operations self-serve without making them feel technical." wide>
@@ -263,29 +287,28 @@ export default function GCMS() {
         ]} />
       </StorySection>
 
-      <StorySection kicker="Early explorations" title="Three directions, one winner." wide>
+      <StorySection kicker="Explorations" title="Finding the right approach." wide>
         <IterationGrid items={[
           { label: 'Rejected', title: 'Bulk CSV upload', text: 'Familiar to ops teams, but slow and hard to recover from when rows fail.', reason: 'It repeated the Lenskart workaround instead of solving it.' },
           { label: 'Rejected', title: 'API-only ordering', text: 'Accurate for engineers, but wrong for teams placing monthly orders.', reason: 'Every order run would still depend on engineering bandwidth.' },
           { label: 'Rejected', title: 'Single-order form', text: 'Simple for one denomination, painful for campaigns that mix values.', reason: 'Enterprise operators rarely issue one denomination at a time.' },
-          { label: 'Chosen', title: 'Cart-based ordering', text: 'Program, denomination, quantity, cart, review, place. Familiar and fast.', reason: 'It matched how operators already think about bulk purchase workflows.', chosen: true },
+          { label: 'Chosen', title: 'Program-based ordering', text: 'Program, denomination, review, place. Familiar and fast.', reason: 'It matched how operators already think about bulk purchase workflows.', chosen: true },
         ]} />
       </StorySection>
 
-      <StorySection kicker="Solution" title="Cart-based workflow" wide>
-        <CartFlowDiagram />
-      </StorySection>
-
       <StorySection kicker="Final experience" title="Order placement" wide>
-        <AnnotatedVisual
-          src="/images/gcms/fcd6268124089009631904af9c95ade3.gif"
-          label="Order placement flow"
-          notes={[
-            { title: 'Program first', text: 'The workflow starts from the gift-card program, not from internal product taxonomy.' },
-            { title: 'Cart model', text: 'Multiple denominations can be built in one session before final review.' },
-            { title: 'Status clarity', text: 'Operators get a clear order state instead of waiting on support for updates.' },
-          ]}
-        />
+        <OrderFlowDiagram />
+        <div style={{ marginTop: '32px' }}>
+          <AnnotatedVisual
+            src="/images/gcms/order-flow-dark.gif"
+            label="Order placement flow"
+            notes={[
+              { title: 'Program first', text: 'The workflow starts from the gift-card program, not from internal product taxonomy.' },
+              { title: 'Denominations', text: 'Multiple denominations can be built in one session before final review.' },
+              { title: 'Status clarity', text: 'Operators get a clear order state instead of waiting on support for updates.' },
+            ]}
+          />
+        </div>
       </StorySection>
 
       <StorySection kicker="Support console" title="Support moved from Razorpay-owned to merchant-owned." wide>
@@ -309,6 +332,9 @@ export default function GCMS() {
 
       <StorySection kicker="Transaction tracking" title="Trace any card or transaction in seconds." wide>
         <TransactionTrackingDiagram />
+        <div style={{ marginTop: '32px' }}>
+          <Visual label="Transaction lookup" caption="Visual to add: search, filter, and trace interface for support teams." />
+        </div>
       </StorySection>
 
       <StorySection kicker="Program creation" title="Self-serve creation was scoped for mid-market." wide>
