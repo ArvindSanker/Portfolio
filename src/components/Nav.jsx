@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { motion, useScroll, useMotionValueEvent } from 'framer-motion'
+import { motion, useScroll } from 'framer-motion'
 import { useIsMobile } from '../hooks/useIsMobile'
 
 const links = [
@@ -13,18 +13,11 @@ export default function Nav() {
   const location = useLocation()
   const { scrollYProgress } = useScroll()
   const [hovered, setHovered] = useState(null)
-  const [scrolled, setScrolled] = useState(false)
   const isMobile = useIsMobile()
-
-  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
-    setScrolled(latest > 0.02)
-  })
 
   function isActive(to) {
     return to === '/' ? location.pathname === '/' : location.pathname === to
   }
-
-  const isHome = location.pathname === '/'
 
   return (
     <>
@@ -54,10 +47,9 @@ export default function Nav() {
           right: 0,
           height: '60px',
           zIndex: 100,
-          background: isHome && !scrolled ? 'transparent' : 'rgba(249,248,246,0.94)',
-          backdropFilter: isHome && !scrolled ? 'none' : 'blur(20px)',
-          borderBottom: isHome && !scrolled ? '1px solid transparent' : '1px solid var(--border)',
-          transition: 'background 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease',
+          background: 'rgba(249,248,246,0.94)',
+          backdropFilter: 'blur(20px)',
+          borderBottom: '1px solid var(--border)',
         }}
       >
         {/* Inner container — aligns with page content */}

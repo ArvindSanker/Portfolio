@@ -171,12 +171,11 @@ function HeroVisual() {
 export default function Home() {
   return (
     <Page>
-      <section className="home-hero home-band section-dark" style={{ minHeight: '92vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-        <div className="hero-glow" />
+      <section className="home-hero home-band" style={{ minHeight: '92vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <Reveal className="home-hero-grid">
           <div className="home-hero-copy home-copy-column">
             <p className="eyebrow">Arvind Sanker K M · Product Designer II</p>
-            <h1 className="display-heading" style={{ fontSize: 'clamp(42px, 7vw, 84px)' }}>Product Designer making fintech feel less like fintech.</h1>
+            <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(42px, 7vw, 72px)', lineHeight: 1.05, letterSpacing: '-0.03em' }}>Product Designer making fintech feel less like fintech.</h1>
             <p>
               Product Designer II at Razorpay, based in Bengaluru. Seven years untangling complex workflows for a living.
             </p>
@@ -266,7 +265,7 @@ export default function Home() {
         </Reveal>
       </section>
 
-      <section className="project-showcase home-band section-dark" id="work" style={{ paddingTop: 'var(--section-y)', paddingBottom: 'var(--section-y)' }}>
+      <section className="project-showcase home-band" id="work">
         <Reveal className="showcase-heading home-copy-column">
           <p className="eyebrow">Selected work</p>
           <h2>Three product stories about making complexity usable.</h2>
@@ -332,7 +331,7 @@ export default function Home() {
         </Reveal>
       </section>
 
-      <section className="story-section home-section skills-section section-dark" style={{ marginLeft: 'calc(-1 * var(--px))', marginRight: 'calc(-1 * var(--px))', paddingLeft: 'var(--px)', paddingRight: 'var(--px)' }}>
+      <section className="story-section home-section skills-section">
         <Reveal>
           <div className="section-head home-copy-column">
             <p className="eyebrow">Skill Set</p>
@@ -412,15 +411,15 @@ export default function Home() {
         </Reveal>
       </section>
 
-      <section className="story-section home-section contact-section section-dark" style={{ marginLeft: 'calc(-1 * var(--px))', marginRight: 'calc(-1 * var(--px))', paddingLeft: 'var(--px)', paddingRight: 'var(--px)' }}>
+      <section className="story-section home-section contact-section">
         <Reveal className="contact-grid">
-          <div className="contact-card" style={{ background: 'rgba(255,255,255,0.05)', borderColor: 'rgba(255,255,255,0.1)' }}>
+          <div className="contact-card">
             <p className="eyebrow">Contact</p>
             <h2>Got a problem worth designing for?</h2>
             <p>Drop me a line — arvindsanker11@gmail.com</p>
           </div>
 
-          <div className="contact-links" style={{ background: 'rgba(255,255,255,0.05)', borderColor: 'rgba(255,255,255,0.1)' }}>
+          <div className="contact-links">
             <a href="mailto:arvindsanker11@gmail.com">arvindsanker11@gmail.com</a>
             <a href={linkedinUrl} target="_blank" rel="noreferrer">LinkedIn</a>
             <span>Bengaluru, India</span>
