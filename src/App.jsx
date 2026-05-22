@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import Nav from './components/Nav'
 import BackToTop from './components/BackToTop'
+import CustomCursor from './components/CustomCursor'
 import Home from './pages/Home'
 import GCMS from './pages/GCMS'
 import LinkedPayments from './pages/LinkedPayments'
@@ -63,6 +64,7 @@ export default function App() {
       <Nav />
       <AnimatedRoutes />
       <BackToTop />
+      <CustomCursor />
     </BrowserRouter>
   )
 }

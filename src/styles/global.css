@@ -26,7 +26,15 @@
   --accent-soft: rgba(45,104,254,0.07);
 
   --font: 'Saira', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'Geist Mono', 'SF Mono', ui-monospace, monospace;
+  
+  /* Dark theme backup - flip these to switch to light mode */
+  --bg-dark: #1a1a1a;
+  --bg-dark-soft: #242424;
+  --text-light: #f9f8f6;
+  --text-light-secondary: rgba(249,248,246,0.7);
+  --text-light-tertiary: rgba(249,248,246,0.4);
 }
 
 @media (max-width: 1024px) {
@@ -1545,4 +1553,173 @@ a {
   .contact-links {
     padding: 20px;
   }
+}
+
+/* ================================
+   DARK SECTIONS
+   ================================ */
+.section-dark {
+  background: var(--bg-dark);
+  color: var(--text-light);
+  margin-left: calc(-1 * var(--px));
+  margin-right: calc(-1 * var(--px));
+  padding-left: var(--px);
+  padding-right: var(--px);
+}
+
+.section-dark .eyebrow {
+  color: var(--text-light-tertiary);
+}
+
+.section-dark h1,
+.section-dark h2,
+.section-dark h3 {
+  color: var(--text-light);
+}
+
+.section-dark p {
+  color: var(--text-light-secondary);
+}
+
+/* ================================
+   TEXT REVEAL ANIMATIONS
+   ================================ */
+.text-reveal {
+  overflow: hidden;
+}
+
+.text-reveal-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(100%);
+  animation: textReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes textReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================================
+   CUSTOM CURSOR
+   ================================ */
+.custom-cursor {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transition: transform 0.15s ease, width 0.3s ease, height 0.3s ease;
+}
+
+.custom-cursor.hover {
+  width: 40px;
+  height: 40px;
+  background: rgba(45, 104, 254, 0.1);
+  border: 2px solid var(--accent);
+}
+
+/* ================================
+   ENHANCED HOVER EFFECTS
+   ================================ */
+.magnetic-button {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glow-card {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.glow-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(45, 104, 254, 0.15);
+}
+
+/* ================================
+   HERO ENHANCEMENTS
+   ================================ */
+.hero-glow {
+  position: absolute;
+  inset: -100px;
+  background: radial-gradient(circle at 50% 50%, rgba(45, 104, 254, 0.15), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ================================
+   PROJECT CARD ENHANCEMENTS
+   ================================ */
+.project-card-enhanced {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card-enhanced::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 40%, rgba(45, 104, 254, 0.03) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.project-card-enhanced:hover::after {
+  opacity: 1;
+}
+
+/* ================================
+   SKILL CARD 3D TILT
+   ================================ */
+.skill-card-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+}
+
+/* ================================
+   GRAIN TEXTURE OVERLAY
+   ================================ */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* ================================
+   DISPLAY TYPOGRAPHY
+   ================================ */
+.display-heading {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+/* ================================
+   THEME TOGGLE (for light mode backup)
+   ================================ */
+[data-theme="light"] .section-dark {
+  background: var(--bg);
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .section-dark .eyebrow {
+  color: var(--text-tertiary);
+}
+
+[data-theme="light"] .section-dark h1,
+[data-theme="light"] .section-dark h2,
+[data-theme="light"] .section-dark h3 {
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .section-dark p {
+  color: var(--text-secondary);
 }

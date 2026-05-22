@@ -245,3 +245,43 @@ export function MagneticButton({ children, className = '', ...props }) {
     </motion.button>
   )
 }
+
+export function TextReveal({ text, className = '', delay = 0 }) {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-60px' })
+  const words = text.split(' ')
+
+  return (
+    <motion.span
+      ref={ref}
+      className={className}
+      initial="hidden"
+      animate={inView ? "visible" : "hidden"}
+      variants={{
+        visible: {
+          transition: {
+            staggerChildren: 0.03,
+            delayChildren: delay,
+          },
+        },
+      }}
+    >
+      {words.map((word, i) => (
+        <motion.span
+          key={i}
+          style={{ display: 'inline-block', marginRight: '0.25em' }}
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: {
+              opacity: 1,
+              y: 0,
+              transition: { duration: 0.5, ease },
+            },
+          }}
+        >
+          {word}
+        </motion.span>
+      ))}
+    </motion.span>
+  )
+}
