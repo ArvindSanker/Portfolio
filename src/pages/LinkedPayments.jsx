@@ -14,6 +14,64 @@ import {
 
 const purple = '#7c3aed'
 
+function PaymentFlowDiagram() {
+  return (
+    <div style={{ 
+      display: 'flex', 
+      alignItems: 'center', 
+      justifyContent: 'center',
+      gap: '12px',
+      flexWrap: 'wrap',
+      padding: '32px 24px',
+      fontFamily: 'var(--font-mono)',
+      fontSize: '11px',
+      color: 'rgba(255,255,255,0.7)'
+    }}>
+      <div style={{
+        padding: '10px 16px',
+        borderRadius: '8px',
+        border: '1px solid rgba(255,255,255,0.15)',
+        background: 'rgba(255,255,255,0.05)',
+        textAlign: 'center'
+      }}>
+        <div style={{ color: '#a78bfa', marginBottom: '4px' }}>Primary</div>
+        UPI / Card
+      </div>
+      
+      <svg width="32" height="12" viewBox="0 0 32 12" fill="none" style={{ opacity: 0.5 }}>
+        <path d="M0 6h28m0 0l-6-5m6 5l-6 5" stroke="currentColor" strokeWidth="1.5"/>
+      </svg>
+      
+      <div style={{
+        padding: '10px 16px',
+        borderRadius: '8px',
+        border: '1px solid rgba(124,58,237,0.3)',
+        background: 'rgba(124,58,237,0.1)',
+        textAlign: 'center'
+      }}>
+        <div style={{ color: '#a78bfa', marginBottom: '4px' }}>Gift Card</div>
+        Debit
+      </div>
+      
+      <svg width="32" height="12" viewBox="0 0 32 12" fill="none" style={{ opacity: 0.5 }}>
+        <path d="M0 6h28m0 0l-6-5m6 5l-6 5" stroke="currentColor" strokeWidth="1.5"/>
+      </svg>
+      
+      <div style={{
+        padding: '10px 16px',
+        borderRadius: '8px',
+        border: '1px solid rgba(16,185,129,0.4)',
+        background: 'rgba(16,185,129,0.1)',
+        textAlign: 'center',
+        color: '#10b981'
+      }}>
+        <div style={{ marginBottom: '4px' }}>Success</div>
+        Both confirmed
+      </div>
+    </div>
+  )
+}
+
 export default function LinkedPayments() {
   return (
     <Page>
@@ -31,7 +89,7 @@ export default function LinkedPayments() {
         <Visual label="Checkout split" caption="Visual placeholder: add final checkout, success, and refund-state screens here." />
       </CaseHero>
 
-      <StorySection kicker="Overview" title="Role, team, and scope">
+      <StorySection kicker="Overview" title="Role, team, and scope" wide>
         <MetaGrid items={[
           { label: 'My role', value: 'Naming, API UX, refund flow, success state' },
           { label: 'Platform', value: 'Checkout · Gift-card redemption' },
@@ -47,19 +105,19 @@ export default function LinkedPayments() {
         </p>
       </Chapter>
 
-      <StorySection kicker="What was broken" title="Redemption failed when cart value did not match card value.">
+      <StorySection kicker="What was broken" title="Redemption failed when cart value did not match card value." wide>
         <BeforeAfter
           before="Gift-card redemption worked only when the cart and card value aligned cleanly."
           after="Gift card + UPI/card can complete together as one all-or-nothing payment."
         />
         <CardGrid items={[
-          { label: 'Customer problem', title: 'Value mismatch', text: 'Users could not use gift cards naturally on real cart amounts.' },
-          { label: 'Merchant problem', title: 'Conversion loss', text: 'Puma explicitly requested the capability; MakeMyTrip represented a large pipeline.' },
-          { label: 'System problem', title: 'Partial failure risk', text: 'If one leg succeeds and the other fails, money enters an ambiguous state.' },
+          { label: 'Customer', title: 'Value mismatch', text: 'Users could not use gift cards naturally on real cart amounts.' },
+          { label: 'Merchant', title: 'Conversion loss', text: 'Puma explicitly requested the capability; MakeMyTrip represented a large pipeline.' },
+          { label: 'System', title: 'Partial failure risk', text: 'If one leg succeeds and the other fails, money enters an ambiguous state.' },
         ]} />
       </StorySection>
 
-      <StorySection kicker="Goals & guardrails" title="Make split payment feel simple while keeping the backend auditable.">
+      <StorySection kicker="Goals" title="Make split payment feel simple while keeping the backend auditable." wide>
         <CardGrid items={[
           { label: 'Goal', title: 'Atomic payment', text: 'Both payment legs should succeed together or roll back cleanly.' },
           { label: 'Guardrail', title: 'No black-box support states', text: 'Support teams must know exactly which payment leg failed and why.' },
@@ -67,25 +125,23 @@ export default function LinkedPayments() {
         ]} />
       </StorySection>
 
-      <StorySection kicker="How it works" title="Primary payment first. Gift card second. One confirmed order.">
-        <IterationGrid items={[
-          { label: 'Step 01', title: 'Primary method processes first', text: 'UPI/card has the highest failure risk, so it clears before gift-card debit.' },
-          { label: 'Step 02', title: 'Gift card is debited', text: 'Only after the primary payment succeeds does the system debit the gift card.' },
-          { label: 'Step 03', title: 'Success screen explains both legs', text: 'Customer sees the split amount and references for both payments.' },
-          { label: 'Rollback', title: 'Failures have owners', text: 'If gift-card debit fails after primary success, refund rules and merchant notifications are defined.' },
-        ]} />
+      <StorySection kicker="How it works" title="Primary payment first. Gift card second. One confirmed order." wide>
+        <div className="visual">
+          <span>Payment sequence</span>
+          <PaymentFlowDiagram />
+        </div>
       </StorySection>
 
       <StorySection kicker="Design decisions" title="The important work was in the trade-offs." wide>
         <IterationGrid items={[
-          { label: 'Chosen', title: 'Linked Payments', text: 'The name implied two payment methods tied together, not just split for reporting.', reason: 'Naming created the right mental model for product, API, and support.', chosen: true },
+          { label: 'Chosen', title: 'Linked Payments', text: 'The name implied two payment methods tied together, not just split for reporting.', reason: 'Naming created the right mental model.', chosen: true },
           { label: 'Chosen', title: 'Two payment IDs', text: 'Each leg gets a separate ID so failures, refunds, and reconciliation remain traceable.', reason: 'One ID would hide which method failed.' , chosen: true },
           { label: 'Chosen', title: 'Merchant-controlled refunds', text: 'Razorpay detects failure, merchant retains control, customer receives refund.', reason: 'High-volume merchants needed batch control.' , chosen: true },
           { label: 'Chosen', title: 'Explicit amounts', text: 'API requires exact amounts for gift card and primary method.', reason: 'More typing, less ambiguity.' , chosen: true },
         ]} />
       </StorySection>
 
-      <StorySection kicker="Rejected paths" title="What we did not pick.">
+      <StorySection kicker="Rejected" title="What we did not pick." wide>
         <CardGrid items={[
           { label: 'Rejected', title: 'One payment ID', text: 'Simpler on the surface, but support could not isolate the failed leg.' },
           { label: 'Rejected', title: 'Auto-refund everything', text: 'Fast, but bypassed merchant-owned refund workflows for large accounts.' },
@@ -93,14 +149,14 @@ export default function LinkedPayments() {
         ]} />
       </StorySection>
 
-      <StorySection kicker="Final experience" title="Screens needed: checkout, success, failure, refund." wide>
+      <StorySection kicker="Final experience" title="Checkout, success, failure, refund." wide>
         <div className="card-grid two">
           <Visual label="Happy path" caption="Add prototype: customer sees gift-card amount + UPI amount before paying." />
           <Visual label="Success state" caption="Add prototype: both payment IDs and method breakdown visible after success." />
         </div>
       </StorySection>
 
-      <StorySection kicker="Impact" title="Designed for an API council one-way door.">
+      <StorySection kicker="Impact" title="Designed for an API council one-way door." wide>
         <MetricGrid metrics={[
           { value: '+₹38 Cr/yr', label: 'Incremental GMV unlock', note: 'Targeted through three launch merchants.' },
           { value: '₹400 Cr+', label: 'TAM pipeline', note: 'MakeMyTrip and other variable-cart merchants.' },
@@ -108,11 +164,11 @@ export default function LinkedPayments() {
         ]} />
       </StorySection>
 
-      <StorySection kicker="Reflection" title="Failure handling was the product.">
+      <StorySection kicker="Reflection" title="Failure handling was the product." wide>
         <CardGrid items={[
           { label: 'Learning', title: 'Atomicity is UX', text: 'The customer only sees a payment. The designer has to define every hidden failure owner.' },
           { label: 'Learning', title: 'API design is developer UX', text: 'The safest API was more explicit because it forced the integrator to think clearly.' },
-          { label: 'Next improvement', title: 'Tiered refund defaults', text: 'Auto-refunds may be better for smaller merchants, while large merchants need batch control.' },
+          { label: 'Next', title: 'Tiered refund defaults', text: 'Auto-refunds may be better for smaller merchants, while large merchants need batch control.' },
         ]} />
       </StorySection>
 

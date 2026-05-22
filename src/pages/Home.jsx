@@ -16,8 +16,8 @@ const proof = ['7 years in design', '25+ merchants live', '3 flagship case studi
 const skills = [
   { name: 'Framer', src: '/logos/skills/framer.svg' },
   { name: 'Figma', src: '/logos/skills/figma.svg' },
-  { name: 'Chat GPT', src: '/logos/skills/chatgpt.svg' },
-  { name: 'Rive', src: '/logos/skills/rive.svg' },
+  { name: 'ChatGPT', src: '/logos/skills/chatgpt.svg' },
+  { name: 'Claude Code', src: '/logos/skills/claude-code.svg' },
 ]
 
 const projects = [

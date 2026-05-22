@@ -15,13 +15,49 @@ import {
 
 const blue = '#2d68fe'
 
+function CartFlowDiagram() {
+  return (
+    <div style={{ 
+      display: 'flex', 
+      alignItems: 'center', 
+      justifyContent: 'center',
+      gap: '16px',
+      flexWrap: 'wrap',
+      padding: '32px 24px',
+      fontFamily: 'var(--font-mono)',
+      fontSize: '12px',
+      color: 'rgba(255,255,255,0.7)'
+    }}>
+      {['Program', 'Denominations', 'Cart', 'Review', 'Place'].map((step, i, arr) => (
+        <>
+          <div key={step} style={{
+            padding: '10px 18px',
+            borderRadius: '999px',
+            border: `1px solid ${i === arr.length - 1 ? 'rgba(16,185,129,0.4)' : 'rgba(255,255,255,0.15)'}`,
+            background: i === arr.length - 1 ? 'rgba(16,185,129,0.15)' : 'rgba(255,255,255,0.05)',
+            color: i === arr.length - 1 ? '#10b981' : 'inherit',
+            whiteSpace: 'nowrap'
+          }}>
+            {step}
+          </div>
+          {i < arr.length - 1 && (
+            <svg width="24" height="12" viewBox="0 0 24 12" fill="none" style={{ opacity: 0.4 }}>
+              <path d="M0 6h20m0 0l-5-5m5 5l-5 5" stroke="currentColor" strokeWidth="1.5"/>
+            </svg>
+          )}
+        </>
+      ))}
+    </div>
+  )
+}
+
 export default function GCMS() {
   return (
     <Page>
       <CaseHero
         eyebrow="Case Study 01 · B2B Gift Cards"
         title="Enabled operators to issue gift cards without reseller dependency."
-        summary="Gift-card programs were business-critical, but enterprise merchants still needed reseller workarounds, manual ops, or API hacks to issue cards at scale. I designed a self-serve operating layer for placing, tracking, downloading, and supporting gift-card orders."
+        summary="Enterprise merchants needed reseller workarounds to issue cards at scale. I designed a self-serve operating layer for placing, tracking, and supporting gift-card orders."
         color={blue}
         metrics={[
           { value: '₹209 Cr', label: 'GMV target' },
@@ -48,26 +84,26 @@ export default function GCMS() {
         </p>
       </Chapter>
 
-      <StorySection kicker="What was broken" title="The business had rails, but merchants had no operating surface.">
+      <StorySection kicker="What was broken" title="The business had rails, but merchants had no operating surface." wide>
         <BeforeAfter
           before="Merchants depended on resellers, manual files, or engineering teams to issue cards."
           after="Operators can select a program, add denominations to cart, place orders, and track fulfillment themselves."
         />
         <CardGrid variant="two" items={[
-          { label: 'Lost account signal', title: 'Zomato routed to PoshVine', text: 'Razorpay could not offer direct self-serve issuance, so the account moved through a competitor path.' },
-          { label: 'Workaround signal', title: 'Lenskart made 14,518 API calls', text: 'In three months, a bulk-file workaround behaved like a product. It was fragile, opaque, and not ops-friendly.' },
+          { label: 'Lost account', title: 'Zomato routed to PoshVine', text: 'Razorpay could not offer direct self-serve issuance, so the account moved through a competitor path.' },
+          { label: 'Workaround', title: 'Lenskart made 14,518 API calls', text: 'A bulk-file workaround behaved like a product. It was fragile, opaque, and not ops-friendly.' },
         ]} />
       </StorySection>
 
-      <StorySection kicker="Goals & guardrails" title="Make gift-card operations self-serve without making them feel technical.">
+      <StorySection kicker="Goals" title="Make gift-card operations self-serve without making them feel technical." wide>
         <CardGrid items={[
           { label: 'Goal 01', title: 'Reduce dependency', text: 'Remove reseller and internal ops dependency from repeat gift-card ordering.' },
           { label: 'Goal 02', title: 'Increase operator confidence', text: 'Show order totals, fulfillment states, and download availability clearly.' },
-          { label: 'Guardrail', title: 'Do not expose system complexity', text: 'Operators should not need to understand vault generation, partial fulfillment, or backend state machines.' },
+          { label: 'Guardrail', title: 'Do not expose system complexity', text: 'Operators should not need to understand vault generation or backend state machines.' },
         ]} />
       </StorySection>
 
-      <StorySection kicker="Who it served" title="Multiple operators, one shared workflow." intro="Gift-card work is not owned by one persona. The system needed to be legible for everyone who touched the program.">
+      <StorySection kicker="Who it served" title="Multiple operators, one shared workflow." intro="Gift-card work is not owned by one persona." wide>
         <CardGrid items={[
           { label: 'Marketing ops', title: 'Place recurring bulk orders', text: 'Run campaigns without waiting on resellers or engineering support.' },
           { label: 'Finance admin', title: 'Track cost and reconciliation', text: 'Understand order value, settlement, and fulfillment status.' },
@@ -77,24 +113,21 @@ export default function GCMS() {
 
       <StorySection kicker="Early explorations" title="Three directions, one winner." wide>
         <IterationGrid items={[
-          { label: 'Rejected', title: 'Bulk CSV upload', text: 'Familiar to ops teams, but slow, opaque, and hard to recover from when rows fail.', reason: 'It repeated the Lenskart workaround instead of solving it.' },
-          { label: 'Rejected', title: 'API-only ordering', text: 'Accurate and scalable for engineers, but wrong for the teams placing monthly orders.', reason: 'Every order run would still depend on engineering bandwidth.' },
-          { label: 'Rejected', title: 'Single-order form', text: 'Simple for one denomination, painful for real campaigns that mix values and quantities.', reason: 'Enterprise operators rarely issue one denomination at a time.' },
-          { label: 'Chosen', title: 'Cart-based ordering', text: 'Program, denomination, quantity, cart, review, place. Familiar enough to need almost no training.', reason: 'It matched how operators already think about bulk purchase workflows.', chosen: true },
+          { label: 'Rejected', title: 'Bulk CSV upload', text: 'Familiar to ops teams, but slow and hard to recover from when rows fail.', reason: 'It repeated the Lenskart workaround instead of solving it.' },
+          { label: 'Rejected', title: 'API-only ordering', text: 'Accurate for engineers, but wrong for teams placing monthly orders.', reason: 'Every order run would still depend on engineering bandwidth.' },
+          { label: 'Rejected', title: 'Single-order form', text: 'Simple for one denomination, painful for campaigns that mix values.', reason: 'Enterprise operators rarely issue one denomination at a time.' },
+          { label: 'Chosen', title: 'Cart-based ordering', text: 'Program, denomination, quantity, cart, review, place. Familiar and fast.', reason: 'It matched how operators already think about bulk purchase workflows.', chosen: true },
         ]} />
       </StorySection>
 
-      <StorySection kicker="Design principles" title="Research translated into design rules.">
-        <CardGrid items={[
-          { label: 'Principle 01', title: 'Show state before action', text: 'Operators should know whether an order is draft, processing, fulfilled, partial, or failed before deciding what to do next.' },
-          { label: 'Principle 02', title: 'Make bulk feel familiar', text: 'Use cart behavior for multiple denominations instead of inventing a gift-card-specific mental model.' },
-          { label: 'Principle 03', title: 'Hide backend timing', text: 'Do not expose cards for download until fulfillment is real. The UI should protect operators from invalid intermediate states.' },
-        ]} />
+      <StorySection kicker="Solution" title="Cart-based workflow" wide>
+        <div className="visual">
+          <span>Order placement flow</span>
+          <CartFlowDiagram />
+        </div>
       </StorySection>
 
-      <Chapter kicker="Final experience" title="Put the UI in the face." dark />
-
-      <StorySection kicker="Order placement" title="Operators configure denominations and place bulk orders like a cart." wide>
+      <StorySection kicker="Final experience" title="Order placement" wide>
         <AnnotatedVisual
           src="/images/gcms/fcd6268124089009631904af9c95ade3.gif"
           label="Order placement flow"
@@ -118,14 +151,14 @@ export default function GCMS() {
         />
       </StorySection>
 
-      <StorySection kicker="Program creation" title="Self-serve creation was scoped for mid-market, not enterprise." wide>
+      <StorySection kicker="Program creation" title="Self-serve creation was scoped for mid-market." wide>
         <div className="card-grid two">
           <Visual src="/images/gcms/IMG_0874.PNG" label="Step 1" caption="Basic program details." contain />
           <Visual src="/images/gcms/IMG_0876.PNG" label="Step 3" caption="Gift-card design with live preview." contain />
         </div>
       </StorySection>
 
-      <StorySection kicker="Impact" title="The result was not just cleaner UI. It changed ownership.">
+      <StorySection kicker="Impact" title="The result was not just cleaner UI. It changed ownership." wide>
         <MetricGrid metrics={[
           { value: '₹209 Cr', label: 'New GMV target', note: 'Up from ₹55 Cr baseline.' },
           { value: '0', label: 'Reseller dependency', note: 'Merchants can operate orders directly.' },
@@ -133,11 +166,11 @@ export default function GCMS() {
         ]} />
       </StorySection>
 
-      <StorySection kicker="Reflection" title="What I would sharpen next.">
+      <StorySection kicker="Reflection" title="What I would sharpen next." wide>
         <CardGrid items={[
           { label: 'Challenge', title: 'Enterprise expectations differ', text: 'Large merchants wanted Razorpay to configure programs, while mid-market merchants wanted speed and control.' },
           { label: 'Learning', title: 'IA was the product', text: 'Gift cards and wallet lived in different mental models. Fixing navigation mattered before adding more features.' },
-          { label: 'Next improvement', title: 'Show a fulfillment simulator', text: 'A simple preview of order states would help operators understand partial fulfillment before their first live order.' },
+          { label: 'Next', title: 'Show a fulfillment simulator', text: 'A simple preview of order states would help operators understand partial fulfillment before their first live order.' },
         ]} />
       </StorySection>
 

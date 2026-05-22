@@ -17,16 +17,57 @@ export function Page({ children }) {
   )
 }
 
-export function Reveal({ children, className = '', delay = 0 }) {
+export function Reveal({ children, className = '', delay = 0, staggerChildren = 0 }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
+
+  if (staggerChildren > 0) {
+    return (
+      <motion.div
+        ref={ref}
+        className={className}
+        initial="hidden"
+        animate={inView ? "visible" : "hidden"}
+        variants={{
+          hidden: {},
+          visible: {
+            transition: {
+              staggerChildren,
+              delayChildren: delay,
+            },
+          },
+        }}
+      >
+        {children}
+      </motion.div>
+    )
+  }
+
   return (
     <motion.div
       ref={ref}
       className={className}
-      initial={{ opacity: 0, y: 22 }}
+      initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, ease, delay }}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+export function RevealItem({ children, className = '' }) {
+  return (
+    <motion.div
+      className={className}
+      variants={{
+        hidden: { opacity: 0, y: 20 },
+        visible: {
+          opacity: 1,
+          y: 0,
+          transition: { duration: 0.6, ease },
+        },
+      }}
     >
       {children}
     </motion.div>
@@ -62,13 +103,21 @@ export function Chapter({ kicker, title, children, dark = false }) {
 export function StorySection({ kicker, title, intro, children, wide = false }) {
   return (
     <section className={wide ? 'story-section wide' : 'story-section'}>
-      <Reveal>
+      <Reveal staggerChildren={0.1}>
         <div className="section-head">
-          <p className="eyebrow">{kicker}</p>
-          <h2>{title}</h2>
-          {intro && <p>{intro}</p>}
+          <RevealItem>
+            <p className="eyebrow">{kicker}</p>
+          </RevealItem>
+          <RevealItem>
+            <h2>{title}</h2>
+          </RevealItem>
+          {intro && (
+            <RevealItem>
+              <p>{intro}</p>
+            </RevealItem>
+          )}
         </div>
-        {children}
+        <RevealItem>{children}</RevealItem>
       </Reveal>
     </section>
   )
@@ -180,5 +229,19 @@ export function NextProject({ to, label, title }) {
         <i>→</i>
       </Link>
     </section>
+  )
+}
+
+export function MagneticButton({ children, className = '', ...props }) {
+  return (
+    <motion.button
+      className={className}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+      {...props}
+    >
+      {children}
+    </motion.button>
   )
 }

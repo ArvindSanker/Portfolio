@@ -14,6 +14,42 @@ import {
 
 const green = '#10b981'
 
+function PointsFlowDiagram() {
+  return (
+    <div style={{ 
+      display: 'flex', 
+      alignItems: 'center', 
+      justifyContent: 'center',
+      gap: '12px',
+      flexWrap: 'wrap',
+      padding: '32px 24px',
+      fontFamily: 'var(--font-mono)',
+      fontSize: '11px',
+      color: 'rgba(255,255,255,0.7)'
+    }}>
+      {['Card Entry', 'Auth', 'Points Shown', 'Redeem', 'Complete'].map((step, i, arr) => (
+        <>
+          <div key={step} style={{
+            padding: '10px 16px',
+            borderRadius: '8px',
+            border: `1px solid ${i === arr.length - 1 ? 'rgba(16,185,129,0.4)' : 'rgba(255,255,255,0.15)'}`,
+            background: i === arr.length - 1 ? 'rgba(16,185,129,0.15)' : 'rgba(255,255,255,0.05)',
+            color: i === arr.length - 1 ? '#10b981' : 'inherit',
+            textAlign: 'center'
+          }}>
+            {step}
+          </div>
+          {i < arr.length - 1 && (
+            <svg width="24" height="12" viewBox="0 0 24 12" fill="none" style={{ opacity: 0.4 }}>
+              <path d="M0 6h20m0 0l-5-5m5 5l-5 5" stroke="currentColor" strokeWidth="1.5"/>
+            </svg>
+          )}
+        </>
+      ))}
+    </div>
+  )
+}
+
 export default function PayWithPoints() {
   return (
     <Page>
@@ -31,7 +67,7 @@ export default function PayWithPoints() {
         <Visual label="Checkout redemption" caption="Visual placeholder: add bottom sheet, inline widget, and live checkout screens here." />
       </CaseHero>
 
-      <StorySection kicker="Overview" title="Role, team, and scope">
+      <StorySection kicker="Overview" title="Role, team, and scope" wide>
         <MetaGrid items={[
           { label: 'My role', value: 'UX architecture, competitive research, A/B test design' },
           { label: 'Platform', value: 'Razorpay Checkout · Card payment journey' },
@@ -47,7 +83,7 @@ export default function PayWithPoints() {
         </p>
       </Chapter>
 
-      <StorySection kicker="What was broken" title="Users had value, but not at the moment they were ready to spend.">
+      <StorySection kicker="What was broken" title="Users had value, but not at the moment they were ready to spend." wide>
         <BeforeAfter
           before="Users had to discover points through bank portals or separate payment methods away from checkout intent."
           after="Eligible cardholders see points redemption inside the checkout flow when they are already paying."
@@ -59,7 +95,7 @@ export default function PayWithPoints() {
         ]} />
       </StorySection>
 
-      <StorySection kicker="Goals & guardrails" title="Make redemption discoverable without hurting checkout completion.">
+      <StorySection kicker="Goals" title="Make redemption discoverable without hurting checkout completion." wide>
         <CardGrid items={[
           { label: 'Goal', title: 'Native discovery', text: 'Surface points inside the card journey instead of creating a separate payment method.' },
           { label: 'Guardrail', title: 'No fraud exposure', text: 'Do not reveal or redeem points before the cardholder is authenticated.' },
@@ -67,31 +103,22 @@ export default function PayWithPoints() {
         ]} />
       </StorySection>
 
-      <StorySection kicker="Competitive landscape" title="The separate-payment-method path was the trap.">
+      <StorySection kicker="Competitive" title="The separate-payment-method path was the trap." wide>
         <CardGrid items={[
           { label: 'Twid', title: 'Separate method hurt success', text: 'Reported sub-55% success on travel merchants. Discovery and education cost were too high.' },
           { label: 'Pine Labs', title: 'Strong offline, weaker online', text: 'POS-first redemption patterns did not translate cleanly to online checkout.' },
-          { label: 'Razorpay edge', title: 'Native card journey', text: 'Razorpay could show redemption where card intent already exists.' },
+          { label: 'Edge', title: 'Native card journey', text: 'Razorpay could show redemption where card intent already exists.' },
         ]} />
       </StorySection>
 
-      <StorySection kicker="Solution directions" title="Three approaches, one architecture." wide>
-        <IterationGrid items={[
-          { label: 'Rejected', title: 'New payment method', text: 'High visibility, but required users to learn a new payment option and switch intent.', reason: 'Competitor evidence showed poor success.' },
-          { label: 'On hold', title: 'Inside 3DS auth', text: 'Tempting because it is close to authentication, but protocol constraints made real-time redemption impossible.', reason: 'Only offline cashback could work.' },
-          { label: 'Chosen', title: 'Native card journey', text: 'Show points after eligible card entry and authentication, then let users choose redemption confidently.', reason: 'Best balance of discovery, trust, and success rate.', chosen: true },
-          { label: 'Roadmap', title: 'Progressive simplification', text: 'Bottom sheet for first-time users; inline widget can be introduced for repeat users.', reason: 'Research showed clarity first, speed later.' },
-        ]} />
+      <StorySection kicker="Solution" title="Native card journey" wide>
+        <div className="visual">
+          <span>Redemption flow</span>
+          <PointsFlowDiagram />
+        </div>
       </StorySection>
 
-      <StorySection kicker="Key sequencing decision" title="Post-auth won because it was safer and faster.">
-        <CardGrid variant="two" items={[
-          { label: 'Rejected', title: 'Pre-auth redemption', text: 'A bad actor could enter someone else\'s card number and expose or burn points before verification.' },
-          { label: 'Chosen', title: 'Post-auth redemption', text: 'Points appear only after card verification. The user waits less, and the fraud surface disappears.' },
-        ]} />
-      </StorySection>
-
-      <StorySection kicker="A/B test" title="Widget was faster. Bottom sheet was clearer.">
+      <StorySection kicker="A/B test" title="Widget was faster. Bottom sheet was clearer." wide>
         <IterationGrid items={[
           { label: 'Concept A', title: 'Inline widget', text: 'Fewer taps and faster for repeat users.', reason: '5 of 20 participants preferred it.' },
           { label: 'Concept B', title: 'Bottom sheet', text: 'Dedicated moment with points used, remaining amount, and explicit skip.', reason: '15 of 20 participants preferred it.', chosen: true },
@@ -100,14 +127,21 @@ export default function PayWithPoints() {
         ]} />
       </StorySection>
 
-      <StorySection kicker="Final experience" title="Screens needed: card flow, bottom sheet, success state." wide>
+      <StorySection kicker="Key decision" title="Post-auth won because it was safer and faster." wide>
+        <CardGrid variant="two" items={[
+          { label: 'Rejected', title: 'Pre-auth redemption', text: 'A bad actor could enter someone else\'s card number and expose or burn points before verification.' },
+          { label: 'Chosen', title: 'Post-auth redemption', text: 'Points appear only after card verification. The user waits less, and the fraud surface disappears.' },
+        ]} />
+      </StorySection>
+
+      <StorySection kicker="Final experience" title="Card flow, bottom sheet, success state." wide>
         <div className="card-grid two">
           <Visual label="Bottom sheet" caption="Add prototype: points available, slider/amount choice, remaining payable, skip action." />
           <Visual label="Inline widget" caption="Add prototype: repeat-user compact state inside card form." />
         </div>
       </StorySection>
 
-      <StorySection kicker="Impact" title="The product shipped and is live across real merchants.">
+      <StorySection kicker="Impact" title="The product shipped and is live across real merchants." wide>
         <MetricGrid metrics={[
           { value: '25+', label: 'Merchants live', note: 'Including Swiggy, Lenskart, Titan, and Nykaa.' },
           { value: '+12%', label: 'New users acquired', note: 'IDFC FIRST Bank early live signal.' },
@@ -115,11 +149,11 @@ export default function PayWithPoints() {
         ]} />
       </StorySection>
 
-      <StorySection kicker="Reflection" title="No single user was the user.">
+      <StorySection kicker="Reflection" title="No single user was the user." wide>
         <CardGrid items={[
           { label: 'Learning', title: 'Three-sided design', text: 'Every decision had to work for banks, merchants, and cardholders at the same time.' },
           { label: 'Learning', title: 'Friction can create confidence', text: 'The bottom sheet added a step but made the financial choice more legible.' },
-          { label: 'Next improvement', title: 'Document competitor failures earlier', text: 'Twid\'s low success data should have been surfaced before the first wireframe.' },
+          { label: 'Next', title: 'Document competitor failures earlier', text: 'Twid\'s low success data should have been surfaced before the first wireframe.' },
         ]} />
       </StorySection>
 
