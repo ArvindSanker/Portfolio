@@ -1,70 +1,86 @@
-import { useEffect } from 'react'
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
-import { AnimatePresence, motion } from 'framer-motion'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { MotionConfig } from 'framer-motion'
+import { projects } from './data/content'
 import Nav from './components/Nav'
-import BackToTop from './components/BackToTop'
-import CustomCursor from './components/CustomCursor'
-import Home from './pages/Home'
-import GCMS from './pages/GCMS'
-import LinkedPayments from './pages/LinkedPayments'
-import PayWithPoints from './pages/PayWithPoints'
+import Hero from './components/Hero'
+import Work from './components/Work'
+import CaseViewer from './components/CaseViewer'
+import { About, Contact, Experience, Principles } from './components/Sections'
 
-const pageVariants = {
-  initial: {
-    opacity: 0,
-    y: 20,
-  },
-  in: {
-    opacity: 1,
-    y: 0,
-  },
-  out: {
-    opacity: 0,
-    y: -20,
-  },
+function readHash() {
+  const match = /^#work\/([\w-]+)/.exec(window.location.hash)
+  return match && projects.some((p) => p.id === match[1]) ? match[1] : null
 }
 
-const pageTransition = {
-  type: 'tween',
-  ease: [0.16, 1, 0.3, 1],
-  duration: 0.4,
-}
-
-function AnimatedRoutes() {
-  const location = useLocation()
+/* The open case study lives in the URL hash (#work/<id>) so it can be linked and closed with Back. */
+function useCaseRoute() {
+  const [id, setId] = useState(readHash)
+  const pushed = useRef(false)
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [location.pathname])
+    const sync = () => setId(readHash())
+    window.addEventListener('popstate', sync)
+    window.addEventListener('hashchange', sync)
+    return () => {
+      window.removeEventListener('popstate', sync)
+      window.removeEventListener('hashchange', sync)
+    }
+  }, [])
 
-  return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={location.pathname}
-        initial="initial"
-        animate="in"
-        exit="out"
-        variants={pageVariants}
-        transition={pageTransition}
-      >
-        <Routes location={location}>
-          <Route path="/" element={<Home />} />
-          <Route path="/gcms" element={<GCMS />} />
-          <Route path="/linked-payments" element={<LinkedPayments />} />
-          <Route path="/pay-with-points" element={<PayWithPoints />} />
-        </Routes>
-      </motion.div>
-    </AnimatePresence>
-  )
+  const open = useCallback((next) => {
+    setId(next)
+    try {
+      window.history.pushState(null, '', `#work/${next}`)
+      pushed.current = true
+    } catch {
+      /* history unavailable: state alone drives the viewer */
+    }
+  }, [])
+
+  const go = useCallback((next) => {
+    setId(next)
+    try {
+      window.history.replaceState(null, '', `#work/${next}`)
+    } catch {
+      /* see above */
+    }
+  }, [])
+
+  const close = useCallback(() => {
+    setId(null)
+    try {
+      if (pushed.current) {
+        pushed.current = false
+        window.history.back()
+      } else {
+        window.history.replaceState(null, '', window.location.pathname + window.location.search)
+      }
+    } catch {
+      /* see above */
+    }
+  }, [])
+
+  return { id, open, go, close }
 }
 
 export default function App() {
+  const { id, open, go, close } = useCaseRoute()
+
   return (
-    <BrowserRouter>
+    <MotionConfig reducedMotion="user">
+      <a className="skip" href="#work">
+        Skip to work
+      </a>
       <Nav />
-      <AnimatedRoutes />
-      <BackToTop />
-      <CustomCursor />
-    </BrowserRouter>
+      <main inert={Boolean(id)}>
+        <Hero />
+        <Work onOpen={open} />
+        <About />
+        <Principles />
+        <Experience />
+      </main>
+      <Contact />
+      <CaseViewer id={id} onClose={close} onGo={go} />
+    </MotionConfig>
   )
 }
