@@ -19,8 +19,10 @@
     3: ['I\'m Arvind. A senior product designer who started in communication design, <em>thinks in systems</em> and builds with AI.', 'Currently Senior Product Designer at Equiti Group. Previously five years at Razorpay.'],
     4: ['I\'m Arvind. I design the <em>calm, clear side</em> of complicated products.', 'Senior Product Designer at Equiti Group. Previously five years at Razorpay, where I designed gift cards, checkout and rewards.']
   }
-  // Paste the password-protected Figma link for the GCMS case study here
-  var CASE_LINK = 'https://www.figma.com/deck/ekIWiXMlcyLfg4REkVmmGI/Merchants-can-now-issue-gift-cards--in-under-a-minute?node-id=2-10&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1'
+  // The GCMS Figma link, encrypted with the case study password (AES-GCM, key from PBKDF2).
+  // To change the link or password, re-encrypt with the same scheme and replace these values.
+  var CASE_LOCK = { salt: '7t31wbkCetpybUlLCPBCWw==', iv: 'XcLPRJmb8w5xCTn7', data: 'FyUamqWsV7fsfsInCT4MeVzjQaXIQMIpxQDMYlXBGNq71LSkbOUOSS4Xw27Lt8amwu/707Zgop/+ZCMh1iKPYr6LIANrtgvskd7p6GvzNVBgvx1WLpjOgC0zUv3e8/76hBbICCPZmeVfomfPHzGhGCGNn3ldN4noB4YIo/Dnd0876MngEJ4BPDbWkJXv6owwwWYbJ59Wmyno3SMQizl96V/42AHafPIMsQfWVlq+FB5az8RREq6vcKA=' }
+  var CASE_LINK = true
   var P = [
     { n: '01', name: 'Gift Card Operations', tag: 'Enterprise dashboard · Razorpay', yr: '', title: 'Gift-card operations that merchants <span class="under">run themselves</span>.', plain: 'Gift-card operations that merchants run themselves.', out: '₹209 Cr', outl: 'GMV target, up from ₹55 Cr', img: 'w1', sum: 'Enterprise merchants relied on resellers, manual files and support loops to issue gift cards. I designed the console for ordering, tracking and support.', problem: 'Merchants had payment rails but no operating surface. One made 14,518 API calls as a bulk-order workaround.', decision: 'Program-based ordering: pick a program, add denominations, review, place.', impact: 'Ownership moved from reseller-led to merchant-led.' },
   ]
@@ -89,7 +91,7 @@
   var chapters = [
     ['Hello', '<div><p class="hello" id="hello">' + hello() + '</p><h1 id="h1"></h1><p id="sub"></p><a class="btn" href="#" data-go="Work"><span>See the work</span>' + I.arrow + '</a></div><div class="me"><img src="' + IMG.me + '" alt="Arvind Sanker"><span class="note">that\'s me<svg viewBox="0 0 46 30"><path d="M44 4C30 2 14 8 4 24M4 24l1-9M4 24l9-2"/></svg></span></div>'],
     ['Now', '<div><p class="mono live"><i></i>Now · Bengaluru <span class="blr"></span></p><h2 style="margin-top:16px">Designing at <em>Equiti Group</em>.</h2><p>' + I.pin + ' Product design for Equiti\'s trading products, from Bengaluru. New work lands here when it can be shared. One project from my Razorpay years follows.</p></div>', 'one']
-  ].concat(P.map(function (p, i) { return [i ? '' : 'Work', '<span class="num">' + p.n + '</span><div><p class="co"><img src="' + IMG.rzp + '" alt="Razorpay">' + (p.yr ? '<span>' + p.yr + '</span>' : '') + '</p><h2 style="margin-top:12px">' + p.title + '</h2><p class="out">' + p.out + ' · ' + p.outl + '</p>' + (CASE_LINK ? '<a class="btn" href="' + CASE_LINK + '" target="_blank" rel="noopener"><span>Read the case study</span>' + I.out + '</a><p class="mono" style="margin-top:12px">Opens in Figma</p>' : '') + '</div>' + (CASE_LINK ? '<a class="media" href="' + CASE_LINK + '" target="_blank" rel="noopener" aria-label="Open the gift card case study in Figma">' + fig(p) + '</a>' : '<div class="media">' + fig(p) + '</div>')] })).concat([
+  ].concat(P.map(function (p, i) { return [i ? '' : 'Work', '<span class="num">' + p.n + '</span><div><p class="co"><img src="' + IMG.rzp + '" alt="Razorpay">' + (p.yr ? '<span>' + p.yr + '</span>' : '') + '</p><h2 style="margin-top:12px">' + p.title + '</h2><p class="out">' + p.out + ' · ' + p.outl + '</p>' + (CASE_LINK ? '<button class="btn" type="button" data-lock><span>Read the case study</span>' + I.out + '</button><p class="mono" style="margin-top:12px">Opens in Figma · password needed</p>' : '') + '</div>' + (CASE_LINK ? '<button class="media" type="button" data-lock aria-label="Open the gift card case study">' + fig(p) + '</button>' : '<div class="media">' + fig(p) + '</div>')] })).concat([
     ['About', '<div class="story"><p class="mono" style="margin-bottom:16px">About</p><p>I\'m a designer who likes working out <em>how something should work</em> before deciding how it should look. I studied computer applications and interaction design side by side, which is probably why I can\'t look at a screen without asking what the system behind it is doing.</p><p>I started in Coimbatore in 2017 as a junior graphic designer, then moved to Bengaluru. Orita Sinclair and Simplilearn kept me busy with brand, print, motion graphics and the odd hand-coded web page. Those years taught me to make things <em>read clearly</em>.</p></div><figure class="polaroid"><img src="' + IMG.me + '" alt="Arvind Sanker"><figcaption class="mono">Arvind, Bengaluru</figcaption></figure>'],
     ['', '<div class="story"><p>In 2021 I joined Razorpay and stayed for five years, working my way from how the products were communicated into the products themselves. Partway through I spent nine months as a Designer in Residence at 10kDesigners, teaching and mentoring other designers. Razorpay is where I found the work I like most: gift cards, checkout and rewards, <em>the parts of payments with the most moving pieces</em>.</p><p>I\'m at <em>Equiti Group</em> now, as a Senior Product Designer. Away from the screen I\'m usually on a football pitch, on the left wing, or fussing over the plants at home.</p></div>', 'one'],
     ['Off the clock', '<div style="width:100%"><p class="mono">Off the clock</p><h2 style="margin-top:12px">When I\'m <em>not</em> designing.</h2><div class="hob">' + H.map(function (h) { return '<div class="hc">' + ART[h[0]] + '<span><h3>' + h[1] + '</h3><p>' + h[2] + '</p></span></div>' }).join('') + '</div></div>', 'one'],
@@ -142,7 +144,65 @@
     var g = e.target.closest('[data-go]'); if (g) { e.preventDefault(); goNav(navs.filter(function (x) { return x.getAttribute('data-nav') === g.getAttribute('data-go') })[0]); return }
     var c = e.target.closest('[data-copy]'); if (c) { var s = $('small', c), done = function (m) { s.textContent = m; setTimeout(function () { s.textContent = 'Tap to copy' }, 2000) }; try { navigator.clipboard.writeText(EMAIL).then(function () { done('Copied') }, function () { done('Press and hold to copy') }) } catch (err) { done('Press and hold to copy') } }
   })
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeCase() })
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { closeCase(); closeLock() } })
+
+  // ── password step for the case study ──
+  var unlocked = null, lockBack = null, checking = 0
+  var lockEl = document.createElement('div'); lockEl.className = 'lock'; lockEl.hidden = true
+  lockEl.innerHTML = '<div class="lock-card" role="dialog" aria-modal="true" aria-labelledby="lock-t">' +
+    '<button class="lock-x" type="button" aria-label="Close"><svg class="ico" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>' +
+    '<p class="mono">Case study · Gift card operations</p><h3 id="lock-t">Enter the password to open the case study</h3>' +
+    '<p class="lock-p">The deck is on Figma. Use the password I shared with you.</p>' +
+    '<form id="lock-f" novalidate><label class="sr" for="lock-in">Password</label><input id="lock-in" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Password">' +
+    '<a class="btn" id="lock-go" target="_blank" rel="noopener" aria-disabled="true"><span>Open case study</span>' + I.out + '</a></form>' +
+    '<p class="lock-msg" id="lock-msg" aria-live="polite"></p></div>'
+  document.body.appendChild(lockEl)
+  var lockIn = $('#lock-in'), lockGo = $('#lock-go'), lockMsg = $('#lock-msg')
+  function b64(s) { return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0) }) }
+  function tryPassword(pw) {
+    if (!pw || !window.crypto || !crypto.subtle) return Promise.resolve(null)
+    var te = new TextEncoder()
+    return crypto.subtle.importKey('raw', te.encode(pw), 'PBKDF2', false, ['deriveKey']).then(function (base) {
+      return crypto.subtle.deriveKey({ name: 'PBKDF2', salt: b64(CASE_LOCK.salt), iterations: 150000, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['decrypt'])
+    }).then(function (key) { return crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64(CASE_LOCK.iv) }, key, b64(CASE_LOCK.data)) })
+      .then(function (buf) { return new TextDecoder().decode(buf) }, function () { return null })
+  }
+  function setMsg(text, kind) { lockMsg.textContent = text; lockMsg.className = 'lock-msg' + (kind ? ' ' + kind : '') }
+  function setUnlocked(url) {
+    unlocked = url; lockGo.href = url; lockGo.setAttribute('aria-disabled', 'false'); lockEl.classList.add('ok')
+    setMsg('Password correct. Open the case study in Figma.', 'good')
+  }
+  function check(show) {
+    var pw = lockIn.value, n = ++checking
+    return tryPassword(pw).then(function (url) {
+      if (n !== checking) return null
+      if (url) setUnlocked(url)
+      else if (show) setMsg(pw ? 'That password does not match. Check it and try again.' : 'Enter the password first.', 'err')
+      return url
+    })
+  }
+  function openLock(from) {
+    lockBack = from; lockEl.hidden = false; document.body.classList.add('locked')
+    if (!unlocked) { lockIn.value = ''; setMsg('') }
+    setTimeout(function () { (unlocked ? lockGo : lockIn).focus() }, 30)
+  }
+  function closeLock() { if (lockEl.hidden) return; lockEl.hidden = true; document.body.classList.remove('locked'); if (lockBack && lockBack.focus) lockBack.focus() }
+  var typing = 0
+  lockIn.addEventListener('input', function () {
+    if (unlocked) return
+    setMsg(''); clearTimeout(typing); typing = setTimeout(function () { check(false) }, 250)
+  })
+  $('#lock-f').addEventListener('submit', function (e) {
+    e.preventDefault()
+    if (unlocked) { window.open(unlocked, '_blank', 'noopener'); closeLock(); return }
+    check(true).then(function (url) { if (url) lockGo.focus() })
+  })
+  lockGo.addEventListener('click', function (e) {
+    if (unlocked) { setTimeout(closeLock, 50); return }
+    e.preventDefault(); check(true).then(function (url) { if (url) lockGo.focus() })
+  })
+  lockEl.addEventListener('click', function (e) { if (e.target === lockEl || e.target.closest('.lock-x')) closeLock() })
+  document.addEventListener('click', function (e) { var t = e.target.closest('[data-lock]'); if (t) { e.preventDefault(); openLock(t) } })
   function fit() {
     chs.forEach(function (c) {
       var kids = [].filter.call(c.children, function (k) { return !k.classList.contains('num') }); kids.forEach(function (k) { k.style.zoom = '' })
