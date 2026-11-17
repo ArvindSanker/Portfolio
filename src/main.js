@@ -40,7 +40,8 @@
 
   var $ = function (q, el) { return (el || document).querySelector(q) }, $$ = function (q, el) { return [].slice.call((el || document).querySelectorAll(q)) }
   var clamp = function (v) { return Math.max(0, Math.min(1, v)) }
-  function hello() { var hr = new Date().getHours(), ph = phase(), auto = !st.sky || st.sky === 'auto', g = auto ? (hr < 5 ? 'up late, friend?' : hr < 12 ? 'good morning, friend.' : hr < 17 ? 'good afternoon, friend.' : hr < 21 ? 'good evening, friend.' : 'late night, friend.') : { morning: 'good morning, friend.', midday: 'good afternoon, friend.', evening: 'good evening, friend.', night: 'late night, friend.' }[ph]; return (ph === 'night' ? I.moon : I.sun) + g }
+  var GREET = { morning: 'good morning, friend.', midday: 'good afternoon, friend.', evening: 'good evening, friend.', night: 'good night, friend.' }
+  function hello() { var ph = phase(), h = new Date().getHours(), auto = !st.sky || st.sky === 'auto', g = auto && h < 5 ? 'up late, friend?' : GREET[ph]; return (ph === 'night' ? I.moon : I.sun) + g }
   function blr() { try { return new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date()) } catch (e) { return '' } }
   function fig(p) {
     if (p.img) return '<div class="fig"><img src="' + IMG[p.img] + '" alt="' + p.name + ' screen"></div>'
@@ -49,7 +50,7 @@
     return '<div class="fig pts" role="img" aria-label="15 of 20 test participants preferred the bottom sheet"><span>' + d + '</span><p><b>15 of 20</b> testers preferred the bottom sheet</p></div>'
   }
   var st = { line: '1', pal: '1', type: 'soft' }
-  try { var sv = JSON.parse(localStorage.getItem('arvind-reel')); if (sv) st = sv } catch (e) {}
+  try { localStorage.removeItem('arvind-reel') } catch (e) {}
   st.line = '1'; st.type = 'soft'; st.pal = '3'; st.snd = 'off'; if (!st.sky) st.sky = 'auto'
 
   // time of day: the visitor's own clock sets the scene; the button in the scrubber overrides it
@@ -126,7 +127,6 @@
     document.body.setAttribute('data-pal', st.pal); document.body.setAttribute('data-type', st.type); var ph = phase(); document.body.setAttribute('data-sky', ph); lastHello = hello(); $('#hello').innerHTML = lastHello; $('#skybtn').innerHTML = (ph === 'night' ? I.moon : I.sun) + (st.sky === 'auto' ? 'Now · ' : '') + ph.charAt(0).toUpperCase() + ph.slice(1); $('#sndbtn').innerHTML = SPK[st.snd === 'on' ? 'on' : 'off']; $('#sndbtn').setAttribute('aria-pressed', st.snd === 'on'); frame()
     $('#h1').innerHTML = LINES[st.line][0]; $('#sub').textContent = LINES[st.line][1]
     $$('.grp').forEach(function (g) { var k = g.getAttribute('data-g'); $$('button', g).forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-v') === st[k]) }) })
-    try { localStorage.setItem('arvind-reel', JSON.stringify(st)) } catch (e) {}
     if (typeof fit === 'function' && chs) fit()
   }
   $('#opts').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; st[b.closest('.grp').getAttribute('data-g')] = b.getAttribute('data-v'); apply() })
