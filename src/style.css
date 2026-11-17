@@ -159,3 +159,27 @@ body[data-sky="morning"] .flock, body[data-sky="evening"] .flock { opacity: .55 
 @media (max-width: 380px) { body { font-size: .906rem } .pill button { padding: 0 10px; font-size: .74rem } }
 @media (max-height: 500px) { .scrub, .flock, .balloon { display: none } .ch { padding-top: 6px; padding-bottom: 64px } .hills { height: 64px } .me img { width: 30vh } .hob .hc { min-height: 0 } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto } .hello .ico, .live i { animation: none } }
+
+/* password step */
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap }
+button.media { display: block; padding: 0; border: 0; background: none; font: inherit; color: inherit; cursor: pointer; text-align: left }
+button.btn { border: 0; cursor: pointer; font-family: var(--text) }
+.lock { position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; padding: 24px max(16px, env(safe-area-inset-right, 0px)) 24px max(16px, env(safe-area-inset-left, 0px)); background: rgba(10, 12, 28, .45); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px) }
+.lock[hidden] { display: none }
+.lock-card { position: relative; display: grid; gap: 8px; width: min(100%, 26rem); padding: 28px 24px 20px; border-radius: 16px; background: var(--card); color: var(--fg); box-shadow: 0 0 0 1px color-mix(in srgb, var(--fg) 8%, transparent), 0 24px 60px rgba(0, 0, 0, .25); animation: lockin .24s var(--ease) both }
+@keyframes lockin { from { opacity: 0; transform: translateY(8px) } }
+.lock-card h3 { font: 400 1.5rem/1.15 var(--display); letter-spacing: -.01em; padding-right: 32px; margin-top: 4px }
+.lock-p { color: var(--mute); font-size: .95rem }
+#lock-f { display: grid; gap: 12px; margin-top: 12px }
+#lock-in { min-height: 48px; padding: 0 16px; border-radius: 12px; border: 1px solid color-mix(in srgb, var(--fg) 22%, transparent); background: var(--bg); color: var(--fg); font: 400 16px var(--text) }
+#lock-in:focus { outline: 2px solid var(--ac); outline-offset: 1px; border-color: transparent }
+#lock-go { justify-content: center; transition: opacity .2s ease, transform .16s var(--ease) }
+#lock-go[aria-disabled="true"] { opacity: .45 }
+.lock.ok #lock-in { border-color: #2e9e5b }
+.lock-msg { min-height: 1.4em; font-size: .88rem; color: var(--mute) }
+.lock-msg.err { color: #c8372b } .lock-msg.good { color: #24804a }
+body[data-sky="night"] .lock-msg.err { color: #ff9b8f } body[data-sky="night"] .lock-msg.good { color: #7fd8a1 }
+.lock-x { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; display: grid; place-items: center; border-radius: 10px; color: var(--mute); transition: background-color .2s ease }
+.lock-x:hover { background: color-mix(in srgb, var(--fg) 8%, transparent) }
+body.locked { overflow: hidden }
+@media (prefers-reduced-motion: reduce) { .lock-card { animation: none } }
