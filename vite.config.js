@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  plugins: [react()],
-  base: '/',
+  // relative paths, so the site works at arvindsanker.github.io/Portfolio/
+  base: './',
 })

@@ -3,3 +3,6 @@ dist/
 .DS_Store
 *.local
 .claude/
+
+# third-party agent skills (restore with: npx skills install)
+.agents/

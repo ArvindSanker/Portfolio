@@ -2,18 +2,27 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Arvind Sanker — Product Designer</title>
-    <!-- SPA routing fix for GitHub Pages -->
-    <script>
-      (function(l){if(l.search[1]=='/'){var d=l.search.slice(1).split('&').map(function(s){return s.replace(/~and~/g,'&')}).join('?');window.history.replaceState(null,null,l.pathname.slice(0,-1)+d+l.hash)}}(window.location))
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Arvind Sanker — Senior Product Designer</title>
+    <meta name="description" content="Arvind Sanker is a senior product designer at Equiti Group in Bengaluru. Before that, five years at Razorpay designing EngageHQ." />
+    <meta name="theme-color" content="#f7f7f4" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Arvind Sanker — Senior Product Designer" />
+    <meta property="og:description" content="Senior product designer at Equiti Group, Bengaluru. Previously five years at Razorpay." />
+    <meta property="og:image" content="https://arvindsanker.github.io/Portfolio/work/arvind.webp" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Saira:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Geist+Mono:wght@300..500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Figtree:wght@400..700&family=Fragment+Mono&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&display=swap" />
+    <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+<header class="opts"><div class="opts-in" id="opts">
+  <div class="grp" data-g="line"><span>Opening line</span><button data-v="1">1</button><button data-v="2">2</button><button data-v="3">3</button><button data-v="4">4</button></div>
+  <div class="grp" data-g="type"><span>Type</span><button data-v="soft">Subtle</button><button data-v="bold">Bold</button></div>
+</div></header>
+<main id="app"></main>
+<nav class="pill" id="pill" aria-label="Sections"></nav>
+<div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="Case study"><div class="sheet" id="sheet"></div></div>
+    <script type="module" src="/src/main.js"></script>
   </body>
 </html>
