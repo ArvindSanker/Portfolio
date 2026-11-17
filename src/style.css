@@ -97,7 +97,7 @@ body[data-sky="morning"] .flock, body[data-sky="evening"] .flock { opacity: .55 
 
 /* figures */
 .fig { width: 100%; aspect-ratio: 16/10; overflow: hidden; background: var(--soft); color: var(--fg) }
-.fig img { width: 100%; height: 100%; object-fit: cover; object-position: left top }
+.fig img { width: 100%; height: 100%; object-fit: cover; object-position: center }
 .fig.split { display: flex; gap: 4px; padding: 9% } .fig.split div { display: flex; flex-direction: column; justify-content: space-between; padding: 5%; border-radius: 8px; font: 400 .72rem var(--mono); min-width: 0 }
 .fig.split div:first-child { flex: 500; background: var(--fg); color: var(--bg) } .fig.split div:last-child { flex: 849; background: var(--ac); color: #fff } .fig.split b { font: 600 clamp(1.2rem, 3vw, 2.3rem)/1 var(--text); letter-spacing: -.03em }
 .fig.pts { display: grid; align-content: center; gap: 12px; padding: 9% } .fig.pts span { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px } .fig.pts i { aspect-ratio: 1; border-radius: 50%; border: 1.5px solid var(--fg) } .fig.pts i.on { background: var(--fg) } .fig.pts p { font: 400 .74rem var(--mono); color: var(--fg); max-width: none }

@@ -1,5 +1,5 @@
 (function () {
-  var IMG = { rzp: "logos/razorpay.svg", me: "work/arvind.webp", w1: "work/gcms-0872.webp" }
+  var IMG = { rzp: "logos/razorpay.svg", me: "work/arvind.webp", w1: "work/gcms-cover.webp" }
   var EMAIL = 'arvindsanker11@gmail.com'
   var I = {
     arrow: '<svg class="ico" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg>',
@@ -45,7 +45,7 @@
   function hello() { var ph = phase(), h = new Date().getHours(), auto = !st.sky || st.sky === 'auto', g = auto && h < 5 ? 'up late, friend?' : GREET[ph]; return (ph === 'night' ? I.moon : I.sun) + g }
   function blr() { try { return new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date()) } catch (e) { return '' } }
   function fig(p) {
-    if (p.img) return '<div class="fig"><img src="' + IMG[p.img] + '" alt="' + p.name + ' screen"></div>'
+    if (p.img) return '<div class="fig"><img src="' + IMG[p.img] + '" alt="A hand holding a blue gift card tied with a ribbon"></div>'
     if (p.fig === 'split') return '<div class="fig split" role="img" aria-label="A 1,349 rupee cart paid with a 500 rupee gift card and 849 rupees by UPI"><div><span>Gift card</span><b>₹500</b></div><div><span>UPI</span><b>₹849</b></div></div>'
     var d = ''; for (var i = 0; i < 20; i++) d += '<i' + (i < 15 ? ' class="on"' : '') + '></i>'
     return '<div class="fig pts" role="img" aria-label="15 of 20 test participants preferred the bottom sheet"><span>' + d + '</span><p><b>15 of 20</b> testers preferred the bottom sheet</p></div>'
