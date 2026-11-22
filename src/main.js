@@ -98,25 +98,72 @@
     ['Contact', '<div><p class="mono">' + I.plane + ' Say hello</p><button class="mail" data-copy>' + EMAIL + '<small>Tap to copy</small></button><div class="links"><a href="https://www.linkedin.com/in/arvind-sanker-k-m-810762117/" target="_blank" rel="noopener">LinkedIn ' + I.out + '</a><a href="https://medium.com/@arvindsanker11" target="_blank" rel="noopener">Medium ' + I.out + '</a><a href="https://x.com/sanker_arvind" target="_blank" rel="noopener">X ' + I.out + '</a></div></div>', 'one']
   ])
   var N = chapters.length
-  $('#app').innerHTML = '<div class="D" style="height:' + (N * 85) + 'svh"><div class="D-view"><div class="sky" id="sky"><div class="g morning"></div><div class="g midday"></div><div class="g evening"></div><div class="g night"></div><div class="stars" id="stars"></div><i class="shoot"></i><i class="sun"></i><i class="moon"></i><i class="cloud"></i><i class="cloud"></i><i class="cloud"></i><div class="hills"><svg viewBox="0 0 1600 200" preserveAspectRatio="none"><path d="M0 110C200 50 350 85 520 62S800 105 980 72s320-42 620 20V200H0z"/></svg><svg viewBox="0 0 1600 200" preserveAspectRatio="none"><path d="M0 150C180 105 300 140 480 118s280 32 460 6 340-28 660 14V200H0z"/></svg><svg viewBox="0 0 1600 200" preserveAspectRatio="none"><path stroke="none" d="M0 178C220 150 380 182 600 160s300 26 500 6 300-16 500 8V200H0z"/><g stroke-width="3" stroke-linecap="round" fill="none"><path d="M196 162v-26M196 146l-9-9M196 140l10-10M330 172v-20M330 160l8-8M905 172v-24M905 156l-9-8M905 152l9-9M1265 160v-24h44v24"/></g><g stroke="none"><ellipse cx="196" cy="128" rx="13" ry="11"/><ellipse cx="330" cy="147" rx="9" ry="8"/><ellipse cx="905" cy="141" rx="12" ry="10"/><ellipse cx="1420" cy="160" rx="22" ry="9"/></g></svg></div><div class="flock"><i class="bird" style="--x:78%;--y:40%;--s:1.00;--f:0.46s;--d:-0.10s"><b></b></i><i class="bird" style="--x:60%;--y:22%;--s:0.90;--f:0.52s;--d:-0.30s"><b></b></i><i class="bird" style="--x:58%;--y:62%;--s:0.95;--f:0.50s;--d:-0.60s"><b></b></i><i class="bird" style="--x:40%;--y:8%;--s:0.80;--f:0.56s;--d:-0.20s"><b></b></i><i class="bird" style="--x:36%;--y:80%;--s:0.85;--f:0.48s;--d:-0.70s"><b></b></i><i class="bird" style="--x:18%;--y:0%;--s:0.70;--f:0.60s;--d:-0.40s"><b></b></i></div><div class="flock far"><i class="bird" style="--x:70%;--y:50%;--s:1.00;--f:0.50s;--d:-0.20s"><b></b></i><i class="bird" style="--x:50%;--y:30%;--s:0.90;--f:0.58s;--d:-0.50s"><b></b></i><i class="bird" style="--x:46%;--y:72%;--s:0.85;--f:0.54s;--d:-0.10s"><b></b></i><i class="bird" style="--x:24%;--y:16%;--s:0.75;--f:0.62s;--d:-0.60s"><b></b></i><i class="bird" style="--x:10%;--y:60%;--s:0.70;--f:0.50s;--d:-0.30s"><b></b></i></div><svg class="balloon" viewBox="0 0 40 58"><path d="M20 2C9 2 3 10 3 19c0 9 8 15 13 22h8c5-7 13-13 13-22C37 10 31 2 20 2z" fill="#2b3fe0"/><path d="M20 2c-5 5-7 12-7 17s4 15 7 22c3-7 7-17 7-22S25 7 20 2z" fill="#fff" opacity=".9"/><path d="M16 41l1 6M24 41l-1 6" stroke="#6b4a33" stroke-width="1"/><rect x="15.500" y="47" width="9" height="7" rx="1.500" fill="#8a5a3c"/></svg></div><div class="D-track">' + chapters.map(function (c) { return '<section class="ch ' + (c[2] || '') + '"' + (c[0] ? ' data-nav="' + c[0] + '"' : '') + '>' + c[1] + '</section>' }).join('') + '</div><div class="scrub mono"><span id="dch"></span><div class="line"><i></i>' + chapters.map(function (c, i) { return '<u style="left:' + (i / (N - 1) * 100) + '%"></u>' }).join('') + '<b></b></div><span class="skyctl"><span class="blrw">Bengaluru <span class="blr"></span></span><button id="skybtn" aria-label="Change time of day"></button><button id="sndbtn" aria-label="Ambient sound" aria-pressed="false"></button></span></div></div></div>'
+  $('#app').innerHTML = '<div class="D" style="height:' + (N * 85) + 'svh">' + chapters.map(function () { return '<i class="snap"></i>' }).join('') + '<div class="D-view"><div class="sky" id="sky"><div class="g morning"></div><div class="g midday"></div><div class="g evening"></div><div class="g night"></div><div class="stars" id="stars"></div><i class="shoot"></i><i class="sun"></i><i class="moon"></i><i class="cloud"></i><i class="cloud"></i><i class="cloud"></i><div class="hills"><svg viewBox="0 0 1600 200" preserveAspectRatio="none"><path d="M0 110C200 50 350 85 520 62S800 105 980 72s320-42 620 20V200H0z"/></svg><svg viewBox="0 0 1600 200" preserveAspectRatio="none"><path d="M0 150C180 105 300 140 480 118s280 32 460 6 340-28 660 14V200H0z"/></svg><svg viewBox="0 0 1600 200" preserveAspectRatio="none"><path stroke="none" d="M0 178C220 150 380 182 600 160s300 26 500 6 300-16 500 8V200H0z"/><g stroke-width="3" stroke-linecap="round" fill="none"><path d="M196 162v-26M196 146l-9-9M196 140l10-10M330 172v-20M330 160l8-8M905 172v-24M905 156l-9-8M905 152l9-9M1265 160v-24h44v24"/></g><g stroke="none"><ellipse cx="196" cy="128" rx="13" ry="11"/><ellipse cx="330" cy="147" rx="9" ry="8"/><ellipse cx="905" cy="141" rx="12" ry="10"/><ellipse cx="1420" cy="160" rx="22" ry="9"/></g></svg></div><div class="flock"><i class="bird" style="--x:78%;--y:40%;--s:1.00;--f:0.46s;--d:-0.10s"><b></b></i><i class="bird" style="--x:60%;--y:22%;--s:0.90;--f:0.52s;--d:-0.30s"><b></b></i><i class="bird" style="--x:58%;--y:62%;--s:0.95;--f:0.50s;--d:-0.60s"><b></b></i><i class="bird" style="--x:40%;--y:8%;--s:0.80;--f:0.56s;--d:-0.20s"><b></b></i><i class="bird" style="--x:36%;--y:80%;--s:0.85;--f:0.48s;--d:-0.70s"><b></b></i><i class="bird" style="--x:18%;--y:0%;--s:0.70;--f:0.60s;--d:-0.40s"><b></b></i></div><div class="flock far"><i class="bird" style="--x:70%;--y:50%;--s:1.00;--f:0.50s;--d:-0.20s"><b></b></i><i class="bird" style="--x:50%;--y:30%;--s:0.90;--f:0.58s;--d:-0.50s"><b></b></i><i class="bird" style="--x:46%;--y:72%;--s:0.85;--f:0.54s;--d:-0.10s"><b></b></i><i class="bird" style="--x:24%;--y:16%;--s:0.75;--f:0.62s;--d:-0.60s"><b></b></i><i class="bird" style="--x:10%;--y:60%;--s:0.70;--f:0.50s;--d:-0.30s"><b></b></i></div><svg class="balloon" viewBox="0 0 40 58"><path d="M20 2C9 2 3 10 3 19c0 9 8 15 13 22h8c5-7 13-13 13-22C37 10 31 2 20 2z" fill="#2b3fe0"/><path d="M20 2c-5 5-7 12-7 17s4 15 7 22c3-7 7-17 7-22S25 7 20 2z" fill="#fff" opacity=".9"/><path d="M16 41l1 6M24 41l-1 6" stroke="#6b4a33" stroke-width="1"/><rect x="15.500" y="47" width="9" height="7" rx="1.500" fill="#8a5a3c"/></svg></div><div class="D-track">' + chapters.map(function (c) { return '<section class="ch ' + (c[2] || '') + '"' + (c[0] ? ' data-nav="' + c[0] + '"' : '') + '>' + c[1] + '</section>' }).join('') + '</div><div class="scrub mono"><span id="dch"></span><div class="line"><i></i>' + chapters.map(function (c, i) { return '<u style="left:' + (i / (N - 1) * 100) + '%"></u>' }).join('') + '<b></b></div><span class="skyctl"><span class="blrw">Bengaluru <span class="blr"></span></span><button id="skybtn" aria-label="Change time of day"></button><button id="sndbtn" aria-label="Ambient sound" aria-pressed="false"></button></span></div></div></div>'
 
   var viewer = $('#viewer')
   var d = $('.D'), track = $('.D-track'), chs = $$('.ch'), view = $('.D-view'), lab = $('#dch'), pill = $('#pill'), navs = $$('[data-nav]')
   pill.innerHTML = navs.map(function (n, i) { return '<button data-i="' + i + '">' + n.getAttribute('data-nav') + '</button>' }).join('')
-  function barH() { return $('.opts').offsetHeight }
-  function span() { return d.offsetHeight - innerHeight + barH() }
-  function frame() {
-    var p = clamp((scrollY - d.offsetTop) / span()), x = p * (N - 1), act = 0
-    track.style.transform = 'translateX(' + (-x * 100) + 'vw)'; view.style.setProperty('--p', p)
-    chs.forEach(function (c, i) { c.style.setProperty('--d', Math.max(-1.2, Math.min(1.2, i - x))) })
-    var a = ARC[phase()]; view.style.setProperty('--ox', a[0] + (a[2] - a[0]) * p); view.style.setProperty('--oy', a[1] + (a[3] - a[1]) * p - Math.sin(Math.PI * p) * a[4])
-    lab.textContent = ('0' + (Math.round(x) + 1)).slice(-2) + ' / ' + ('0' + N).slice(-2)
-    navs.forEach(function (n, i) { if (chs.indexOf(n) <= Math.round(x)) act = i }); $$('button', pill).forEach(function (b, i) { b.classList.toggle('on', i === act) })
+  var snaps = $$('.snap', d), sky = $('#sky'), sun = $('.sun', sky), moon = $('.moon', sky), stars = $('#stars'), hills = $$('.hills svg', sky)
+  var bar = $('.line i', view), knob = $('.line b', view), lineEl = $('.line', view)
+  var PAR = chs.map(function (c) { return $$('.media, .me, .num, .polaroid', c).filter(function (el) { return el.parentNode === c || el.closest('.ch') === c }).map(function (el) { return { el: el, f: el.classList.contains('num') ? 16 : 9, tail: el.classList.contains('polaroid') ? ' rotate(2deg)' : '' } }) })
+  var start = 0, sp = 1, vw = innerWidth, skyW = 0, skyH = 0, lineW = 0
+  // Measure once per real resize, never during scroll.
+  function measure() {
+    vw = innerWidth; start = d.offsetTop - (parseFloat(getComputedStyle(view).top) || 0)
+    sp = Math.max(1, d.offsetHeight - view.offsetHeight); skyW = sky.clientWidth; skyH = sky.clientHeight; lineW = lineEl.clientWidth
+    snaps.forEach(function (m, k) { m.style.top = (start - d.offsetTop + k / (N - 1) * sp) + 'px' })
   }
-  var raf = 0, idle = 0
-  function settle() { var p = clamp((scrollY - d.offsetTop) / span()), k = Math.round(p * (N - 1)), y = d.offsetTop + k / (N - 1) * span(); if (Math.abs(y - scrollY) > 3 && !viewer.classList.contains('open')) window.scrollTo({ top: y, behavior: 'smooth' }) }
-  addEventListener('scroll', function () { if (!raf) raf = requestAnimationFrame(function () { raf = 0; frame() }); clearTimeout(idle); idle = setTimeout(settle, 180) }, { passive: true }); addEventListener('resize', function () { fit(); frame() })
-  function goNav(n) { window.scrollTo({ top: d.offsetTop + chs.indexOf(n) / (N - 1) * span(), behavior: 'smooth' }) }
+  function span() { return sp }
+  var lastAct = -1, lastLab = ''
+  function frame() {
+    var p = clamp((scrollY - start) / sp), x = p * (N - 1), act = 0
+    track.style.transform = 'translate3d(' + (-x * vw) + 'px,0,0)'
+    PAR.forEach(function (list, i) { var dd = Math.max(-1.2, Math.min(1.2, i - x)); if (Math.abs(i - x) > 2.2 && list.done === dd) return; list.done = dd; list.forEach(function (o) { o.el.style.transform = 'translate3d(' + (dd * o.f * vw / 100) + 'px,0,0)' + o.tail }) })
+    var a = ARC[phase()], ox = a[0] + (a[2] - a[0]) * p, oy = a[1] + (a[3] - a[1]) * p - Math.sin(Math.PI * p) * a[4], o = 'translate3d(' + (ox * skyW / 100) + 'px,' + (oy * skyH / 100) + 'px,0)'
+    sun.style.transform = o; moon.style.transform = o
+    stars.style.transform = 'translate3d(' + (p * -6) + '%,0,0)'; hills.forEach(function (h, i) { h.style.transform = 'translate3d(' + (p * [-8, -14, -22][i]) + '%,0,0)' })
+    bar.style.transform = 'scaleX(' + p + ')'; knob.style.transform = 'translate3d(' + (p * lineW) + 'px,0,0)'
+    var l = ('0' + (Math.round(x) + 1)).slice(-2) + ' / ' + ('0' + N).slice(-2); if (l !== lastLab) lab.textContent = lastLab = l
+    navs.forEach(function (n, i) { if (chs.indexOf(n) <= Math.round(x)) act = i }); if (act !== lastAct) { lastAct = act; $$('button', pill).forEach(function (b, i) { b.classList.toggle('on', i === act) }) }
+  }
+  var raf = 0, lastW = innerWidth, lastH = innerHeight
+  addEventListener('scroll', function () { if (!raf) raf = requestAnimationFrame(function () { raf = 0; frame() }) }, { passive: true })
+  // Phones fire resize when the address bar slides; only refit on a real size change.
+  addEventListener('resize', function () { var w = innerWidth, h = innerHeight, big = w !== lastW || Math.abs(h - lastH) > 160; lastW = w; lastH = h; if (big) fit(); measure(); frame() })
+  // One gesture, one chapter. Animate the page scroll ourselves (snap off while it runs) so every move has the same ease.
+  var html = document.documentElement, anim = 0, animK = -1
+  function stopAnim() { if (anim) { cancelAnimationFrame(anim); anim = 0; animK = -1; html.style.scrollSnapType = '' } }
+  function goTo(k) {
+    k = Math.max(0, Math.min(N - 1, k)); var to = start + k / (N - 1) * sp, from = scrollY, dist = to - from
+    stopAnim(); if (Math.abs(dist) < 2) return
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { window.scrollTo(0, to); return }
+    var steps = Math.abs(dist) / (sp / (N - 1)), dur = Math.min(1100, 620 + 110 * Math.max(0, steps - 1)), t0 = performance.now()
+    animK = k; html.style.scrollSnapType = 'none'
+    var run = function (now) { var t = Math.min(1, (now - t0) / dur), e = steps > 1.5 ? (t < .5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2) : 1 - Math.pow(1 - t, 4)
+      window.scrollTo(0, from + dist * e); if (t < 1) anim = requestAnimationFrame(run); else { anim = 0; animK = -1; window.scrollTo(0, to); html.style.scrollSnapType = '' } }
+    anim = requestAnimationFrame(run)
+  }
+  var wLast = 0, wFired = 0, wMag = 0, wArmed = true
+  addEventListener('wheel', function (e) {
+    if (e.ctrlKey || !lockEl.hidden || viewer.classList.contains('open')) return
+    e.preventDefault()
+    var dx = e.deltaX, dy = e.deltaY, v = Math.abs(dx) > Math.abs(dy) ? dx : dy; if (e.deltaMode === 1) v *= 16
+    var now = performance.now(), gap = now - wLast, mag = Math.abs(v); wLast = now
+    var notch = e.deltaMode === 1 || (e.wheelDeltaY && e.wheelDeltaY % 120 === 0 && mag >= 50)
+    if (gap > 220) wArmed = true
+    else if (!wArmed && now - wFired > 480 && (notch || (mag > wMag * 1.8 && mag > 14))) wArmed = true
+    wMag = mag
+    if (wArmed && mag >= 3) { wArmed = false; wFired = now; goTo(curK() + (v > 0 ? 1 : -1)) }
+  }, { passive: false })
+  addEventListener('touchstart', stopAnim, { passive: true })
+  function goNav(n) { goTo(chs.indexOf(n)) }
+  function curK() { return anim ? animK : Math.round(clamp((scrollY - start) / sp) * (N - 1)) }
+  document.addEventListener('keydown', function (e) {
+    if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || !lockEl.hidden || viewer.classList.contains('open') || /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName) || (e.key === ' ' && /BUTTON|A/.test(document.activeElement.tagName))) return
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown' || (e.key === ' ' && !e.shiftKey)) { e.preventDefault(); goTo(curK() + 1) }
+    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp' || (e.key === ' ' && e.shiftKey)) { e.preventDefault(); goTo(curK() - 1) }
+    else if (e.key === 'Home') { e.preventDefault(); goTo(0) } else if (e.key === 'End') { e.preventDefault(); goTo(N - 1) }
+  })
   pill.addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) goNav(navs[+b.getAttribute('data-i')]) })
 
   var lastHello = ''
@@ -214,5 +261,5 @@
       for (var n = 0; n < 5; n++) { var top = Infinity, bot = -Infinity; kids.forEach(function (k) { var r = k.getBoundingClientRect(); if (!r.width) return; top = Math.min(top, r.top); bot = Math.max(bot, r.bottom) }); var h = bot - top; if (h <= avail + 1) break; s = Math.max(.45, s * avail / h * .985); kids.forEach(function (k) { k.style.zoom = s }) }
     })
   }
-  apply(); tick(); fit(); frame(); if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { fit(); frame() })
+  apply(); tick(); fit(); measure(); frame(); if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { fit(); measure(); frame() }); addEventListener('load', function () { measure(); frame() })
 })()
