@@ -14,7 +14,7 @@
     plane: '<svg class="ico" viewBox="0 0 24 24"><path d="M21 3L3 10.500l7 2.500 2.500 7zM10 13l5-4.500"/></svg>'
   }
   var LINES = {
-    1: ['I\'m Arvind.<br>A <em>senior product designer</em> who builds his own Claude Code skills and uses AI in everyday design work.', 'Currently Senior Product Designer at Equiti Group. Before that, five years at Razorpay, where I moved from communication design into product design and designed EngageHQ.'],
+    1: ['I\'m Arvind.<br>A <em>senior product designer</em> who makes complex payment flows feel&nbsp;simple.', 'Senior Product Designer at Equiti Group. Before that, five years at Razorpay on gift cards, checkout, rewards and EngageHQ. I build my own Claude Code skills and use AI in everyday design work.'],
     2: ['I\'m Arvind. A senior product designer who turns messy, many-sided problems into products people can <em>simply use</em>.', 'Currently Senior Product Designer at Equiti Group. Previously five years at Razorpay, where I designed gift cards, checkout and rewards.'],
     3: ['I\'m Arvind. A senior product designer who started in communication design, <em>thinks in systems</em> and builds with AI.', 'Currently Senior Product Designer at Equiti Group. Previously five years at Razorpay.'],
     4: ['I\'m Arvind. I design the <em>calm, clear side</em> of complicated products.', 'Senior Product Designer at Equiti Group. Previously five years at Razorpay, where I designed gift cards, checkout and rewards.']
@@ -24,7 +24,7 @@
   var CASE_LINK = true
   var P = [
     { n: '01', lock: { salt: '7t31wbkCetpybUlLCPBCWw==', iv: 'XcLPRJmb8w5xCTn7', data: 'FyUamqWsV7fsfsInCT4MeVzjQaXIQMIpxQDMYlXBGNq71LSkbOUOSS4Xw27Lt8amwu/707Zgop/+ZCMh1iKPYr6LIANrtgvskd7p6GvzNVBgvx1WLpjOgC0zUv3e8/76hBbICCPZmeVfomfPHzGhGCGNn3ldN4noB4YIo/Dnd0876MngEJ4BPDbWkJXv6owwwWYbJ59Wmyno3SMQizl96V/42AHafPIMsQfWVlq+FB5az8RREq6vcKA=' }, name: 'Gift Card Operations', tag: 'Enterprise dashboard · Razorpay', yr: '', title: 'Gift-card operations that merchants <span class="under">run themselves</span>.', plain: 'Gift-card operations that merchants run themselves.', out: '₹209 Cr', outl: 'GMV target, up from ₹55 Cr', img: 'w1', alt: 'Gift card orders dashboard with order detail drawers: generated, processing and failed', sum: 'Enterprise merchants relied on resellers, manual files and support loops to issue gift cards. I designed the console for ordering, tracking and support.', problem: 'Merchants had payment rails but no operating surface. One made 14,518 API calls as a bulk-order workaround.', decision: 'Program-based ordering: pick a program, add denominations, review, place.', impact: 'Ownership moved from reseller-led to merchant-led.' },
-    { n: '02', lock: { salt: 'Rj93KaTmkxR6F3s+YqQL6g==', iv: 'QWD9QGOjWj4h0AO0', data: 'P9xgYm19IrUTwHo+L1V0YxoPgUlB51XxFb10LRDAM0DLVwQGMUCtS750CIN1UUB885hdPIkaQ5DMtO9c5Td0NKim7w5qjS+pAjT7rYbDjUvmNQG4A2aaDTr9xYL8oWyklAWvi2vKIiZHG9rqcEOeejfOUHCrvjagHMSCDMhKA4HpCpgn9mUZ/Il7nl+wRaQsmNTyQMb9E3aAoE0UqR+VZPR1domKRW02uVcaDHm2' }, name: 'Gift Cards on Checkout', tag: 'Checkout · Razorpay', yr: '', title: 'Gift cards on checkout, <span class="under">when the balance isn\'t enough</span>.', plain: 'Gift cards on checkout, when the balance isn\'t enough.', out: '+₹38 Cr', outl: 'yearly GMV unlock targeted', img: 'w2', alt: 'Checkout on desktop with a gift card applied, and phone screens for adding a gift card and a successful payment', sum: 'Gift cards come in fixed values. Carts do not. I designed how a customer pays the rest with UPI or a card in the same checkout.' }
+    { n: '02', lock: { salt: 'Rj93KaTmkxR6F3s+YqQL6g==', iv: 'QWD9QGOjWj4h0AO0', data: 'P9xgYm19IrUTwHo+L1V0YxoPgUlB51XxFb10LRDAM0DLVwQGMUCtS750CIN1UUB885hdPIkaQ5DMtO9c5Td0NKim7w5qjS+pAjT7rYbDjUvmNQG4A2aaDTr9xYL8oWyklAWvi2vKIiZHG9rqcEOeejfOUHCrvjagHMSCDMhKA4HpCpgn9mUZ/Il7nl+wRaQsmNTyQMb9E3aAoE0UqR+VZPR1domKRW02uVcaDHm2' }, name: 'Gift Cards on Checkout', tag: 'Checkout · Razorpay', yr: '', title: 'Gift cards on checkout, <span class="under">when the balance isn\'t enough</span>.', plain: 'Gift cards on checkout, when the balance isn\'t enough.', out: '+₹38 Cr', outl: 'yearly GMV unlock targeted', img: 'w2', alt: 'Checkout on desktop with a gift card applied, and phone screens for adding a gift card and a successful payment', sum: 'Gift cards come in fixed values. Carts do not. I designed how a customer pays the rest with UPI or a card in the same checkout.', problem: 'Gift cards come in fixed values and carts do not. When the balance fell short, there was no way to pay the difference.', decision: 'Split payment in one checkout: apply the gift card, then pay the rest with UPI or a card.', impact: 'A gift card can now pay for any cart, whatever its balance.' }
   ]
   var H = [
     ['kit', 'Left wing, always', 'I play on the left wing and support Manchester United with more loyalty than sense. Ronaldo is the greatest, and yes, I will argue about it.'],
@@ -46,10 +46,9 @@
   function blr() { try { return new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date()) } catch (e) { return '' } }
   function fig(p) {
     if (p.img) return '<div class="fig"><img src="' + IMG[p.img] + '" alt="' + p.alt + '"></div>'
-    if (p.fig === 'split') return '<div class="fig split" role="img" aria-label="A 1,349 rupee cart paid with a 500 rupee gift card and 849 rupees by UPI"><div><span>Gift card</span><b>₹500</b></div><div><span>UPI</span><b>₹849</b></div></div>'
-    var d = ''; for (var i = 0; i < 20; i++) d += '<i' + (i < 15 ? ' class="on"' : '') + '></i>'
-    return '<div class="fig pts" role="img" aria-label="15 of 20 test participants preferred the bottom sheet"><span>' + d + '</span><p><b>15 of 20</b> testers preferred the bottom sheet</p></div>'
+    return ''
   }
+  function ask(p) { return 'mailto:' + EMAIL + '?subject=' + encodeURIComponent('Password for the ' + p.name + ' case study') }
   var st = { line: '1', pal: '1', type: 'soft' }
   try { localStorage.removeItem('arvind-reel') } catch (e) {}
   st.line = '1'; st.type = 'soft'; st.pal = '3'; st.snd = 'off'; if (!st.sky) st.sky = 'auto'
@@ -89,9 +88,9 @@
   var SPK = { on: '<svg class="ico" viewBox="0 0 24 24"><path d="M4 9.500v5h3.500L12 18V6L7.500 9.500zM15.500 9a4 4 0 0 1 0 6M18 6.500a7.500 7.500 0 0 1 0 11"/></svg>', off: '<svg class="ico" viewBox="0 0 24 24"><path d="M4 9.500v5h3.500L12 18V6L7.500 9.500zM16 9.500l5 5M21 9.500l-5 5"/></svg>' }
 
   var chapters = [
-    ['Hello', '<div><p class="hello" id="hello">' + hello() + '</p><h1 id="h1"></h1><p id="sub"></p><a class="btn" href="#" data-go="Work"><span>See the work</span>' + I.arrow + '</a></div><div class="me"><img src="' + IMG.me + '" alt="Arvind Sanker"><span class="note">that\'s me<svg viewBox="0 0 46 30"><path d="M44 4C30 2 14 8 4 24M4 24l1-9M4 24l9-2"/></svg></span></div>'],
+    ['Hello', '<div><p class="hello" id="hello">' + hello() + '</p><h1 id="h1" class="rise"></h1><p id="sub" class="rise"></p><a class="btn rise" href="#" data-go="Work"><span>See the work</span>' + I.arrow + '</a></div><div class="me"><img src="' + IMG.me + '" alt="Arvind Sanker"></div>'],
     ['Now', '<div><p class="mono live"><i></i>Now · Bengaluru <span class="blr"></span></p><h2 style="margin-top:16px">Designing at <em>Equiti Group</em>.</h2><p>' + I.pin + ' Product design for Equiti\'s trading products, from Bengaluru. New work lands here when it can be shared. Two projects from my Razorpay years follow.</p></div>', 'one']
-  ].concat(P.map(function (p, i) { return [i ? '' : 'Work', '<span class="num">' + p.n + '</span><div><p class="co"><img src="' + IMG.rzp + '" alt="Razorpay">' + (p.yr ? '<span>' + p.yr + '</span>' : '') + '</p><h2 style="margin-top:12px">' + p.title + '</h2><p class="out">' + p.out + ' · ' + p.outl + '</p>' + (CASE_LINK ? '<button class="btn" type="button" data-lock="' + i + '"><span>Read the case study</span>' + I.out + '</button><p class="mono" style="margin-top:12px">Opens in Figma · password needed</p>' : '') + '</div>' + (CASE_LINK ? '<button class="media" type="button" data-lock="' + i + '" aria-label="Open the ' + p.name + ' case study">' + fig(p) + '</button>' : '<div class="media">' + fig(p) + '</div>')] })).concat([
+  ].concat(P.map(function (p, i) { return [i ? '' : 'Work', '<span class="num">' + p.n + '</span><div><p class="co"><img src="' + IMG.rzp + '" alt="Razorpay">' + (p.yr ? '<span>' + p.yr + '</span>' : '') + '</p><h2 class="rise" style="margin-top:12px">' + p.title + '</h2><p class="out rise">' + p.out + ' · ' + p.outl + '</p>' + (p.problem ? '<dl class="pdi rise"><div><dt class="mono">Problem</dt><dd>' + p.problem + '</dd></div><div><dt class="mono">Decision</dt><dd>' + p.decision + '</dd></div><div><dt class="mono">Impact</dt><dd>' + p.impact + '</dd></div></dl>' : '') + (CASE_LINK ? '<button class="btn rise" type="button" data-lock="' + i + '"><span>Read the case study</span>' + I.out + '</button><p class="mono note-pw">Opens in Figma · password needed · <a class="nw" href="' + ask(p) + '">Ask me for it</a></p>' : '') + '</div>' + (CASE_LINK ? '<button class="media" type="button" data-lock="' + i + '" aria-label="Open the ' + p.name + ' case study">' + fig(p) + '</button>' : '<div class="media">' + fig(p) + '</div>')] })).concat([
     ['About', '<div class="story"><p class="mono" style="margin-bottom:16px">About</p><p>I\'m a designer who likes working out <em>how something should work</em> before deciding how it should look. I studied computer applications and interaction design side by side, which is probably why I can\'t look at a screen without asking what the system behind it is doing.</p><p>I started in Coimbatore in 2017 as a junior graphic designer, then moved to Bengaluru. Orita Sinclair and Simplilearn kept me busy with brand, print, motion graphics and the odd hand-coded web page. Those years taught me to make things <em>read clearly</em>.</p></div><figure class="polaroid"><img src="' + IMG.me + '" alt="Arvind Sanker"><figcaption class="mono">Arvind, Bengaluru</figcaption></figure>'],
     ['', '<div class="story"><p>In 2021 I joined Razorpay and stayed for five years, working my way from how the products were communicated into the products themselves. Partway through I spent nine months as a Designer in Residence at 10kDesigners, teaching and mentoring other designers. Razorpay is where I found the work I like most: gift cards, checkout and rewards, <em>the parts of payments with the most moving pieces</em>.</p><p>I\'m at <em>Equiti Group</em> now, as a Senior Product Designer. Away from the screen I\'m usually on a football pitch, on the left wing, or fussing over the plants at home.</p></div>', 'one'],
     ['Off the clock', '<div style="width:100%"><p class="mono">Off the clock</p><h2 style="margin-top:12px">When I\'m <em>not</em> designing.</h2><div class="hob">' + H.map(function (h) { return '<div class="hc">' + ART[h[0]] + '<span><h3>' + h[1] + '</h3><p>' + h[2] + '</p></span></div>' }).join('') + '</div></div>', 'one'],
@@ -100,7 +99,6 @@
   var N = chapters.length
   $('#app').innerHTML = '<div class="D" style="height:' + (N * 85) + 'svh">' + chapters.map(function () { return '<i class="snap"></i>' }).join('') + '<div class="D-view"><div class="sky" id="sky"><div class="g morning"></div><div class="g midday"></div><div class="g evening"></div><div class="g night"></div><div class="stars" id="stars"></div><i class="shoot"></i><i class="sun"></i><i class="moon"></i><i class="cloud"></i><i class="cloud"></i><i class="cloud"></i><div class="hills"><svg viewBox="0 0 1600 200" preserveAspectRatio="none"><path d="M0 110C200 50 350 85 520 62S800 105 980 72s320-42 620 20V200H0z"/></svg><svg viewBox="0 0 1600 200" preserveAspectRatio="none"><path d="M0 150C180 105 300 140 480 118s280 32 460 6 340-28 660 14V200H0z"/></svg><svg viewBox="0 0 1600 200" preserveAspectRatio="none"><path stroke="none" d="M0 178C220 150 380 182 600 160s300 26 500 6 300-16 500 8V200H0z"/><g stroke-width="3" stroke-linecap="round" fill="none"><path d="M196 162v-26M196 146l-9-9M196 140l10-10M330 172v-20M330 160l8-8M905 172v-24M905 156l-9-8M905 152l9-9M1265 160v-24h44v24"/></g><g stroke="none"><ellipse cx="196" cy="128" rx="13" ry="11"/><ellipse cx="330" cy="147" rx="9" ry="8"/><ellipse cx="905" cy="141" rx="12" ry="10"/><ellipse cx="1420" cy="160" rx="22" ry="9"/></g></svg></div><div class="flock"><i class="bird" style="--x:78%;--y:40%;--s:1.00;--f:0.46s;--d:-0.10s"><b></b></i><i class="bird" style="--x:60%;--y:22%;--s:0.90;--f:0.52s;--d:-0.30s"><b></b></i><i class="bird" style="--x:58%;--y:62%;--s:0.95;--f:0.50s;--d:-0.60s"><b></b></i><i class="bird" style="--x:40%;--y:8%;--s:0.80;--f:0.56s;--d:-0.20s"><b></b></i><i class="bird" style="--x:36%;--y:80%;--s:0.85;--f:0.48s;--d:-0.70s"><b></b></i><i class="bird" style="--x:18%;--y:0%;--s:0.70;--f:0.60s;--d:-0.40s"><b></b></i></div><div class="flock far"><i class="bird" style="--x:70%;--y:50%;--s:1.00;--f:0.50s;--d:-0.20s"><b></b></i><i class="bird" style="--x:50%;--y:30%;--s:0.90;--f:0.58s;--d:-0.50s"><b></b></i><i class="bird" style="--x:46%;--y:72%;--s:0.85;--f:0.54s;--d:-0.10s"><b></b></i><i class="bird" style="--x:24%;--y:16%;--s:0.75;--f:0.62s;--d:-0.60s"><b></b></i><i class="bird" style="--x:10%;--y:60%;--s:0.70;--f:0.50s;--d:-0.30s"><b></b></i></div><svg class="balloon" viewBox="0 0 40 58"><path d="M20 2C9 2 3 10 3 19c0 9 8 15 13 22h8c5-7 13-13 13-22C37 10 31 2 20 2z" fill="#2b3fe0"/><path d="M20 2c-5 5-7 12-7 17s4 15 7 22c3-7 7-17 7-22S25 7 20 2z" fill="#fff" opacity=".9"/><path d="M16 41l1 6M24 41l-1 6" stroke="#6b4a33" stroke-width="1"/><rect x="15.500" y="47" width="9" height="7" rx="1.500" fill="#8a5a3c"/></svg></div><div class="D-track">' + chapters.map(function (c) { return '<section class="ch ' + (c[2] || '') + '"' + (c[0] ? ' data-nav="' + c[0] + '"' : '') + '>' + c[1] + '</section>' }).join('') + '</div><div class="scrub mono"><span id="dch"></span><div class="line"><i></i>' + chapters.map(function (c, i) { return '<u style="left:' + (i / (N - 1) * 100) + '%"></u>' }).join('') + '<b></b></div><span class="skyctl"><span class="blrw">Bengaluru <span class="blr"></span></span><button id="skybtn" aria-label="Change time of day"></button><button id="sndbtn" aria-label="Ambient sound" aria-pressed="false"></button></span></div></div></div>'
 
-  var viewer = $('#viewer')
   var d = $('.D'), track = $('.D-track'), chs = $$('.ch'), view = $('.D-view'), lab = $('#dch'), pill = $('#pill'), navs = $$('[data-nav]')
   pill.innerHTML = navs.map(function (n, i) { return '<button data-i="' + i + '">' + n.getAttribute('data-nav') + '</button>' }).join('')
   var snaps = $$('.snap', d), sky = $('#sky'), sun = $('.sun', sky), moon = $('.moon', sky), stars = $('#stars'), hills = $$('.hills svg', sky)
@@ -114,17 +112,20 @@
     snaps.forEach(function (m, k) { m.style.top = (start - d.offsetTop + k / (N - 1) * sp) + 'px' })
   }
   function span() { return sp }
-  var lastAct = -1, lastLab = ''
+  var lastAct = -1, lastLab = '', landed = -1
+  // Work and About are for reading: the sky goes quiet there.
+  var CALM = chs.map(function (c, i) { return c.querySelector('.media, .story') ? i : -1 }).filter(function (i) { return i > -1 })
   function frame() {
     var p = clamp((scrollY - start) / sp), x = p * (N - 1), act = 0
     track.style.transform = 'translate3d(' + (-x * vw) + 'px,0,0)'
     PAR.forEach(function (list, i) { var dd = Math.max(-1.2, Math.min(1.2, i - x)); if (Math.abs(i - x) > 2.2 && list.done === dd) return; list.done = dd; list.forEach(function (o) { o.el.style.transform = 'translate3d(' + (dd * o.f * vw / 100) + 'px,0,0)' + o.tail }) })
-    var a = ARC[phase()], ox = a[0] + (a[2] - a[0]) * p, oy = a[1] + (a[3] - a[1]) * p - Math.sin(Math.PI * p) * a[4], o = 'translate3d(' + (ox * skyW / 100) + 'px,' + (oy * skyH / 100) + 'px,0)'
+    var a = ARC[phase()], ox = a[0] + (a[2] - a[0]) * p, oy = a[1] + (a[3] - a[1]) * p - Math.sin(Math.PI * p) * a[4]; if (vw <= 820) { ox = 88 + 6 * p; oy = 3.5 } var o = 'translate3d(' + (ox * skyW / 100) + 'px,' + (oy * skyH / 100) + 'px,0)'
     sun.style.transform = o; moon.style.transform = o
     stars.style.transform = 'translate3d(' + (p * -6) + '%,0,0)'; hills.forEach(function (h, i) { h.style.transform = 'translate3d(' + (p * [-8, -14, -22][i]) + '%,0,0)' })
     bar.style.transform = 'scaleX(' + p + ')'; knob.style.transform = 'translate3d(' + (p * lineW) + 'px,0,0)'
     var l = ('0' + (Math.round(x) + 1)).slice(-2) + ' / ' + ('0' + N).slice(-2); if (l !== lastLab) lab.textContent = lastLab = l
-    navs.forEach(function (n, i) { if (chs.indexOf(n) <= Math.round(x)) act = i }); if (act !== lastAct) { lastAct = act; $$('button', pill).forEach(function (b, i) { b.classList.toggle('on', i === act) }) }
+    navs.forEach(function (n, i) { if (chs.indexOf(n) <= Math.round(x)) act = i }); if (act !== lastAct) { lastAct = act; $$('button', pill).forEach(function (b, i) { b.classList.toggle('on', i === act); if (i === act && pill.scrollWidth > pill.clientWidth) pill.scrollTo({ left: b.offsetLeft - (pill.clientWidth - b.offsetWidth) / 2, behavior: 'smooth' }) }) }
+    var k = Math.round(x); if (Math.abs(x - k) < .04 && k !== landed) { landed = k; chs.forEach(function (c, i) { c.classList.toggle('land', i === k) }); document.body.classList.toggle('calm', CALM.indexOf(k) > -1) }
   }
   var raf = 0, lastW = innerWidth, lastH = innerHeight
   addEventListener('scroll', function () { if (!raf) raf = requestAnimationFrame(function () { raf = 0; frame() }) }, { passive: true })
@@ -137,7 +138,7 @@
     k = Math.max(0, Math.min(N - 1, k)); var to = start + k / (N - 1) * sp, from = scrollY, dist = to - from
     stopAnim(); if (Math.abs(dist) < 2) return
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) { window.scrollTo(0, to); return }
-    var steps = Math.abs(dist) / (sp / (N - 1)), dur = Math.min(1100, 620 + 110 * Math.max(0, steps - 1)), t0 = performance.now()
+    var steps = Math.abs(dist) / (sp / (N - 1)), dur = Math.min(1000, 520 + 100 * Math.max(0, steps - 1)), t0 = performance.now()
     animK = k; html.style.scrollSnapType = 'none'
     var run = function (now) { var t = Math.min(1, (now - t0) / dur), e = steps > 1.5 ? (t < .5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2) : 1 - Math.pow(1 - t, 4)
       window.scrollTo(0, from + dist * e); if (t < 1) anim = requestAnimationFrame(run); else { anim = 0; animK = -1; window.scrollTo(0, to); html.style.scrollSnapType = '' } }
@@ -145,7 +146,7 @@
   }
   var wLast = 0, wFired = 0, wMag = 0, wArmed = true
   addEventListener('wheel', function (e) {
-    if (e.ctrlKey || !lockEl.hidden || viewer.classList.contains('open')) return
+    if (e.ctrlKey || !lockEl.hidden) return
     e.preventDefault()
     var dx = e.deltaX, dy = e.deltaY, v = Math.abs(dx) > Math.abs(dy) ? dx : dy; if (e.deltaMode === 1) v *= 16
     var now = performance.now(), gap = now - wLast, mag = Math.abs(v); wLast = now
@@ -156,10 +157,13 @@
     if (wArmed && mag >= 3) { wArmed = false; wFired = now; goTo(curK() + (v > 0 ? 1 : -1)) }
   }, { passive: false })
   addEventListener('touchstart', stopAnim, { passive: true })
+  // Keyboard focus: the browser would scroll the hidden strip sideways. Keep it still and bring the focused chapter in instead.
+  view.addEventListener('scroll', function () { if (view.scrollLeft) view.scrollLeft = 0 })
+  d.addEventListener('focusin', function (e) { var c = e.target.closest('.ch'); view.scrollLeft = 0; if (c) { var k = chs.indexOf(c); if (k !== curK()) goTo(k) } })
   function goNav(n) { goTo(chs.indexOf(n)) }
   function curK() { return anim ? animK : Math.round(clamp((scrollY - start) / sp) * (N - 1)) }
   document.addEventListener('keydown', function (e) {
-    if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || !lockEl.hidden || viewer.classList.contains('open') || /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName) || (e.key === ' ' && /BUTTON|A/.test(document.activeElement.tagName))) return
+    if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || !lockEl.hidden || /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName) || (e.key === ' ' && /BUTTON|A/.test(document.activeElement.tagName))) return
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown' || (e.key === ' ' && !e.shiftKey)) { e.preventDefault(); goTo(curK() + 1) }
     else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp' || (e.key === ' ' && e.shiftKey)) { e.preventDefault(); goTo(curK() - 1) }
     else if (e.key === 'Home') { e.preventDefault(); goTo(0) } else if (e.key === 'End') { e.preventDefault(); goTo(N - 1) }
@@ -180,18 +184,11 @@
   $('#opts').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; st[b.closest('.grp').getAttribute('data-g')] = b.getAttribute('data-v'); apply() })
   function tick() { $$('.blr').forEach(function (b) { b.textContent = blr() }); var h = hello(); if (h !== lastHello) { apply(); startSound() } } setInterval(tick, 20000)
 
-  var sheet = $('#sheet'), back
-  function closeCase() { viewer.classList.remove('open'); if (back && back.focus) back.focus() }
   document.addEventListener('click', function (e) {
-    var o = e.target.closest('[data-open]')
-    if (o) { var p = P[+o.getAttribute('data-open')]; back = o
-      sheet.innerHTML = '<button class="x" aria-label="Close case study">✕</button><div class="sheet-in"><p class="mono">' + p.n + ' / 03 · ' + p.tag + '</p><h2>' + p.plain + '</h2><p style="max-width:56ch;color:#cfccc3">' + p.sum + '</p>' + fig(p) + '<div class="three"><div><h3>Problem</h3><p>' + p.problem + '</p></div><div><h3>Decision</h3><p>' + p.decision + '</p></div><div><h3>Impact</h3><p>' + p.impact + '</p></div></div><p class="notebox">Your Figma Slides case study sits here once you send the link.</p></div>'
-      sheet.scrollTop = 0; viewer.classList.add('open'); $('.x', sheet).focus(); return }
-    if (e.target.closest('.x') || e.target === viewer) { closeCase(); return }
     var g = e.target.closest('[data-go]'); if (g) { e.preventDefault(); goNav(navs.filter(function (x) { return x.getAttribute('data-nav') === g.getAttribute('data-go') })[0]); return }
     var c = e.target.closest('[data-copy]'); if (c) { var s = $('small', c), done = function (m) { s.textContent = m; setTimeout(function () { s.textContent = 'Tap to copy' }, 2000) }; try { navigator.clipboard.writeText(EMAIL).then(function () { done('Copied') }, function () { done('Press and hold to copy') }) } catch (err) { done('Press and hold to copy') } }
   })
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { closeCase(); closeLock() } })
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLock() })
 
   // ── password step for the case study ──
   var unlockedBy = {}, unlocked = null, cur = 0, lockBack = null, checking = 0
@@ -202,7 +199,7 @@
     '<p class="lock-p">The deck is on Figma. Use the password I shared with you.</p>' +
     '<form id="lock-f" novalidate><label class="sr" for="lock-in">Password</label><input id="lock-in" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Password">' +
     '<a class="btn" id="lock-go" target="_blank" rel="noopener" aria-disabled="true"><span>Open case study</span>' + I.out + '</a></form>' +
-    '<p class="lock-msg" id="lock-msg" aria-live="polite"></p></div>'
+    '<p class="lock-msg" id="lock-msg" aria-live="polite"></p><p class="lock-ask">Don\'t have the password? <a id="lock-ask" href="#">Ask me for it</a></p></div>'
   document.body.appendChild(lockEl)
   var lockIn = $('#lock-in'), lockGo = $('#lock-go'), lockMsg = $('#lock-msg')
   function b64(s) { return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0) }) }
@@ -231,7 +228,7 @@
   }
   function openLock(from) {
     lockBack = from; cur = +from.getAttribute('data-lock') || 0; checking++; unlocked = unlockedBy[cur] || null
-    $('#lock-name').textContent = 'Case study · ' + P[cur].name
+    $('#lock-name').textContent = 'Case study · ' + P[cur].name; $('#lock-ask').href = ask(P[cur])
     lockIn.value = ''; setMsg('')
     if (unlocked) { setUnlocked(unlocked) } else { lockGo.removeAttribute('href'); lockGo.setAttribute('aria-disabled', 'true'); lockEl.classList.remove('ok') }
     lockEl.hidden = false; document.body.classList.add('locked')

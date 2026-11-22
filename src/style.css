@@ -63,7 +63,7 @@ body[data-sky="morning"] .flock, body[data-sky="evening"] .flock { opacity: .55 
 .hills { position: absolute; left: 0; right: 0; bottom: 0; height: clamp(120px, 24vh, 210px) }
 .hills svg { position: absolute; left: 0; bottom: 0; height: 100%; transition: fill 1.4s, stroke 1.4s }
 .hills svg:nth-child(1) { width: 120%; fill: var(--h1, transparent); will-change: transform } .hills svg:nth-child(2) { width: 132%; fill: var(--h2, transparent); will-change: transform } .hills svg:nth-child(3) { width: 146%; fill: var(--h3, transparent); stroke: var(--h3, transparent); will-change: transform }
-.skyctl { display: inline-flex; align-items: center; gap: 8px } .skyctl button { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 12px; border-radius: 10px; border: 1px solid color-mix(in srgb, var(--fg) 35%, transparent); color: var(--fg); font: 400 .72rem var(--mono); letter-spacing: .05em; background: color-mix(in srgb, var(--bg) 55%, transparent); transition: transform .16s var(--ease) } .skyctl button:active { transform: scale(.95) } .skyctl .ico { width: 16px; height: 16px }
+.skyctl { display: inline-flex; align-items: center; gap: 8px } .skyctl button { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 12px; border-radius: 10px; border: 1px solid color-mix(in srgb, var(--fg) 35%, transparent); color: var(--fg); font: 400 .72rem var(--mono); letter-spacing: .05em; background: color-mix(in srgb, var(--bg) 55%, transparent); transition: transform .16s var(--ease) } .skyctl button:active { transform: scale(.95) } .skyctl .ico { width: 16px; height: 16px }
 .scrub { color: var(--fg) } .scrub > span { color: var(--fg) }
 @media (max-width: 820px) { .blrw { display: none } }
 @media (prefers-reduced-motion: reduce) { .sun, .cloud, .flock, .rec .dot, .pots svg > g:first-child, .bird, .bird::before, .bird::after, .balloon, .stars i, .shoot { animation: none !important } }
@@ -99,12 +99,9 @@ body[data-sky="morning"] .flock, body[data-sky="evening"] .flock { opacity: .55 
 /* figures */
 .fig { width: 100%; aspect-ratio: 16/10; overflow: hidden; background: var(--soft); color: var(--fg) }
 .fig img { width: 100%; height: 100%; object-fit: cover; object-position: center }
-.fig.split { display: flex; gap: 4px; padding: 9% } .fig.split div { display: flex; flex-direction: column; justify-content: space-between; padding: 5%; border-radius: 8px; font: 400 .72rem var(--mono); min-width: 0 }
-.fig.split div:first-child { flex: 500; background: var(--fg); color: var(--bg) } .fig.split div:last-child { flex: 849; background: var(--ac); color: #fff } .fig.split b { font: 600 clamp(1.2rem, 3vw, 2.3rem)/1 var(--text); letter-spacing: -.03em }
-.fig.pts { display: grid; align-content: center; gap: 12px; padding: 9% } .fig.pts span { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px } .fig.pts i { aspect-ratio: 1; border-radius: 50%; border: 1.5px solid var(--fg) } .fig.pts i.on { background: var(--fg) } .fig.pts p { font: 400 .74rem var(--mono); color: var(--fg); max-width: none }
 
 /* about */
-.story p { font: 400 clamp(1rem, min(1.45vw, 2.7vh), 1.25rem)/1.6 var(--display); color: var(--fg); max-width: 34em } .story p + p { margin-top: 1em } .story em { font-style: italic; color: var(--ac) }
+.story p { font: 400 clamp(1rem, min(1.45vw, 2.7vh), 1.25rem)/1.6 var(--display); color: var(--fg); max-width: 34em } .story p + p { margin-top: 1em } .story em { font-style: italic; color: inherit }
 .story p.mono { font: 400 .8rem/1.35 var(--mono); color: var(--mute) }
 .polaroid { justify-self: center; background: var(--card); padding: 12px 12px 8px; box-shadow: 0 14px 34px color-mix(in srgb, var(--fg) 16%, transparent); transform: rotate(2deg); position: relative; width: min(30vh, 290px) }
 .polaroid::before { content: ''; position: absolute; top: -12px; left: 50%; width: 84px; height: 24px; margin-left: -42px; background: color-mix(in srgb, var(--ac) 45%, var(--soft)); opacity: .85; transform: rotate(-3deg) }
@@ -138,17 +135,10 @@ body[data-sky="morning"] .flock, body[data-sky="evening"] .flock { opacity: .55 
 /* scrubber + menu */
 .scrub { z-index: 2; position: absolute; left: var(--gut); right: var(--gutr); bottom: 76px; display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: center }
 .line { position: relative; height: 2px; background: color-mix(in srgb, var(--fg) 20%, transparent) } .line i { position: absolute; left: 0; top: -1px; height: 4px; width: 100%; background: var(--ac); transform-origin: left; transform: scaleX(0); will-change: transform } .line b { position: absolute; top: -7px; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; background: var(--fg); left: 0; will-change: transform } .line u { position: absolute; top: -3px; width: 1.5px; height: 8px; background: color-mix(in srgb, var(--fg) 35%, transparent) }
-.pill { position: fixed; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 50; display: flex; gap: 4px; padding: 4px; border-radius: 999px; background: #17171b; max-width: calc(100vw - 24px); overflow-x: auto; scrollbar-width: none; box-shadow: 0 8px 30px #0003 }
-.pill button { flex: none; height: 36px; padding: 0 12px; border-radius: 999px; color: #fff; font-size: .8rem; font-weight: 500; opacity: .7; white-space: nowrap; transition: background-color .25s, color .25s, opacity .25s } .pill button.on { background: #fff; color: #111; opacity: 1 }
+.pill { position: fixed; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 50; display: flex; gap: 4px; padding: 4px; border-radius: 999px; background: #17171b; max-width: calc(100vw - 16px); overflow-x: auto; scrollbar-width: none; box-shadow: 0 8px 30px #0003 } .pill::-webkit-scrollbar { display: none }
+.pill button { position: relative; flex: none; height: 40px; padding: 0 12px; border-radius: 999px; color: #fff; font-size: .8rem; font-weight: 500; opacity: .7; white-space: nowrap; transition: background-color .25s, color .25s, opacity .25s } .pill button.on { background: #fff; color: #111; opacity: 1 }
 
 /* viewer */
-.viewer { position: fixed; inset: 0; z-index: 80; visibility: hidden } .viewer.open { visibility: visible }
-.viewer::before { content: ''; position: absolute; inset: 0; background: #0008; opacity: 0; transition: opacity .3s } .viewer.open::before { opacity: 1 }
-.sheet { position: absolute; inset: calc(var(--bar) + 10px) 0 0; background: #111214; color: #f3f1ea; border-radius: 16px 16px 0 0; overflow-y: auto; transform: translateY(100%); transition: transform .5s cubic-bezier(.32, .72, 0, 1); padding: 24px var(--gutr) 120px var(--gut); --fg: #f3f1ea; --bg: #111214; --soft: #24262b; --mute: #a9a59b }
-.viewer.open .sheet { transform: none } .sheet-in { max-width: 1040px; margin: 0 auto; display: grid; gap: 24px }
-.sheet h2 { font: 400 clamp(1.8rem, 4.6vw, 3.4rem)/1.05 var(--display); letter-spacing: -.025em; max-width: 18ch } .sheet .x { position: sticky; top: 0; float: right; width: 46px; height: 46px; border-radius: 50%; background: #f3f1ea; color: #111; z-index: 2 }
-.sheet .three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px } .sheet .three h3 { font: 400 .72rem var(--mono); color: var(--ac); margin-bottom: 8px } .sheet .three p { font-size: .96rem; color: #cfccc3 } .sheet .fig { border-radius: 10px }
-.sheet .notebox { font: 400 .72rem/1.5 var(--mono); color: #9a968c; border: 1px dashed #55524b; border-radius: 8px; padding: 16px }
 
 @media (max-width: 820px) {
   .ch { grid-template-columns: minmax(0, 1fr); align-content: center; gap: 12px; padding-top: 1.5vh } .media { width: min(100%, 60vh) } .me img { width: 24vh } .me .note { display: none } .polaroid { width: 19vh; order: -1; justify-self: start; margin-top: 10px } .num { font-size: 8rem }
@@ -185,3 +175,33 @@ body[data-sky="night"] .lock-msg.err { color: #ff9b8f } body[data-sky="night"] .
 .lock-x:hover { background: color-mix(in srgb, var(--fg) 8%, transparent) }
 body.locked { overflow: hidden }
 @media (prefers-reduced-motion: reduce) { .lock-card { animation: none } }
+
+/* Menu: 48px tap height, and it fits a 375px phone */
+.pill button::after { content: ''; position: absolute; inset: -4px 0 }
+@media (max-width: 440px) { .pill { gap: 2px } .pill button { padding: 0 9px; font-size: .76rem } }
+@media (max-width: 380px) { .pill { -webkit-mask: linear-gradient(90deg, transparent, #000 14px, #000 calc(100% - 14px), transparent); mask: linear-gradient(90deg, transparent, #000 14px, #000 calc(100% - 14px), transparent) } }
+
+/* Work: problem, decision, impact at a glance */
+.pdi { display: grid; gap: 10px; margin-top: 20px; max-width: 46ch; padding-top: 16px; border-top: 1px solid color-mix(in srgb, var(--fg) 12%, transparent) }
+.pdi div { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 12px; align-items: baseline }
+.pdi dt { color: var(--ac) } .pdi dd { margin: 0; font-size: .92rem; line-height: 1.5; color: var(--mute) }
+.note-pw { margin-top: 12px; max-width: none !important } .nw { white-space: nowrap } .note-pw a, .lock-ask a { color: var(--fg); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px }
+@media (hover: hover) and (pointer: fine) { .note-pw a:hover, .lock-ask a:hover { color: var(--ac) } }
+.lock-ask { font-size: .88rem; color: var(--mute); margin-top: 4px }
+@media (max-width: 820px) { .pdi { gap: 6px; margin-top: 14px; padding-top: 12px } .pdi div { grid-template-columns: 4.6rem minmax(0, 1fr); gap: 8px } .pdi dd { font-size: .86rem; line-height: 1.4 } }
+@media (max-width: 820px) and (max-height: 760px) { .pdi div:nth-child(2) { display: none } }
+@media (max-height: 640px) { .pdi { display: none } }
+
+/* Phones: a smaller sun, kept high on the right, clear of the headline */
+@media (max-width: 820px) { .sun { width: 30vmin; height: 30vmin; margin: -15vmin 0 0 -15vmin } }
+
+/* Reading chapters: the sky goes quiet */
+.flock, .balloon, .shoot { transition: opacity .8s }
+body.calm .flock, body.calm .balloon, body.calm .shoot { opacity: 0 !important }
+body.calm .cloud, body.calm .sun { animation-play-state: paused }
+
+/* A chapter settles in when it lands: one short fade and rise, 40ms apart */
+.ch .rise { opacity: .35; transform: translateY(10px); transition: opacity .45s var(--ease), transform .45s var(--ease) }
+.ch.land .rise { opacity: 1; transform: none }
+.ch.land .rise:nth-child(3) { transition-delay: 40ms } .ch.land .rise:nth-child(4) { transition-delay: 80ms } .ch.land .rise:nth-child(5) { transition-delay: 120ms } .ch.land .rise:nth-child(6) { transition-delay: 160ms }
+@media (prefers-reduced-motion: reduce) { .ch .rise { opacity: 1; transform: none; transition: none } }
