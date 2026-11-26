@@ -14,7 +14,7 @@
     plane: '<svg class="ico" viewBox="0 0 24 24"><path d="M21 3L3 10.500l7 2.500 2.500 7zM10 13l5-4.500"/></svg>'
   }
   var LINES = {
-    1: ['I\'m Arvind.<br>A <em>senior product designer</em> who makes complex payment flows feel&nbsp;simple', 'Senior Product Designer at Equiti Group. Before that, five years at Razorpay on gift cards, checkout, rewards and EngageHQ. I build my own Claude Code skills and use AI in everyday design work.'],
+    1: ['I\'m Arvind.<br>A <em>senior product designer</em> who builds his own AI tools, thinks in systems and mentors other&nbsp;designers', 'Senior Product Designer at Equiti Group. Before that, five years at Razorpay on gift cards, checkout, rewards and EngageHQ.'],
     2: ['I\'m Arvind. A senior product designer who turns messy, many-sided problems into products people can <em>simply use</em>', 'Currently Senior Product Designer at Equiti Group. Previously five years at Razorpay, where I designed gift cards, checkout and rewards.'],
     3: ['I\'m Arvind. A senior product designer who started in communication design, <em>thinks in systems</em> and builds with AI', 'Currently Senior Product Designer at Equiti Group. Previously five years at Razorpay.'],
     4: ['I\'m Arvind. I design the <em>calm, clear side</em> of complicated products', 'Senior Product Designer at Equiti Group. Previously five years at Razorpay, where I designed gift cards, checkout and rewards.']
