@@ -14,7 +14,7 @@
     plane: '<svg class="ico" viewBox="0 0 24 24"><path d="M21 3L3 10.500l7 2.500 2.500 7zM10 13l5-4.500"/></svg>'
   }
   var LINES = {
-    1: ['I\'m Arvind.<br>A <em>senior product designer</em> who builds his own AI tools, thinks in systems and mentors other&nbsp;designers', 'Senior Product Designer at Equiti Group. Before that, five years at Razorpay on gift cards, checkout, rewards and EngageHQ.'],
+    1: ['I\'m Arvind.<br>A <em>senior product designer</em> who builds his own AI tools, thinks in systems and mentors other&nbsp;designers', '<span>Currently Senior Product Designer at <a href="https://www.equiti.com/" target="_blank" rel="noopener">Equiti Group</a>.</span><span>Previously five years at <a href="https://razorpay.com/" target="_blank" rel="noopener">Razorpay</a>, designing gift cards, checkout and EngageHQ. <b class="x">Along the way, Designer in Residence at <a href="https://10kdesigners.com/" target="_blank" rel="noopener">10kDesigners</a>.</b></span><span>On the side, I build Claude Code skills for my own design work.</span>'],
     2: ['I\'m Arvind. A senior product designer who turns messy, many-sided problems into products people can <em>simply use</em>', 'Currently Senior Product Designer at Equiti Group. Previously five years at Razorpay, where I designed gift cards, checkout and rewards.'],
     3: ['I\'m Arvind. A senior product designer who started in communication design, <em>thinks in systems</em> and builds with AI', 'Currently Senior Product Designer at Equiti Group. Previously five years at Razorpay.'],
     4: ['I\'m Arvind. I design the <em>calm, clear side</em> of complicated products', 'Senior Product Designer at Equiti Group. Previously five years at Razorpay, where I designed gift cards, checkout and rewards.']
@@ -174,7 +174,7 @@
   var PAL = { 1: 'Peach and plum', 2: 'Night and amber', 3: 'Paper and cobalt', 4: 'Sage and clay', 5: 'Butter and red' }
   function apply() {
     document.body.setAttribute('data-pal', st.pal); document.body.setAttribute('data-type', st.type); var ph = phase(); document.body.setAttribute('data-sky', ph); lastHello = hello(); $('#hello').innerHTML = lastHello; $('#skybtn').innerHTML = (ph === 'night' ? I.moon : I.sun) + (st.sky === 'auto' ? 'Now · ' : '') + ph.charAt(0).toUpperCase() + ph.slice(1); $('#sndbtn').innerHTML = SPK[st.snd === 'on' ? 'on' : 'off']; $('#sndbtn').setAttribute('aria-pressed', st.snd === 'on'); frame()
-    $('#h1').innerHTML = LINES[st.line][0]; $('#sub').textContent = LINES[st.line][1]
+    $('#h1').innerHTML = LINES[st.line][0]; $('#sub').innerHTML = LINES[st.line][1]
     $$('.grp').forEach(function (g) { var k = g.getAttribute('data-g'); $$('button', g).forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-v') === st[k]) }) })
     if (typeof fit === 'function' && chs) fit()
   }

@@ -183,3 +183,14 @@ body.calm .cloud, body.calm .sun { animation-play-state: paused }
 .ch.land .rise { opacity: 1; transform: none }
 .ch.land .rise:nth-child(3) { transition-delay: 40ms } .ch.land .rise:nth-child(4) { transition-delay: 80ms } .ch.land .rise:nth-child(5) { transition-delay: 120ms } .ch.land .rise:nth-child(6) { transition-delay: 160ms }
 @media (prefers-reduced-motion: reduce) { .ch .rise { opacity: 1; transform: none; transition: none } }
+
+/* Intro under the headline: short lines with real links */
+#sub { max-width: 48ch } #sub span { display: block } #sub span + span { margin-top: 8px }
+#sub a { white-space: nowrap; color: var(--fg); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: color-mix(in srgb, var(--fg) 35%, transparent); transition: color .2s, text-decoration-color .2s }
+@media (hover: hover) and (pointer: fine) { #sub a:hover { color: var(--ac); text-decoration-color: currentColor } }
+@media (max-width: 820px) { .ch .me img { width: 18vh } #sub span + span { margin-top: 6px } }
+/* The third intro line repeats the headline's 'builds his own AI tools', so it gives way first when space is short */
+@media (max-width: 820px), (max-height: 760px) { #sub span:nth-child(3) { display: none } }
+@media (max-width: 820px) and (max-height: 760px) { .ch .me img { width: 15vh } }
+#sub .x { font: inherit; color: inherit }
+@media (max-width: 820px) and (max-height: 700px), (max-height: 500px) { #sub .x { display: none } }
