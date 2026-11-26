@@ -166,7 +166,6 @@ button.btn { border: 0; cursor: pointer; font-family: var(--text) }
 .pdi { display: grid; gap: 12px; margin-top: 20px; max-width: 46ch; padding-top: 16px; border-top: 1px solid color-mix(in srgb, var(--fg) 12%, transparent) }
 .pdi div { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 12px; align-items: baseline }
 .pdi dt { color: var(--ac) } .pdi dd { margin: 0; font-size: .92rem; line-height: 1.5; color: var(--mute) }
-.note-pw { margin-top: 12px; max-width: none !important }
 @media (max-width: 820px) { .pdi { gap: 8px; margin-top: 16px; padding-top: 12px } .pdi div { grid-template-columns: 4.6rem minmax(0, 1fr); gap: 8px } .pdi dd { font-size: .86rem; line-height: 1.4 } }
 @media (max-width: 820px) and (max-height: 760px) { .pdi div:nth-child(2) { display: none } }
 @media (max-height: 640px) { .pdi { display: none } }
