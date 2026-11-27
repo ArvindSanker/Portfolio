@@ -100,12 +100,11 @@
   var NAV = [['work', 'Work'], ['about', 'About'], ['contact', 'Contact']]
   $('#app').innerHTML =
     '<a class="skip" href="#work">Skip to work</a>' +
-    '<header class="top" id="top"><a class="name" href="#hello-sec">Arvind Sanker</a><nav aria-label="Sections">' + NAV.map(function (n) { return '<a href="#' + n[0] + '" data-nav="' + n[0] + '">' + n[1] + '</a>' }).join('') + '</nav></header>' +
+    '<header class="top" id="top"><a class="name" href="#hello-sec">Arvind Sanker</a><nav aria-label="Sections">' + NAV.map(function (n) { return '<a href="#' + n[0] + '" data-nav="' + n[0] + '">' + n[1] + '</a>' }).join('') + '</nav><div class="ctl-slot" id="ctl-top"></div></header>' +
     '<main>' +
     '<section class="hero" id="hello-sec" aria-label="Introduction">' + SKY +
-      '<div class="hero-in"><div class="hero-t"><p class="hello" id="hello">' + hello() + '</p><h1 id="h1"></h1><p id="sub"></p><a class="btn" href="#work"><span>See the work</span>' + I.arrow + '</a></div>' +
+      '<div class="hero-in"><div class="hero-t"><p class="hello" id="hello">' + hello() + '</p><h1 id="h1"></h1><p id="sub"></p><a class="btn" href="#work"><span>See the work</span>' + I.arrow + '</a><div class="ctl-slot" id="ctl-hero"><div class="skyctl" id="skyctl"><span class="blrw mono">Bengaluru <span class="blr"></span></span><button id="skybtn" aria-label="Change time of day"></button><button id="sndbtn" aria-label="Ambient sound" aria-pressed="false"></button></div></div></div>' +
       '<div class="me"><img src="' + IMG.me + '" alt="Arvind Sanker" width="640" height="800"></div></div>' +
-      '<div class="skyctl"><span class="blrw mono">Bengaluru <span class="blr"></span></span><button id="skybtn" aria-label="Change time of day"></button><button id="sndbtn" aria-label="Ambient sound" aria-pressed="false"></button></div>' +
     '</section>' +
     section('now', '<i class="live-dot"></i>Now', '<h2 data-reveal>Designing at <em>Equiti Group</em></h2><p class="lede" data-reveal>Product design for Equiti\'s trading products, from Bengaluru. New work lands here when it can be shared.</p>', 'now') +
     section('work', 'Selected work', '<h2 data-reveal>Two projects from <em>Razorpay</em></h2><div class="cases">' + P.map(caseStudy).join('') + '</div>') +
@@ -122,7 +121,32 @@
   var hero = $('#hello-sec'), sky = $('#sky'), sun = $('.sun', sky), moon = $('.moon', sky), top = $('#top')
   // Where the sun or moon sits for each time of day, as % of the hero: low and rising, high, low and setting, high.
   var POS = { morning: [60, 72], midday: [70, 14], evening: [82, 70], night: [74, 16] }
-  function placeSun() { var a = POS[phase()], narrow = innerWidth <= 820, x = narrow ? 84 : a[0], y = narrow ? 15 : a[1], o = 'translate3d(' + (x * sky.clientWidth / 100) + 'px,' + (y * sky.clientHeight / 100) + 'px,0)'; sun.style.transform = o; moon.style.transform = o }
+  var px = 0, py = 0
+  function placeSun() { var a = POS[phase()], narrow = innerWidth <= 820, x = narrow ? 84 : a[0], y = narrow ? 15 : a[1], o = 'translate3d(' + (x * sky.clientWidth / 100 + px * 18) + 'px,' + (y * sky.clientHeight / 100 + py * 12) + 'px,0)'; sun.style.transform = o; moon.style.transform = o }
+  // The time controls live in the header on wide screens and under the button on phones, so they are never cut off.
+  var ctl = $('#skyctl'), wide = matchMedia('(min-width: 821px)')
+  function moveCtl() { (wide.matches ? $('#ctl-top') : $('#ctl-hero')).appendChild(ctl) } moveCtl()
+  if (wide.addEventListener) wide.addEventListener('change', moveCtl); else wide.addListener(moveCtl)
+  // First fold, a little alive: the sky leans with the cursor in layers (far stars barely, near hills more, the sun or moon most).
+  var calmMotion = matchMedia('(prefers-reduced-motion: reduce)').matches, fine = matchMedia('(hover: hover) and (pointer: fine)').matches
+  var layers = [[$('#stars'), 4], [$$('.cloud', sky), 8], [$$('.hills svg', sky)[0], 6], [$$('.hills svg', sky)[1], 11], [$$('.hills svg', sky)[2], 17], [$('.me'), -8]]
+  var tx = 0, ty = 0, praf = 0
+  function lean() { px += (tx - px) * .08; py += (ty - py) * .08
+    layers.forEach(function (l) { [].concat(l[0]).forEach(function (el) { if (el) el.style.translate = (px * l[1]).toFixed(2) + 'px ' + (py * l[1] * .5).toFixed(2) + 'px' }) }); placeSun()
+    praf = Math.abs(tx - px) + Math.abs(ty - py) > .002 ? requestAnimationFrame(lean) : 0 }
+  if (fine && !calmMotion) {
+    hero.addEventListener('pointermove', function (e) { var r = hero.getBoundingClientRect(); tx = (e.clientX - r.left) / r.width * 2 - 1; ty = (e.clientY - r.top) / r.height * 2 - 1; if (!praf) praf = requestAnimationFrame(lean) })
+    hero.addEventListener('pointerleave', function () { tx = 0; ty = 0; if (!praf) praf = requestAnimationFrame(lean) })
+  }
+  // At night, a click on the open sky sends a shooting star from that spot.
+  hero.addEventListener('click', function (e) {
+    if (phase() !== 'night' || calmMotion || e.target.closest('a, button, .me')) return
+    var r = sky.getBoundingClientRect(), s = document.createElement('i'); s.className = 'star-shot'; s.style.left = (e.clientX - r.left) + 'px'; s.style.top = (e.clientY - r.top) + 'px'
+    sky.appendChild(s); setTimeout(function () { s.remove() }, 1200)
+  })
+  // The headline arrives word by word.
+  function words(el) { var i = 0, w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), list = [], n; while ((n = w.nextNode())) list.push(n)
+    list.forEach(function (t) { var f = document.createDocumentFragment(); t.data.split(/(\s+)/).forEach(function (part) { if (!part) return; if (/^\s+$/.test(part)) f.appendChild(document.createTextNode(part)); else { var sp = document.createElement('span'); sp.className = 'w'; sp.style.setProperty('--i', i++); sp.textContent = part; f.appendChild(sp) } }); t.parentNode.replaceChild(f, t) }) }
   addEventListener('resize', placeSun)
   // Header: clear over the sky, paper with a hairline once the page moves.
   var solid = false; function head() { var s = scrollY > 8; if (s !== solid) { solid = s; top.classList.toggle('solid', s) } }
@@ -149,7 +173,7 @@
   function apply() {
     document.body.setAttribute('data-pal', st.pal); var ph = phase(); document.body.setAttribute('data-sky', ph); lastHello = hello(); $('#hello').innerHTML = lastHello
     $('#skybtn').innerHTML = (ph === 'night' ? I.moon : I.sun) + (st.sky === 'auto' ? 'Now · ' : '') + ph.charAt(0).toUpperCase() + ph.slice(1); $('#sndbtn').innerHTML = SPK[st.snd === 'on' ? 'on' : 'off']; $('#sndbtn').setAttribute('aria-pressed', st.snd === 'on')
-    $('#h1').innerHTML = LINES[st.line][0]; $('#sub').innerHTML = LINES[st.line][1]; placeSun()
+    if ($('#h1').getAttribute('data-l') !== st.line) { $('#h1').innerHTML = LINES[st.line][0]; $('#h1').setAttribute('data-l', st.line); words($('#h1')) } $('#sub').innerHTML = LINES[st.line][1]; placeSun()
   }
   function tick() { $$('.blr').forEach(function (b) { b.textContent = blr() }); var h = hello(); if (h !== lastHello) { apply(); startSound() } } setInterval(tick, 20000)
   document.addEventListener('click', function (e) {
