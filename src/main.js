@@ -14,12 +14,11 @@
     plane: '<svg class="ico" viewBox="0 0 24 24"><path d="M21 3L3 10.500l7 2.500 2.500 7zM10 13l5-4.500"/></svg>'
   }
   var LINES = {
-    1: ['I\'m Arvind.<br>A <em>senior product designer</em> who builds his own AI tools, thinks in systems and mentors other&nbsp;designers', '<span>Currently Senior Product Designer at <a href="https://www.equiti.com/" target="_blank" rel="noopener">Equiti Group</a>.</span><span>Previously five years at <a href="https://razorpay.com/" target="_blank" rel="noopener">Razorpay</a>, designing gift cards, checkout and EngageHQ. <b class="x">Along the way, Designer in Residence at <a href="https://10kdesigners.com/" target="_blank" rel="noopener">10kDesigners</a>.</b></span><span>On the side, I build Claude Code skills for my own design work.</span>'],
+    1: ['I\'m Arvind.<br>A <em>senior product designer</em> who builds his own AI tools, thinks in systems <span class="nb">and mentors <span class="nb2">other designers</span></span>', '<span>Currently Senior Product Designer at <a href="https://www.equiti.com/" target="_blank" rel="noopener">Equiti Group</a>.</span><span>Previously five years at <a href="https://razorpay.com/" target="_blank" rel="noopener">Razorpay</a>, designing gift cards, checkout and EngageHQ. <b class="x">Along the way, Designer in Residence at <a href="https://10kdesigners.com/" target="_blank" rel="noopener">10kDesigners</a>.</b></span><span>On the side, I build Claude Code skills for my own design work.</span>'],
     2: ['I\'m Arvind. A senior product designer who turns messy, many-sided problems into products people can <em>simply use</em>', 'Currently Senior Product Designer at Equiti Group. Previously five years at Razorpay, where I designed gift cards, checkout and rewards.'],
     3: ['I\'m Arvind. A senior product designer who started in communication design, <em>thinks in systems</em> and builds with AI', 'Currently Senior Product Designer at Equiti Group. Previously five years at Razorpay.'],
     4: ['I\'m Arvind. I design the <em>calm, clear side</em> of complicated products', 'Senior Product Designer at Equiti Group. Previously five years at Razorpay, where I designed gift cards, checkout and rewards.']
   }
-  var CASE_LINK = true
   var P = [
     { n: '01', url: 'https://www.figma.com/deck/ekIWiXMlcyLfg4REkVmmGI/Merchants-can-now-issue-gift-cards--in-under-a-minute?node-id=2-10&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1', name: 'Gift Card Operations', tag: 'Enterprise dashboard · Razorpay', yr: '', title: 'Gift-card operations that merchants <span class="under">run themselves</span>', plain: 'Gift-card operations that merchants run themselves', out: '₹209 Cr', outl: 'GMV target, up from ₹55 Cr', img: 'w1', alt: 'Gift card orders dashboard with order detail drawers: generated, processing and failed', sum: 'Enterprise merchants relied on resellers, manual files and support loops to issue gift cards. I designed the console for ordering, tracking and support.', problem: 'Merchants had payment rails but no operating surface. One made 14,518 API calls as a bulk-order workaround.', decision: 'Program-based ordering: pick a program, add denominations, review, place.', impact: 'Ownership moved from reseller-led to merchant-led.' },
     { n: '02', url: 'https://www.figma.com/deck/It31h46feVEQ7hR43btomy/Case-Study-%E2%80%94-Gift-Cards-on-Checkout?node-id=3-2&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1', name: 'Gift Cards on Checkout', tag: 'Checkout · Razorpay', yr: '', title: 'Gift cards on checkout, <span class="under">when the balance isn\'t enough</span>', plain: 'Gift cards on checkout, when the balance isn\'t enough', out: '+₹38 Cr', outl: 'yearly GMV targeted', img: 'w2', alt: 'Checkout on desktop with a gift card applied, and phone screens for adding a gift card and a successful payment', sum: 'Gift cards come in fixed values. Carts do not. I designed how a customer pays the rest with UPI or a card in the same checkout.', problem: 'Gift cards come in fixed values and carts do not. When the balance fell short, there was no way to pay the difference.', decision: 'Split payment in one checkout: apply the gift card, then pay the rest with UPI or a card.', impact: 'A gift card can now pay for any cart, whatever its balance.' }
@@ -84,114 +83,78 @@
   }
   var SPK = { on: '<svg class="ico" viewBox="0 0 24 24"><path d="M4 9.500v5h3.500L12 18V6L7.500 9.500zM15.500 9a4 4 0 0 1 0 6M18 6.500a7.500 7.500 0 0 1 0 11"/></svg>', off: '<svg class="ico" viewBox="0 0 24 24"><path d="M4 9.500v5h3.500L12 18V6L7.500 9.500zM16 9.500l5 5M21 9.500l-5 5"/></svg>' }
 
-  var chapters = [
-    ['Hello', '<div><p class="hello" id="hello">' + hello() + '</p><h1 id="h1" class="rise"></h1><p id="sub" class="rise"></p><a class="btn rise" href="#" data-go="Work"><span>See the work</span>' + I.arrow + '</a></div><div class="me"><img src="' + IMG.me + '" alt="Arvind Sanker"></div>'],
-    ['Now', '<div><p class="mono live"><i></i>Now · Bengaluru <span class="blr"></span></p><h2 style="margin-top:16px">Designing at <em>Equiti Group</em></h2><p>' + I.pin + ' Product design for Equiti\'s trading products, from Bengaluru. New work lands here when it can be shared. Two projects from my Razorpay years follow.</p></div>', 'one']
-  ].concat(P.map(function (p, i) { return [i ? '' : 'Work', '<span class="num">' + p.n + '</span><div><p class="co"><img src="' + IMG.rzp + '" alt="Razorpay">' + (p.yr ? '<span>' + p.yr + '</span>' : '') + '</p><h2 class="rise" style="margin-top:12px">' + p.title + '</h2><p class="out rise">' + p.out + ' · ' + p.outl + '</p>' + (p.problem ? '<dl class="pdi rise"><div><dt class="mono">Problem</dt><dd>' + p.problem + '</dd></div><div><dt class="mono">Decision</dt><dd>' + p.decision + '</dd></div><div><dt class="mono">Impact</dt><dd>' + p.impact + '</dd></div></dl>' : '') + (CASE_LINK ? '<a class="btn rise" href="' + p.url + '" target="_blank" rel="noopener"><span>Read the case study</span>' + I.out + '</a>' : '') + '</div>' + (CASE_LINK ? '<a class="media" href="' + p.url + '" target="_blank" rel="noopener" aria-label="Open the ' + p.name + ' case study (opens in a new tab)">' + fig(p) + '</a>' : '<div class="media">' + fig(p) + '</div>')] })).concat([
-    ['About', '<div class="story"><p class="mono" style="margin-bottom:16px">About</p><p>I\'m a designer who likes working out <em>how something should work</em> before deciding how it should look. I studied computer applications and interaction design side by side, which is probably why I can\'t look at a screen without asking what the system behind it is doing.</p><p>I started in Coimbatore in 2017 as a junior graphic designer, then moved to Bengaluru. Orita Sinclair and Simplilearn kept me busy with brand, print, motion graphics and the odd hand-coded web page. Those years taught me to make things <em>read clearly</em>.</p></div><figure class="polaroid"><img src="' + IMG.fun + '" alt="Arvind Sanker"><figcaption class="mono">Arvind, Bengaluru</figcaption></figure>'],
-    ['', '<div class="story"><p>In 2021 I joined Razorpay and stayed for five years, working my way from how the products were communicated into the products themselves. Partway through I spent nine months as a Designer in Residence at 10kDesigners, teaching and mentoring other designers. Razorpay is where I found the work I like most: gift cards, checkout and rewards, <em>the parts of payments with the most moving pieces</em>.</p><p>I\'m at <em>Equiti Group</em> now, as a Senior Product Designer. Away from the screen I\'m usually on a football pitch, on the left wing, or fussing over the plants at home.</p></div>', 'one'],
-    ['Off the clock', '<div style="width:100%"><p class="mono">Off the clock</p><h2 style="margin-top:12px">When I\'m <em>not</em> designing</h2><div class="hob">' + H.map(function (h) { return '<div class="hc">' + ART[h[0]] + '<span><h3>' + h[1] + '</h3><p>' + h[2] + '</p></span></div>' }).join('') + '</div></div>', 'one'],
-    ['Contact', '<div><p class="mono">' + I.plane + ' Say hello</p><button class="mail" data-copy>' + EMAIL + '<small>Tap to copy</small></button><div class="links"><a href="https://www.linkedin.com/in/arvind-sanker-k-m-810762117/" target="_blank" rel="noopener">LinkedIn ' + I.out + '</a><a href="https://medium.com/@arvindsanker11" target="_blank" rel="noopener">Medium ' + I.out + '</a><a href="https://x.com/sanker_arvind" target="_blank" rel="noopener">X ' + I.out + '</a></div></div>', 'one']
-  ])
-  var N = chapters.length
-  $('#app').innerHTML = '<div class="D" style="height:' + (N * 85) + 'svh">' + chapters.map(function () { return '<i class="snap"></i>' }).join('') + '<div class="D-view"><div class="sky" id="sky"><div class="g morning"></div><div class="g midday"></div><div class="g evening"></div><div class="g night"></div><div class="stars" id="stars"></div><i class="shoot"></i><i class="sun"></i><i class="moon"></i><i class="cloud"></i><i class="cloud"></i><i class="cloud"></i><div class="hills"><svg viewBox="0 0 1600 200" preserveAspectRatio="none"><path d="M0 110C200 50 350 85 520 62S800 105 980 72s320-42 620 20V200H0z"/></svg><svg viewBox="0 0 1600 200" preserveAspectRatio="none"><path d="M0 150C180 105 300 140 480 118s280 32 460 6 340-28 660 14V200H0z"/></svg><svg viewBox="0 0 1600 200" preserveAspectRatio="none"><path stroke="none" d="M0 178C220 150 380 182 600 160s300 26 500 6 300-16 500 8V200H0z"/><g stroke-width="3" stroke-linecap="round" fill="none"><path d="M196 162v-26M196 146l-9-9M196 140l10-10M330 172v-20M330 160l8-8M905 172v-24M905 156l-9-8M905 152l9-9M1265 160v-24h44v24"/></g><g stroke="none"><ellipse cx="196" cy="128" rx="13" ry="11"/><ellipse cx="330" cy="147" rx="9" ry="8"/><ellipse cx="905" cy="141" rx="12" ry="10"/><ellipse cx="1420" cy="160" rx="22" ry="9"/></g></svg></div><div class="flock"><i class="bird" style="--x:78%;--y:40%;--s:1.00;--f:0.46s;--d:-0.10s"><b></b></i><i class="bird" style="--x:60%;--y:22%;--s:0.90;--f:0.52s;--d:-0.30s"><b></b></i><i class="bird" style="--x:58%;--y:62%;--s:0.95;--f:0.50s;--d:-0.60s"><b></b></i><i class="bird" style="--x:40%;--y:8%;--s:0.80;--f:0.56s;--d:-0.20s"><b></b></i><i class="bird" style="--x:36%;--y:80%;--s:0.85;--f:0.48s;--d:-0.70s"><b></b></i><i class="bird" style="--x:18%;--y:0%;--s:0.70;--f:0.60s;--d:-0.40s"><b></b></i></div><div class="flock far"><i class="bird" style="--x:70%;--y:50%;--s:1.00;--f:0.50s;--d:-0.20s"><b></b></i><i class="bird" style="--x:50%;--y:30%;--s:0.90;--f:0.58s;--d:-0.50s"><b></b></i><i class="bird" style="--x:46%;--y:72%;--s:0.85;--f:0.54s;--d:-0.10s"><b></b></i><i class="bird" style="--x:24%;--y:16%;--s:0.75;--f:0.62s;--d:-0.60s"><b></b></i><i class="bird" style="--x:10%;--y:60%;--s:0.70;--f:0.50s;--d:-0.30s"><b></b></i></div><svg class="balloon" viewBox="0 0 40 58"><path d="M20 2C9 2 3 10 3 19c0 9 8 15 13 22h8c5-7 13-13 13-22C37 10 31 2 20 2z" fill="#2b3fe0"/><path d="M20 2c-5 5-7 12-7 17s4 15 7 22c3-7 7-17 7-22S25 7 20 2z" fill="#fff" opacity=".9"/><path d="M16 41l1 6M24 41l-1 6" stroke="#6b4a33" stroke-width="1"/><rect x="15.500" y="47" width="9" height="7" rx="1.500" fill="#8a5a3c"/></svg></div><div class="D-track">' + chapters.map(function (c) { return '<section class="ch ' + (c[2] || '') + '"' + (c[0] ? ' data-nav="' + c[0] + '"' : '') + '>' + c[1] + '</section>' }).join('') + '</div><div class="scrub mono"><span id="dch"></span><div class="line"><i></i>' + chapters.map(function (c, i) { return '<u style="left:' + (i / (N - 1) * 100) + '%"></u>' }).join('') + '<b></b></div><span class="skyctl"><span class="blrw">Bengaluru <span class="blr"></span></span><button id="skybtn" aria-label="Change time of day"></button><button id="sndbtn" aria-label="Ambient sound" aria-pressed="false"></button></span></div></div></div>'
+  // ── page: one vertical document. The sky is the hero; everything after it sits on calm paper. ──
+  var SKY = '<div class="sky" id="sky" aria-hidden="true"><div class="g morning"></div><div class="g midday"></div><div class="g evening"></div><div class="g night"></div><div class="stars" id="stars"></div><i class="shoot"></i><i class="sun"></i><i class="moon"></i><i class="cloud"></i><i class="cloud"></i><i class="cloud"></i>' +
+    '<div class="hills"><svg viewBox="0 0 1600 200" preserveAspectRatio="none"><path d="M0 110C200 50 350 85 520 62S800 105 980 72s320-42 620 20V200H0z"/></svg><svg viewBox="0 0 1600 200" preserveAspectRatio="none"><path d="M0 150C180 105 300 140 480 118s280 32 460 6 340-28 660 14V200H0z"/></svg><svg viewBox="0 0 1600 200" preserveAspectRatio="none"><path stroke="none" d="M0 178C220 150 380 182 600 160s300 26 500 6 300-16 500 8V200H0z"/><g stroke-width="3" stroke-linecap="round" fill="none"><path d="M196 162v-26M196 146l-9-9M196 140l10-10M330 172v-20M330 160l8-8M905 172v-24M905 156l-9-8M905 152l9-9M1265 160v-24h44v24"/></g><g stroke="none"><ellipse cx="196" cy="128" rx="13" ry="11"/><ellipse cx="330" cy="147" rx="9" ry="8"/><ellipse cx="905" cy="141" rx="12" ry="10"/><ellipse cx="1420" cy="160" rx="22" ry="9"/></g></svg><svg class="edge" viewBox="0 0 1600 200" preserveAspectRatio="none"><path d="M0 196C300 184 560 192 800 188s520 4 800-6V200H0z"/></svg></div>' +
+    '<div class="flock"><i class="bird" style="--x:78%;--y:40%;--s:1.00;--f:0.46s;--d:-0.10s"><b></b></i><i class="bird" style="--x:60%;--y:22%;--s:0.90;--f:0.52s;--d:-0.30s"><b></b></i><i class="bird" style="--x:58%;--y:62%;--s:0.95;--f:0.50s;--d:-0.60s"><b></b></i><i class="bird" style="--x:40%;--y:8%;--s:0.80;--f:0.56s;--d:-0.20s"><b></b></i><i class="bird" style="--x:36%;--y:80%;--s:0.85;--f:0.48s;--d:-0.70s"><b></b></i><i class="bird" style="--x:18%;--y:0%;--s:0.70;--f:0.60s;--d:-0.40s"><b></b></i></div><div class="flock far"><i class="bird" style="--x:70%;--y:50%;--s:1.00;--f:0.50s;--d:-0.20s"><b></b></i><i class="bird" style="--x:50%;--y:30%;--s:0.90;--f:0.58s;--d:-0.50s"><b></b></i><i class="bird" style="--x:46%;--y:72%;--s:0.85;--f:0.54s;--d:-0.10s"><b></b></i><i class="bird" style="--x:24%;--y:16%;--s:0.75;--f:0.62s;--d:-0.60s"><b></b></i><i class="bird" style="--x:10%;--y:60%;--s:0.70;--f:0.50s;--d:-0.30s"><b></b></i></div>' +
+    '<svg class="balloon" viewBox="0 0 40 58"><path d="M20 2C9 2 3 10 3 19c0 9 8 15 13 22h8c5-7 13-13 13-22C37 10 31 2 20 2z" fill="#2b3fe0"/><path d="M20 2c-5 5-7 12-7 17s4 15 7 22c3-7 7-17 7-22S25 7 20 2z" fill="#fff" opacity=".9"/><path d="M16 41l1 6M24 41l-1 6" stroke="#6b4a33" stroke-width="1"/><rect x="15.500" y="47" width="9" height="7" rx="1.500" fill="#8a5a3c"/></svg></div>'
+  function section(id, label, body, cls) { return '<section class="sec ' + (cls || '') + '" id="' + id + '" aria-labelledby="' + id + '-l"><p class="sec-l mono" id="' + id + '-l">' + label + '</p><div class="sec-b">' + body + '</div></section>' }
+  function caseStudy(p) {
+    return '<article class="case" data-reveal>' +
+      '<a class="case-fig" href="' + p.url + '" target="_blank" rel="noopener" aria-label="Open the ' + p.name + ' case study (opens in a new tab)">' + fig(p) + '</a>' +
+      '<div class="case-t"><div><p class="co"><img src="' + IMG.rzp + '" alt="Razorpay"></p><h3>' + p.title + '</h3><p class="sum">' + p.sum + '</p></div>' +
+      '<div><p class="stat"><b>' + p.out + '</b><span>' + p.outl + '</span></p>' +
+      (p.problem ? '<dl class="pdi"><div><dt class="mono">Problem</dt><dd>' + p.problem + '</dd></div><div><dt class="mono">Decision</dt><dd>' + p.decision + '</dd></div><div><dt class="mono">Impact</dt><dd>' + p.impact + '</dd></div></dl>' : '') +
+      '<a class="btn" href="' + p.url + '" target="_blank" rel="noopener"><span>Read the case study</span>' + I.out + '</a></div></div></article>'
+  }
+  var COPY = matchMedia('(hover: hover) and (pointer: fine)').matches ? 'Click to copy' : 'Tap to copy'
+  var NAV = [['work', 'Work'], ['about', 'About'], ['contact', 'Contact']]
+  $('#app').innerHTML =
+    '<a class="skip" href="#work">Skip to work</a>' +
+    '<header class="top" id="top"><a class="name" href="#hello-sec">Arvind Sanker</a><nav aria-label="Sections">' + NAV.map(function (n) { return '<a href="#' + n[0] + '" data-nav="' + n[0] + '">' + n[1] + '</a>' }).join('') + '</nav></header>' +
+    '<main>' +
+    '<section class="hero" id="hello-sec" aria-label="Introduction">' + SKY +
+      '<div class="hero-in"><div class="hero-t"><p class="hello" id="hello">' + hello() + '</p><h1 id="h1"></h1><p id="sub"></p><a class="btn" href="#work"><span>See the work</span>' + I.arrow + '</a></div>' +
+      '<div class="me"><img src="' + IMG.me + '" alt="Arvind Sanker" width="640" height="800"></div></div>' +
+      '<div class="skyctl"><span class="blrw mono">Bengaluru <span class="blr"></span></span><button id="skybtn" aria-label="Change time of day"></button><button id="sndbtn" aria-label="Ambient sound" aria-pressed="false"></button></div>' +
+    '</section>' +
+    section('now', '<i class="live-dot"></i>Now', '<h2 data-reveal>Designing at <em>Equiti Group</em></h2><p class="lede" data-reveal>Product design for Equiti\'s trading products, from Bengaluru. New work lands here when it can be shared. Two projects from my Razorpay years follow.</p>', 'now') +
+    section('work', 'Selected work', P.map(caseStudy).join('')) +
+    section('about', 'About', '<div class="about"><div class="story" data-reveal>' +
+      '<p>I\'m a designer who likes working out how something should work before deciding how it should look. I studied computer applications and interaction design side by side, which is probably why I can\'t look at a screen without asking what the system behind it is doing.</p>' +
+      '<p>I started in Coimbatore in 2017 as a junior graphic designer, then moved to Bengaluru. Orita Sinclair and Simplilearn kept me busy with brand, print, motion graphics and the odd hand-coded web page. Those years taught me to make things read clearly.</p>' +
+      '<p>In 2021 I joined Razorpay and stayed for five years, working my way from how the products were communicated into the products themselves. Partway through I spent nine months as a Designer in Residence at 10kDesigners, teaching and mentoring other designers. Razorpay is where I found the work I like most: gift cards, checkout and rewards, the parts of payments with the most moving pieces.</p>' +
+      '<p>I\'m at Equiti Group now, as a Senior Product Designer. Away from the screen I\'m usually on a football pitch, on the left wing, or fussing over the plants at home.</p></div>' +
+      '<figure class="polaroid" data-reveal><img src="' + IMG.fun + '" alt="Arvind Sanker, smiling in a cap" loading="lazy"><figcaption class="mono">Arvind, Bengaluru</figcaption></figure></div>') +
+    section('off', 'Off the clock', '<h2 data-reveal>When I\'m <em>not</em> designing</h2><div class="hob">' + H.map(function (h) { return '<div class="hc" data-reveal>' + ART[h[0]] + '<span><h3>' + h[1] + '</h3><p>' + h[2] + '</p></span></div>' }).join('') + '</div>') +
+    section('contact', 'Contact', '<h2 data-reveal>Say hello</h2><button class="mail" data-copy data-reveal>' + EMAIL + '<small>' + COPY + '</small></button><div class="links" data-reveal><a href="https://www.linkedin.com/in/arvind-sanker-k-m-810762117/" target="_blank" rel="noopener">LinkedIn ' + I.out + '</a><a href="https://medium.com/@arvindsanker11" target="_blank" rel="noopener">Medium ' + I.out + '</a><a href="https://x.com/sanker_arvind" target="_blank" rel="noopener">X ' + I.out + '</a></div>') +
+    '</main><footer class="foot mono"><span>Arvind Sanker</span><span>Bengaluru <span class="blr"></span></span></footer>'
 
-  var d = $('.D'), track = $('.D-track'), chs = $$('.ch'), view = $('.D-view'), lab = $('#dch'), pill = $('#pill'), navs = $$('[data-nav]')
-  pill.innerHTML = navs.map(function (n, i) { return '<button data-i="' + i + '">' + n.getAttribute('data-nav') + '</button>' }).join('')
-  var snaps = $$('.snap', d), sky = $('#sky'), sun = $('.sun', sky), moon = $('.moon', sky), stars = $('#stars'), hills = $$('.hills svg', sky)
-  var bar = $('.line i', view), knob = $('.line b', view), lineEl = $('.line', view)
-  var PAR = chs.map(function (c) { return $$('.media, .me, .num, .polaroid', c).filter(function (el) { return el.parentNode === c || el.closest('.ch') === c }).map(function (el) { return { el: el, f: el.classList.contains('num') ? 16 : 9, tail: el.classList.contains('polaroid') ? ' rotate(2deg)' : '' } }) })
-  var start = 0, sp = 1, vw = innerWidth, skyW = 0, skyH = 0, lineW = 0
-  // Measure once per real resize, never during scroll.
-  function measure() {
-    vw = innerWidth; start = d.offsetTop - (parseFloat(getComputedStyle(view).top) || 0)
-    sp = Math.max(1, d.offsetHeight - view.offsetHeight); skyW = sky.clientWidth; skyH = sky.clientHeight; lineW = lineEl.clientWidth
-    snaps.forEach(function (m, k) { m.style.top = (start - d.offsetTop + k / (N - 1) * sp) + 'px' })
+  var hero = $('#hello-sec'), sky = $('#sky'), sun = $('.sun', sky), moon = $('.moon', sky), top = $('#top')
+  // Where the sun or moon sits for each time of day, as % of the hero: low and rising, high, low and setting, high.
+  var POS = { morning: [60, 72], midday: [70, 14], evening: [82, 70], night: [74, 16] }
+  function placeSun() { var a = POS[phase()], narrow = innerWidth <= 820, x = narrow ? 84 : a[0], y = narrow ? 15 : a[1], o = 'translate3d(' + (x * sky.clientWidth / 100) + 'px,' + (y * sky.clientHeight / 100) + 'px,0)'; sun.style.transform = o; moon.style.transform = o }
+  addEventListener('resize', placeSun)
+  // Header: clear over the sky, paper with a hairline once the page moves.
+  var solid = false; function head() { var s = scrollY > 8; if (s !== solid) { solid = s; top.classList.toggle('solid', s) } }
+  addEventListener('scroll', head, { passive: true })
+  if ('IntersectionObserver' in window) {
+    // The sky only animates while you can see it.
+    new IntersectionObserver(function (es) { document.body.classList.toggle('sky-off', !es[0].isIntersecting) }).observe(hero)
+    // Highlight the section you are reading.
+    var links = $$('[data-nav]', top), cur = ''
+    var navIO = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { var id = e.target.id === 'now' ? '' : e.target.id === 'off' ? 'about' : e.target.id; if (id !== cur) { cur = id; links.forEach(function (l) { var on = l.getAttribute('data-nav') === id; l.classList.toggle('on', on); if (on) l.setAttribute('aria-current', 'true'); else l.removeAttribute('aria-current') }) } } }) }, { rootMargin: '-40% 0px -55% 0px' })
+    $$('.sec, .hero').forEach(function (s) { navIO.observe(s) })
+    // Sections settle in once as they arrive.
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('rv')
+      var revIO = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); revIO.unobserve(e.target) } }) }, { rootMargin: '0px 0px -8% 0px', threshold: .12 })
+      $$('[data-reveal]').forEach(function (el) { revIO.observe(el) })
+    }
   }
-  function span() { return sp }
-  var lastAct = -1, lastLab = '', landed = -1
-  // Work and About are for reading: the sky goes quiet there.
-  var CALM = chs.map(function (c, i) { return c.querySelector('.media, .story') ? i : -1 }).filter(function (i) { return i > -1 })
-  function frame() {
-    var p = clamp((scrollY - start) / sp), x = p * (N - 1), act = 0
-    track.style.transform = 'translate3d(' + (-x * vw) + 'px,0,0)'
-    PAR.forEach(function (list, i) { var dd = Math.max(-1.2, Math.min(1.2, i - x)); if (Math.abs(i - x) > 2.2 && list.done === dd) return; list.done = dd; list.forEach(function (o) { o.el.style.transform = 'translate3d(' + (dd * o.f * vw / 100) + 'px,0,0)' + o.tail }) })
-    var a = ARC[phase()], ox = a[0] + (a[2] - a[0]) * p, oy = a[1] + (a[3] - a[1]) * p - Math.sin(Math.PI * p) * a[4]; if (vw <= 820) { ox = 88 + 6 * p; oy = 3.5 } var o = 'translate3d(' + (ox * skyW / 100) + 'px,' + (oy * skyH / 100) + 'px,0)'
-    sun.style.transform = o; moon.style.transform = o
-    stars.style.transform = 'translate3d(' + (p * -6) + '%,0,0)'; hills.forEach(function (h, i) { h.style.transform = 'translate3d(' + (p * [-8, -14, -22][i]) + '%,0,0)' })
-    bar.style.transform = 'scaleX(' + p + ')'; knob.style.transform = 'translate3d(' + (p * lineW) + 'px,0,0)'
-    var l = ('0' + (Math.round(x) + 1)).slice(-2) + ' / ' + ('0' + N).slice(-2); if (l !== lastLab) lab.textContent = lastLab = l
-    navs.forEach(function (n, i) { if (chs.indexOf(n) <= Math.round(x)) act = i }); if (act !== lastAct) { lastAct = act; $$('button', pill).forEach(function (b, i) { b.classList.toggle('on', i === act); if (i === act && pill.scrollWidth > pill.clientWidth) pill.scrollTo({ left: b.offsetLeft - (pill.clientWidth - b.offsetWidth) / 2, behavior: 'smooth' }) }) }
-    var k = Math.round(x); if (Math.abs(x - k) < .04 && k !== landed) { landed = k; chs.forEach(function (c, i) { c.classList.toggle('land', i === k) }); document.body.classList.toggle('calm', CALM.indexOf(k) > -1) }
-  }
-  var raf = 0, lastW = innerWidth, lastH = innerHeight
-  addEventListener('scroll', function () { if (!raf) raf = requestAnimationFrame(function () { raf = 0; frame() }) }, { passive: true })
-  // Phones fire resize when the address bar slides; only refit on a real size change.
-  addEventListener('resize', function () { var w = innerWidth, h = innerHeight, big = w !== lastW || Math.abs(h - lastH) > 160; lastW = w; lastH = h; if (big) fit(); measure(); frame() })
-  // One gesture, one chapter. Animate the page scroll ourselves (snap off while it runs) so every move has the same ease.
-  var html = document.documentElement, anim = 0, animK = -1
-  function stopAnim() { if (anim) { cancelAnimationFrame(anim); anim = 0; animK = -1; html.style.scrollSnapType = '' } }
-  function goTo(k) {
-    k = Math.max(0, Math.min(N - 1, k)); var to = start + k / (N - 1) * sp, from = scrollY, dist = to - from
-    stopAnim(); if (Math.abs(dist) < 2) return
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { window.scrollTo(0, to); return }
-    var steps = Math.abs(dist) / (sp / (N - 1)), dur = Math.min(1000, 520 + 100 * Math.max(0, steps - 1)), t0 = performance.now()
-    animK = k; html.style.scrollSnapType = 'none'
-    var run = function (now) { var t = Math.min(1, (now - t0) / dur), e = steps > 1.5 ? (t < .5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2) : 1 - Math.pow(1 - t, 4)
-      window.scrollTo(0, from + dist * e); if (t < 1) anim = requestAnimationFrame(run); else { anim = 0; animK = -1; window.scrollTo(0, to); html.style.scrollSnapType = '' } }
-    anim = requestAnimationFrame(run)
-  }
-  var wLast = 0, wFired = 0, wMag = 0, wArmed = true
-  addEventListener('wheel', function (e) {
-    if (e.ctrlKey) return
-    e.preventDefault()
-    var dx = e.deltaX, dy = e.deltaY, v = Math.abs(dx) > Math.abs(dy) ? dx : dy; if (e.deltaMode === 1) v *= 16
-    var now = performance.now(), gap = now - wLast, mag = Math.abs(v); wLast = now
-    var notch = e.deltaMode === 1 || (e.wheelDeltaY && e.wheelDeltaY % 120 === 0 && mag >= 50)
-    if (gap > 220) wArmed = true
-    else if (!wArmed && now - wFired > 480 && (notch || (mag > wMag * 1.8 && mag > 14))) wArmed = true
-    wMag = mag
-    if (wArmed && mag >= 3) { wArmed = false; wFired = now; goTo(curK() + (v > 0 ? 1 : -1)) }
-  }, { passive: false })
-  addEventListener('touchstart', stopAnim, { passive: true })
-  // Keyboard focus: the browser would scroll the hidden strip sideways. Keep it still and bring the focused chapter in instead.
-  view.addEventListener('scroll', function () { if (view.scrollLeft) view.scrollLeft = 0 })
-  d.addEventListener('focusin', function (e) { var c = e.target.closest('.ch'); view.scrollLeft = 0; if (c) { var k = chs.indexOf(c); if (k !== curK()) goTo(k) } })
-  function goNav(n) { goTo(chs.indexOf(n)) }
-  function curK() { return anim ? animK : Math.round(clamp((scrollY - start) / sp) * (N - 1)) }
-  document.addEventListener('keydown', function (e) {
-    if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName) || (e.key === ' ' && /BUTTON|A/.test(document.activeElement.tagName))) return
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown' || (e.key === ' ' && !e.shiftKey)) { e.preventDefault(); goTo(curK() + 1) }
-    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp' || (e.key === ' ' && e.shiftKey)) { e.preventDefault(); goTo(curK() - 1) }
-    else if (e.key === 'Home') { e.preventDefault(); goTo(0) } else if (e.key === 'End') { e.preventDefault(); goTo(N - 1) }
-  })
-  pill.addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) goNav(navs[+b.getAttribute('data-i')]) })
 
   var lastHello = ''
   $('#stars').innerHTML = Array.apply(null, Array(70)).map(function () { var s = Math.random(); return '<i style="left:' + (Math.random() * 100).toFixed(1) + '%;top:' + (Math.random() * 70).toFixed(1) + '%;animation-delay:' + (Math.random() * 3).toFixed(2) + 's;transform:scale(' + (s > .9 ? 2.4 : 1 + s).toFixed(2) + ')"></i>' }).join('')
   $('#skybtn').addEventListener('click', function () { st.sky = ORDER[(ORDER.indexOf(st.sky) + 1) % ORDER.length]; apply(); startSound() })
   $('#sndbtn').addEventListener('click', function () { st.snd = st.snd === 'on' ? 'off' : 'on'; if (st.snd === 'on' && !AC) { try { setupAudio() } catch (e) { st.snd = 'off' } } if (AC) AC.resume(); apply(); startSound() })
-  var PAL = { 1: 'Peach and plum', 2: 'Night and amber', 3: 'Paper and cobalt', 4: 'Sage and clay', 5: 'Butter and red' }
   function apply() {
-    document.body.setAttribute('data-pal', st.pal); document.body.setAttribute('data-type', st.type); var ph = phase(); document.body.setAttribute('data-sky', ph); lastHello = hello(); $('#hello').innerHTML = lastHello; $('#skybtn').innerHTML = (ph === 'night' ? I.moon : I.sun) + (st.sky === 'auto' ? 'Now · ' : '') + ph.charAt(0).toUpperCase() + ph.slice(1); $('#sndbtn').innerHTML = SPK[st.snd === 'on' ? 'on' : 'off']; $('#sndbtn').setAttribute('aria-pressed', st.snd === 'on'); frame()
-    $('#h1').innerHTML = LINES[st.line][0]; $('#sub').innerHTML = LINES[st.line][1]
-    $$('.grp').forEach(function (g) { var k = g.getAttribute('data-g'); $$('button', g).forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-v') === st[k]) }) })
-    if (typeof fit === 'function' && chs) fit()
+    document.body.setAttribute('data-pal', st.pal); var ph = phase(); document.body.setAttribute('data-sky', ph); lastHello = hello(); $('#hello').innerHTML = lastHello
+    $('#skybtn').innerHTML = (ph === 'night' ? I.moon : I.sun) + (st.sky === 'auto' ? 'Now · ' : '') + ph.charAt(0).toUpperCase() + ph.slice(1); $('#sndbtn').innerHTML = SPK[st.snd === 'on' ? 'on' : 'off']; $('#sndbtn').setAttribute('aria-pressed', st.snd === 'on')
+    $('#h1').innerHTML = LINES[st.line][0]; $('#sub').innerHTML = LINES[st.line][1]; placeSun()
   }
-  $('#opts').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; st[b.closest('.grp').getAttribute('data-g')] = b.getAttribute('data-v'); apply() })
   function tick() { $$('.blr').forEach(function (b) { b.textContent = blr() }); var h = hello(); if (h !== lastHello) { apply(); startSound() } } setInterval(tick, 20000)
-
   document.addEventListener('click', function (e) {
-    var g = e.target.closest('[data-go]'); if (g) { e.preventDefault(); goNav(navs.filter(function (x) { return x.getAttribute('data-nav') === g.getAttribute('data-go') })[0]); return }
-    var c = e.target.closest('[data-copy]'); if (c) { var s = $('small', c), done = function (m) { s.textContent = m; setTimeout(function () { s.textContent = 'Tap to copy' }, 2000) }; try { navigator.clipboard.writeText(EMAIL).then(function () { done('Copied') }, function () { done('Press and hold to copy') }) } catch (err) { done('Press and hold to copy') } }
+    var c = e.target.closest('[data-copy]'); if (c) { var s = $('small', c), done = function (m) { s.textContent = m; setTimeout(function () { s.textContent = COPY }, 2000) }; try { navigator.clipboard.writeText(EMAIL).then(function () { done('Copied') }, function () { done('Press and hold to copy') }) } catch (err) { done('Press and hold to copy') } }
   })
-
-  function fit() {
-    chs.forEach(function (c) {
-      var kids = [].filter.call(c.children, function (k) { return !k.classList.contains('num') }); kids.forEach(function (k) { k.style.zoom = '' })
-      var cs = getComputedStyle(c), avail = c.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom), s = 1
-      for (var n = 0; n < 5; n++) { var top = Infinity, bot = -Infinity; kids.forEach(function (k) { var r = k.getBoundingClientRect(); if (!r.width) return; top = Math.min(top, r.top); bot = Math.max(bot, r.bottom) }); var h = bot - top; if (h <= avail + 1) break; s = Math.max(.45, s * avail / h * .985); kids.forEach(function (k) { k.style.zoom = s }) }
-    })
-  }
-  apply(); tick(); fit(); measure(); frame(); if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { fit(); measure(); frame() }); addEventListener('load', function () { measure(); frame() })
+  apply(); tick(); head(); addEventListener('load', placeSun)
 })()
